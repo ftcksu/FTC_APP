@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="04ce576f-bb92-46db-8c1a-54503d9e01db" name="Default Changelist" comment="" />
+    <list default="true" id="73b9fc43-c811-4b3d-b212-8fbbafe97087" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,7 +10,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1hjfATytDNMmE4xkUe6Pzsu2IUb" />
+  <component name="ProjectId" id="1hoz3br602yjp28DMrTBpqiYjsf" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -21,7 +21,8 @@
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../FTC_App" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -36,18 +37,34 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="04ce576f-bb92-46db-8c1a-54503d9e01db" name="Default Changelist" comment="" />
-      <created>1600529278124</created>
+      <changelist id="73b9fc43-c811-4b3d-b212-8fbbafe97087" name="Default Changelist" comment="" />
+      <created>1600692034358</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1600529278124</updated>
+      <updated>1600692034358</updated>
     </task>
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1060" y="454" key="FileChooserDialogImpl" timestamp="1613574351597">
+    <state x="1060" y="454" key="FileChooserDialogImpl" timestamp="1614889700883">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1060" y="454" key="FileChooserDialogImpl/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1613574351597" />
+    <state x="1060" y="454" key="FileChooserDialogImpl/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1614889700883" />
+    <state width="2517" height="519" key="GridCell.Tab.0.bottom" timestamp="1614902296199">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="519" key="GridCell.Tab.0.bottom/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1614902296199" />
+    <state width="2517" height="519" key="GridCell.Tab.0.center" timestamp="1614902296198">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="519" key="GridCell.Tab.0.center/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1614902296198" />
+    <state width="2517" height="519" key="GridCell.Tab.0.left" timestamp="1614902296198">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="519" key="GridCell.Tab.0.left/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1614902296198" />
+    <state width="2517" height="519" key="GridCell.Tab.0.right" timestamp="1614902296199">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="519" key="GridCell.Tab.0.right/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1614902296199" />
   </component>
 </project>

@@ -1,0 +1,66 @@
+name: ftc_application
+description: A new Flutter application.
+
+
+version: 1.0.1+15
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  google_maps_place_picker: any
+  cupertino_icons: ^0.1.2
+  flutter_bloc: any
+  meta: ^1.1.6
+  equatable: ^0.6.0
+  dio: 3.0.10
+  flutter_secure_storage: ^3.3.1+1
+  rflutter_alert: ^1.0.3
+  google_maps_flutter: ^0.5.21+15
+  image_picker: ^0.6.7+7
+  json_annotation: ^3.0.1
+  url_launcher: ^5.5.2
+  flutter_speed_dial: ^1.2.5
+  firebase_messaging: ^7.0.0
+  image_cropper: ^1.3.1
+  swipe_stack : ^1.0.0
+  flushbar: ^1.10.4
+  firebase_dynamic_links: ^0.6.0
+  share: ^0.6.5
+  characters: ^1.0.0
+
+dev_dependencies:
+  flutter_launcher_icons: "^0.7.3"
+  flutter_test:
+    sdk: flutter
+  json_serializable: ^3.2.5
+  build_runner: ^1.0.0
+
+flutter_icons:
+  ios: true
+  android: true
+  image_path_ios: "assets/images/ios_app_logo.png"
+  image_path_android: "assets/images/android_app_logo.png"
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family:  Hell
+      fonts:
+        - asset: assets/fonts/Hell.ttf
+    - family:  Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-Black.ttf
+        - asset: assets/fonts/Cairo-Bold.ttf
+        - asset: assets/fonts/Cairo-ExtraLight.ttf
+        - asset: assets/fonts/Cairo-Light.ttf
+        - asset: assets/fonts/Cairo-Regular.ttf
+        - asset: assets/fonts/Cairo-SemiBold.ttf

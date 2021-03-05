@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "689168944126",
+    "firebase_url": "https://ftc-app-e7cfc.firebaseio.com",
+    "project_id": "ftc-app-e7cfc",
+    "storage_bucket": "ftc-app-e7cfc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689168944126:android:0bd6750f1832bebcd5ceaf",
+        "android_client_info": {
+          "package_name": "com.ftcapp_androidx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689168944126-hbd341esgjjq55sh71m7vgf7ht84b1lj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ftcapp_androidx",
+            "certificate_hash": "6335ed5820f504ce3ec62eb6a3a03355a2eb9d5e"
+          }
+        },
+        {
+          "client_id": "689168944126-logg799bneos77rtmmobos0bg8f429tj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOmWiIlN8p8NvlcrVvxNNyHS31TCf7MIg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689168944126-logg799bneos77rtmmobos0bg8f429tj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "689168944126-73e1j9selhjgeapp47da3u8vib6bf3pu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ftcappAndroidx",
+                "app_store_id": "1501670449"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

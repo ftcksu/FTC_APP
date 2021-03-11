@@ -8,7 +8,8 @@ import './bloc.dart';
 class ImageApprovalBloc extends Bloc<ImageApprovalEvent, ImageApprovalState> {
   final FtcRepository ftcRepository;
   ImageApprovalBloc({@required this.ftcRepository})
-      : assert(ftcRepository != null);
+      : assert(ftcRepository != null),
+        super(null);
   @override
   ImageApprovalState get initialState => InitialImageApprovalState();
 

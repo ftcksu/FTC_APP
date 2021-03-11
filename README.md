@@ -3,7 +3,7 @@
 ### FTC App Backend:
 [FTC KSU Mobile Application Backend Built Using Spring Boot.](https://github.com/FerasAloudah/ftc-app-backend)
 ## Contributing:
-If you'd like to contribute to the app, first fork the project *(fork to contribute)*, create a new branch to work on, then send a pull request. Thanks.
+If you'd like to contribute to the app, first fork the project *(fork to contribute)*, create a new branch to work on, then send a pull request.
 ## Packages being used in project:
 * [characters](https://pub.dev/packages/characters)
 * [dio](https://pub.dev/packages/dio)

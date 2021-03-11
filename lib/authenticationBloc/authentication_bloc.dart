@@ -11,7 +11,8 @@ class AuthenticationBloc
   final UserRepo userRepo;
   final FtcRepository ftcRepository;
   AuthenticationBloc({@required this.userRepo, this.ftcRepository})
-      : assert(userRepo != null);
+      : assert(userRepo != null),
+        super(null);
 
   @override
   AuthenticationState get initialState => AuthenticationUninitialized();

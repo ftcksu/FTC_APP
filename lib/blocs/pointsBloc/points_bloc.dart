@@ -7,7 +7,9 @@ import './bloc.dart';
 
 class PointsBloc extends Bloc<PointsEvent, PointsState> {
   final FtcRepository ftcRepository;
-  PointsBloc({@required this.ftcRepository}) : assert(ftcRepository != null);
+  PointsBloc({@required this.ftcRepository})
+      : assert(ftcRepository != null),
+        super(null);
 
   @override
   PointsState get initialState => InitialPointsState();

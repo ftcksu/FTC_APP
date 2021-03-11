@@ -8,7 +8,9 @@ import './bloc.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final FtcRepository ftcRepository;
   RouteArgument homePageInfo;
-  HomeBloc({@required this.ftcRepository}) : assert(ftcRepository != null);
+  HomeBloc({@required this.ftcRepository})
+      : assert(ftcRepository != null),
+        super(null);
 
   @override
   HomeState get initialState => InitialHomeState();
@@ -24,7 +26,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (event is RefreshHome) {
       yield* _mapGetHomePage();
     }
-
   }
 
   Stream<HomeState> _mapGetHomePage() async* {

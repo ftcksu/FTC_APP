@@ -8,7 +8,9 @@ import './bloc.dart';
 
 class MemberBloc extends Bloc<MemberEvent, MemberState> {
   final FtcRepository ftcRepository;
-  MemberBloc({@required this.ftcRepository}) : assert(ftcRepository != null);
+  MemberBloc({@required this.ftcRepository})
+      : assert(ftcRepository != null),
+        super(null);
   @override
   MemberState get initialState => InitialMemberState();
 

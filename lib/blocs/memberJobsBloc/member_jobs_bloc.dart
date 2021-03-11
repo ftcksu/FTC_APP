@@ -9,7 +9,8 @@ import './bloc.dart';
 class MemberJobsBloc extends Bloc<MemberJobsEvent, MemberJobsState> {
   final FtcRepository ftcRepository;
   MemberJobsBloc({@required this.ftcRepository})
-      : assert(ftcRepository != null);
+      : assert(ftcRepository != null),
+        super(null);
   @override
   MemberJobsState get initialState => InitialMemberJobsState();
 

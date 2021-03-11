@@ -13,7 +13,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     @required this.userRepository,
     @required this.authenticationBloc,
   })  : assert(userRepository != null),
-        assert(authenticationBloc != null);
+        assert(authenticationBloc != null),
+        super(null);
 
   LoginState get initialState => LoginInitial();
 

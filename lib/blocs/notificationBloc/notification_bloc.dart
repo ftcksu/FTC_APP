@@ -7,7 +7,8 @@ import './bloc.dart';
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   final FtcRepository ftcRepository;
   NotificationBloc({@required this.ftcRepository})
-      : assert(ftcRepository != null);
+      : assert(ftcRepository != null),
+        super(null);
   @override
   NotificationState get initialState => InitialNotificationState();
 

@@ -24,5 +24,7 @@ If you'd like to contribute to the app, first fork the project *(fork to contrib
 * [share](https://pub.dev/packages/share)
 * [swipe_stack](https://pub.dev/packages/swipe_stack)
 * [url_launcher](https://pub.dev/packages/url_launcher)
-### Troubleshooting:
-- (Seen in VScode) If you get `DioError [DioErrorType.RESPONSE]: Http status error [500]` make sure to **debug code only** and **rebuild the app**.
+## Troubleshooting:
+- When first opening the project, if you get `dart(uri_does_not_exist)` (lots of red .dart files), use the `flutter pub get` command. In VScode, you could also click "Get packages" when receiving the following notification:
+![image](https://user-images.githubusercontent.com/68731244/110935437-76404080-8340-11eb-8c4e-47417cf734db.png)
+- (Seen in VScode) If you get `DioError [DioErrorType.RESPONSE]: Http status error [500]`, make sure to **debug code only** and **rebuild the app**.

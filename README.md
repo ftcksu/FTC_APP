@@ -5,7 +5,10 @@
 ## FTC points
 Remember to list any work you do (making contributions, writing issues, etc) in the app for points.
 ## Contributing:
-If you'd like to contribute to the app, first fork the project *(fork to contribute)*, create a new branch to work on, then send a pull request.
+If you'd like to contribute to the app:
+1. Fork the project *(fork to contribute)*.
+2. Create a new branch to work on.
+3. Send a pull request.
 ## Issues
 If you notice a bug, have a new feature to suggest, or just want to discuss something about the app be sure to post an issue about it.
 ## Packages being used in project:

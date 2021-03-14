@@ -1,9 +1,9 @@
 # FTC App
-[FTC](https://www.ftcksu.com/) App made with [Flutter](https://flutter.dev/).
+[FTC](https://www.ftcksu.com/) App made with [Flutter](https://flutter.dev/). 💜
 ### FTC App Backend:
 [FTC KSU Mobile Application Backend Built Using Spring Boot.](https://github.com/FerasAloudah/ftc-app-backend)
 ## FTC points
-Remember to list any work you do (making contributions, writing issues, etc) in the app for points.
+Remember to list any work you do (making contributions, writing issues, etc) in the app for points. 🔥
 ## Contributing:
 If you'd like to contribute to the app:
 1. Fork the project *(fork to contribute)*.

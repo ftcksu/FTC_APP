@@ -10,7 +10,7 @@ If you'd like to contribute to the app:
 2. Create a new branch to work on.
 3. Send a pull request.
 ## Issues
-If you notice a bug, have a new feature to suggest, or just want to discuss something about the app be sure to post an issue about it.
+If you **notice a bug**, **have a new feature to suggest**, or **just want to discuss something about the app** be sure to post an issue about it.
 ## Packages being used in project:
 * [characters](https://pub.dev/packages/characters)
 * [dio](https://pub.dev/packages/dio)

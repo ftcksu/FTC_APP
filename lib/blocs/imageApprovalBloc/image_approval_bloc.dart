@@ -10,7 +10,6 @@ class ImageApprovalBloc extends Bloc<ImageApprovalEvent, ImageApprovalState> {
   ImageApprovalBloc({@required this.ftcRepository})
       : assert(ftcRepository != null),
         super(null);
-  @override
   ImageApprovalState get initialState => InitialImageApprovalState();
 
   @override

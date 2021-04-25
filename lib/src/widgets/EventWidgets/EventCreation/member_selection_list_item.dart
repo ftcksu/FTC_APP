@@ -10,42 +10,51 @@ class MemberSelectionListItem extends StatefulWidget {
   final Function unCheck;
   final bool startChosen;
 
-  MemberSelectionListItem({this.member, this.index, this.onCheck, this.unCheck, this.startChosen});
+  MemberSelectionListItem(
+      {this.member, this.index, this.onCheck, this.unCheck, this.startChosen});
 
   @override
-  _MemberSelectionListItemState createState() => _MemberSelectionListItemState();
+  _MemberSelectionListItemState createState() =>
+      _MemberSelectionListItemState();
 }
 
-class _MemberSelectionListItemState extends State<MemberSelectionListItem> with SingleTickerProviderStateMixin {
+class _MemberSelectionListItemState extends State<MemberSelectionListItem>
+    with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation<double> _colorFadeAnim;
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, value: 0, upperBound: 1, duration: Duration(milliseconds: 250));
-    _colorFadeAnim = Tween<double>(begin: 1.0, end: 0.5).animate(_animationController);
+    _animationController = AnimationController(
+        vsync: this,
+        value: 0,
+        upperBound: 1,
+        duration: Duration(milliseconds: 250));
+    _colorFadeAnim =
+        Tween<double>(begin: 1.0, end: 0.5).animate(_animationController);
     super.initState();
   }
+
   @override
   void didUpdateWidget(MemberSelectionListItem oldWidget) {
-    if(oldWidget.startChosen != widget.startChosen){
+    if (oldWidget.startChosen != widget.startChosen) {
       if (!widget.startChosen) {
         _animationController.reverse();
       } else {
         _animationController.forward();
       }
-
     }
     super.didUpdateWidget(oldWidget);
   }
+
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: () {
         if (widget.startChosen) {
@@ -59,9 +68,15 @@ class _MemberSelectionListItemState extends State<MemberSelectionListItem> with 
       child: FadeTransition(
         opacity: _colorFadeAnim,
         child: Container(
-            color: widget.index.isEven ? config.Colors().notWhite(1) : Colors.white,
+            color: widget.index.isEven
+                ? config.Colors().notWhite(1)
+                : Colors.white,
             child: ListTile(
-              title: Text(widget.member.name),
+              title: Text(widget.member.name,
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle2
+                      .merge(TextStyle(fontSize: 18))),
               leading: Container(
                 width: 45,
                 child: Stack(

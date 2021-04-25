@@ -23,11 +23,13 @@ class EventDetailsBottom extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget _userButtons() {
       if (isUserEnlisted) {
-        return RaisedButton(
-            color: Colors.grey,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            padding: EdgeInsets.all(8.0),
+        return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.grey,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)),
+              padding: EdgeInsets.all(8.0),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -46,11 +48,13 @@ class EventDetailsBottom extends StatelessWidget {
             ),
             onPressed: () => null);
       } else if (full) {
-        return RaisedButton(
-            color: Colors.grey,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            padding: EdgeInsets.all(8.0),
+        return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.grey,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)),
+              padding: EdgeInsets.all(8.0),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -69,11 +73,13 @@ class EventDetailsBottom extends StatelessWidget {
             ),
             onPressed: () => null);
       } else {
-        return RaisedButton(
-            color: config.Colors().accentColor(1),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            padding: EdgeInsets.all(8.0),
+        return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: config.Colors().accentColor(1),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)),
+              padding: EdgeInsets.all(8.0),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -130,7 +136,7 @@ class EventDetailsBottom extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Text(
                 'الأعضاء المشاركين',
-                style: Theme.of(context).textTheme.title,
+                style: Theme.of(context).textTheme.headline2,
               ),
             ),
             ListView.separated(
@@ -161,7 +167,7 @@ class EventDetailsBottom extends StatelessWidget {
                   ),
                   title: Text(
                     members[index].name,
-                    style: TextStyle(fontSize: 18),
+                    style: Theme.of(context).textTheme.subtitle2,
                   ),
                 );
               },

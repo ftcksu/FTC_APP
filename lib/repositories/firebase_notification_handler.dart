@@ -12,27 +12,26 @@ class FirebaseNotifications {
   FirebaseNotifications(this.scaffoldKey);
 
   void setUpFirebase() async {
-    _firebaseMessaging = FirebaseMessaging();
+    _firebaseMessaging = FirebaseMessaging.instance;
     firebaseCloudMessagingListeners();
   }
 
   void firebaseCloudMessagingListeners() {
     if (Platform.isIOS) iosPermissions();
-    _firebaseMessaging.configure(
-        onMessage: (Map<String, dynamic> message) async {
-      if (onReceive) {
-        onReceive = false;
-        String title, notificationMessage;
-        title = message['notification']['title'] as String;
-        notificationMessage = message['notification']['body'] as String;
-        _showNotification(title, notificationMessage);
-      } else {
-        onReceive = true;
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
+      if (notification != null && android != null) {
+        if (onReceive) {
+          onReceive = false;
+          String title, notificationMessage;
+          title = notification.title;
+          notificationMessage = notification.body;
+          _showNotification(title, notificationMessage);
+        } else {
+          onReceive = true;
+        }
       }
-    }, onResume: (Map<String, dynamic> message) async {
-      print('on resume $message');
-    }, onLaunch: (Map<String, dynamic> message) async {
-      print('on launch $message');
     });
   }
 
@@ -51,9 +50,15 @@ class FirebaseNotifications {
   }
 
   void iosPermissions() {
-    _firebaseMessaging.requestNotificationPermissions();
-    _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {});
+    _firebaseMessaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
   }
 
   _showNotification(String title, String notificationMessage) {

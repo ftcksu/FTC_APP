@@ -36,9 +36,7 @@ class SearchBar extends StatelessWidget {
                     onChanged: (String txt) {
                       onChanged(txt);
                     },
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
+                    style: Theme.of(context).textTheme.subtitle2,
                     cursorColor: config.Colors().mainColor(1),
                     decoration: InputDecoration(
                       prefixIcon: Material(

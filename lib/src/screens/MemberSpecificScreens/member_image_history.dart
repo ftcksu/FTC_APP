@@ -23,6 +23,7 @@ class MemberImageHistory extends StatefulWidget {
 class _MemberImageHistoryState extends State<MemberImageHistory> {
   List<ImageHistory> memberImages;
   Completer<void> _refreshCompleter;
+  final picker = ImagePicker();
 
   @override
   void initState() {
@@ -61,7 +62,7 @@ class _MemberImageHistoryState extends State<MemberImageHistory> {
             centerTitle: true,
             title: Text(
               'صورك الحلوه',
-              style: Theme.of(context).textTheme.subtitle,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             backgroundColor: Colors.deepPurpleAccent,
             leading: IconButton(
@@ -111,7 +112,7 @@ class _MemberImageHistoryState extends State<MemberImageHistory> {
   }
 
   Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await picker.getImage(source: ImageSource.gallery);
     if (image != null) {
       File croppedFile = await ImageCropper.cropImage(
           sourcePath: image.path,

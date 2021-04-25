@@ -56,7 +56,7 @@ class _ApproveImagesState extends State<ApproveImages> {
             centerTitle: true,
             title: Text(
               'قبول الصور',
-              style: Theme.of(context).textTheme.subtitle,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             backgroundColor: Colors.deepPurpleAccent,
             leading: IconButton(
@@ -130,12 +130,12 @@ class _ApproveImagesState extends State<ApproveImages> {
         .add(UpdateImageStatus(id, status));
 
     if (status == "APPROVED") {
-      BlocProvider.of<NotificationBloc>(context).add(sendMemberMessage(
+      BlocProvider.of<NotificationBloc>(context).add(SendMemberMessage(
           memberId: memberId,
           notification:
               PushNotificationRequest.message('صورك', "قبل الئيس صورتك")));
     } else {
-      BlocProvider.of<NotificationBloc>(context).add(sendMemberMessage(
+      BlocProvider.of<NotificationBloc>(context).add(SendMemberMessage(
           memberId: memberId,
           notification:
               PushNotificationRequest.message('صورك', "رفظ الرئيس صورتك")));

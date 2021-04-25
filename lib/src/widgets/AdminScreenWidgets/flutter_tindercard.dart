@@ -3,10 +3,11 @@ library flutter_tindercard;
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-List<Size> _cardSizes = new List();
-List<Alignment> _cardAligns = new List();
+List<Size> _cardSizes = [];
+List<Alignment> _cardAligns = [];
 
 /// A Tinder-Like Widget.
+// ignore: must_be_immutable
 class TinderSwapCard extends StatefulWidget {
   CardBuilder _cardBuilder;
   int _totalNum;
@@ -63,8 +64,8 @@ class TinderSwapCard extends StatefulWidget {
     double widthGap = maxWidth - minWidth;
     double heightGap = maxHeight - minHeight;
 
-    _cardAligns = new List();
-    _cardSizes = new List();
+    _cardAligns = [];
+    _cardSizes = [];
 
     for (int i = 0; i < _stackNum; i++) {
       _cardSizes.add(new Size(minWidth + (widthGap / _stackNum) * i,
@@ -111,7 +112,7 @@ class _TinderSwapCardState extends State<TinderSwapCard>
             'مافيش صور',
             style: Theme.of(context)
                 .textTheme
-                .title
+                .headline2
                 .merge(TextStyle(color: Colors.white)),
           ),
         ),
@@ -164,7 +165,7 @@ class _TinderSwapCardState extends State<TinderSwapCard>
   }
 
   List<Widget> _buildCards(BuildContext context) {
-    List<Widget> cards = new List();
+    List<Widget> cards = [];
     for (int i = _currentFront; i < _currentFront + widget._stackNum; i++) {
       cards.add(_buildCard(context, i));
     }

@@ -45,7 +45,7 @@ class SubmitAnyoneMemberCard extends StatelessWidget {
           children: <Widget>[
             Text(
               adminJob.assignedMember.name,
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.headline2,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -59,29 +59,53 @@ class SubmitAnyoneMemberCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  child: RaisedButton(
-                    color: config.Colors().accentColor(1),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: config.Colors().accentColor(1),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    ),
                     child: Text(
                       'ارصدني',
-                      style: new TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500, color: Colors.white),
+                      style: new TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white),
                     ),
                     onPressed: () => _showCustomPointsBottomCard(context),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  child: RaisedButton(
-                    color: config.Colors().accentColor(1),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: config.Colors().accentColor(1),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                    ),
                     child: Text(
                       'أعماله الخاصه',
-                      style: new TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500, color: Colors.white),
+                      style: new TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white),
                     ),
-                    onPressed: () => Navigator.of(context).pushNamed('/SubmitPointsAnyoneMemberScreen', arguments: new RouteArgument(id: adminJob.id.toString(), argumentsList: [adminJob.id, adminJob.assignedMember.id, adminJob.assignedMember.name])),
+                    onPressed: () => Navigator.of(context).pushNamed(
+                        '/SubmitPointsAnyoneMemberScreen',
+                        arguments: new RouteArgument(
+                            id: adminJob.id.toString(),
+                            argumentsList: [
+                              adminJob.id,
+                              adminJob.assignedMember.id,
+                              adminJob.assignedMember.name
+                            ])),
                   ),
                 )
               ],
@@ -136,10 +160,18 @@ class SubmitAnyoneMemberCard extends StatelessWidget {
                 children: [
                   Container(
                     alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(10)),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10)),
                     child: TextField(
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle2
+                          .merge(TextStyle(fontSize: 18)),
                       autofocus: true,
                       focusNode: _whyFocusNode,
                       textAlign: TextAlign.right,
@@ -165,14 +197,23 @@ class SubmitAnyoneMemberCard extends StatelessWidget {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(10)),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10)),
                     child: TextField(
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle2
+                          .merge(TextStyle(fontSize: 18)),
                       focusNode: _pointsFocusNode,
                       textAlign: TextAlign.right,
                       textDirection: TextDirection.rtl,
-                      keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
+                      keyboardType: TextInputType.numberWithOptions(
+                          decimal: true, signed: true),
                       maxLength: 3,
                       onChanged: (string) => points = int.parse(string),
                       onSubmitted: (e) {

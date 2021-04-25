@@ -4,6 +4,7 @@ import 'package:ftc_application/repositories/ftc_api_client.dart';
 import 'package:ftc_application/src/models/Event.dart';
 import 'package:ftc_application/src/models/Job.dart';
 import 'package:ftc_application/src/models/Member.dart';
+import 'package:ftc_application/src/models/MembersRange.dart';
 import 'package:ftc_application/src/models/PushNotificationRequest.dart';
 import 'package:ftc_application/src/models/Task.dart';
 import 'package:ftc_application/src/models/image_history.dart';
@@ -12,10 +13,9 @@ import 'package:ftc_application/src/models/route_argument.dart';
 
 class FtcRepository {
   FtcApiClient ftcApiClient;
-
   static final FtcRepository _inst = FtcRepository._internal();
-
   FtcRepository._internal();
+  MembersRange range;
 
   factory FtcRepository({FtcApiClient ftcApiClient}) {
     _inst.ftcApiClient = ftcApiClient;
@@ -45,15 +45,20 @@ class FtcRepository {
       member.participatedEvents =
           await ftcApiClient.getCurrentMemberEvents(false);
       member.participatedEvents.removeWhere((event) => event.finished);
+      if (range == null) {
+        List<Member> membersLength = await ftcApiClient.getMembers(false);
+        getRange(membersLength.length - 1);
+      }
     } catch (e) {
       throw e;
     }
-    return RouteArgument(argumentsList: [member, messageOfTheDay]);
+    return RouteArgument(argumentsList: [member, messageOfTheDay, range]);
   }
 
-  Future<List<Member>> getPointsList() async {
+  Future<RouteArgument> getPointsList() async {
     try {
-      return await ftcApiClient.getMembers(false);
+      List<Member> members = await ftcApiClient.getMembers(false);
+      return RouteArgument(argumentsList: [members, range]);
     } catch (e) {
       throw e;
     }
@@ -141,7 +146,7 @@ class FtcRepository {
     }
   }
 
-  Future<void> removeMemberFromEvent(int eventId, int memberId) {
+  Future<void> removeMemberFromEvent(int eventId, int memberId) async {
     try {
       ftcApiClient.removeUserFromEvent(eventId, memberId);
     } catch (e) {
@@ -275,14 +280,18 @@ class FtcRepository {
     return await ftcApiClient.updateImage(imageId);
   }
 
+  //No longer removes Events without ready jobs for some reason
+  //and it takes more than twice as long to load as it did before
+  //Either figure out what happened to make this change or ignore and trat as
+  //a normal GetEvents
   Future<List<Event>> getAdminEvents() async {
     List<Event> events = await ftcApiClient.getEvents();
-    for (int i = 0; i < events.length - 1; i++) {
-      List<Job> eventJobs = await ftcApiClient.getEventJobs(events[i].id);
-      if (!eventJobs.any((job) => job.readyTasks > 0)) {
-        events.removeAt(i);
-      }
-    }
+    // for (int i = 0; i < events.length - 1; i++) {
+    //   List<Job> eventJobs = await ftcApiClient.getEventJobs(events[i].id);
+    //   if (!eventJobs.any((job) => job.readyTasks > 0)) {
+    //     events.removeAt(i);
+    //   }
+    // }
     return events;
   }
 
@@ -313,5 +322,12 @@ class FtcRepository {
   Future<void> sendMessage(
       int memberId, PushNotificationRequest message) async {
     await ftcApiClient.postMessageToMember(memberId, message);
+  }
+
+  void getRange(int membersLength) {
+    int turtleRange = (membersLength / 2).round();
+    int muscleRange = (turtleRange / 2).round();
+    int sleepRange = turtleRange + muscleRange;
+    range = MembersRange(muscleRange, sleepRange, turtleRange);
   }
 }

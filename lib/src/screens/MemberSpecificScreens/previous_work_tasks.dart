@@ -9,14 +9,7 @@ import 'package:ftc_application/src/widgets/MemberWidgets/previous_work_task_car
 
 class PreviousWorkTasks extends StatefulWidget {
   final RouteArgument routeArgument;
-  String jobType;
-  String jobTitle;
-  int jobId;
-  PreviousWorkTasks({this.routeArgument}) {
-    jobType = routeArgument.argumentsList[0];
-    jobTitle = routeArgument.argumentsList[1];
-    jobId = routeArgument.argumentsList[2];
-  }
+  PreviousWorkTasks({this.routeArgument});
 
   @override
   _PreviousWorkTasksState createState() => _PreviousWorkTasksState();
@@ -24,12 +17,16 @@ class PreviousWorkTasks extends StatefulWidget {
 
 class _PreviousWorkTasksState extends State<PreviousWorkTasks> {
   List<Task> tasks;
+  String jobType;
+  String jobTitle;
+  int jobId;
 
   @override
   void initState() {
     super.initState();
+    _setRouteArgument();
     BlocProvider.of<MemberTasksBloc>(context)
-        .add(GetMemberJobTasks(jobId: widget.jobId));
+        .add(GetMemberJobTasks(jobId: jobId));
   }
 
   @override
@@ -38,7 +35,7 @@ class _PreviousWorkTasksState extends State<PreviousWorkTasks> {
       builder: (context, taskState) {
         if (taskState is InitialMemberTasksState) {
           BlocProvider.of<MemberTasksBloc>(context)
-              .add(GetMemberJobTasks(jobId: widget.jobId));
+              .add(GetMemberJobTasks(jobId: jobId));
           return LoadingWidget();
         } else if (taskState is MemberTasksLoading) {
           return LoadingWidget();
@@ -47,7 +44,7 @@ class _PreviousWorkTasksState extends State<PreviousWorkTasks> {
           return _previousWorkTasksScreen();
         } else {
           BlocProvider.of<MemberTasksBloc>(context)
-              .add(GetMemberJobTasks(jobId: widget.jobId));
+              .add(GetMemberJobTasks(jobId: jobId));
           return LoadingWidget();
         }
       },
@@ -99,8 +96,8 @@ class _PreviousWorkTasksState extends State<PreviousWorkTasks> {
             itemBuilder: (context, index) {
               return PreviousWorkTaskCard(
                 task: tasks[index],
-                jobType: widget.jobType,
-                jobTitle: widget.jobTitle,
+                jobType: jobType,
+                jobTitle: jobTitle,
                 editTask: editTask,
               );
             },
@@ -110,18 +107,24 @@ class _PreviousWorkTasksState extends State<PreviousWorkTasks> {
             'ماعندك اعمال سابقه',
             style: Theme.of(context)
                 .textTheme
-                .title
+                .headline2
                 .merge(TextStyle(color: Colors.white, fontSize: 24)),
           ));
   }
 
   editTask(Task task, String input) {
-    if (widget.jobType == "SELF") {
+    if (jobType == "SELF") {
       BlocProvider.of<MemberTasksBloc>(context)
           .add(EditTask(taskId: task.id, description: input, userSub: true));
     } else {
       BlocProvider.of<MemberTasksBloc>(context)
           .add(EditTask(taskId: task.id, description: input, userSub: false));
     }
+  }
+
+  _setRouteArgument() {
+    jobType = widget.routeArgument.argumentsList[0];
+    jobTitle = widget.routeArgument.argumentsList[1];
+    jobId = widget.routeArgument.argumentsList[2];
   }
 }

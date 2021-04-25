@@ -11,7 +11,6 @@ class MemberJobsBloc extends Bloc<MemberJobsEvent, MemberJobsState> {
   MemberJobsBloc({@required this.ftcRepository})
       : assert(ftcRepository != null),
         super(null);
-  @override
   MemberJobsState get initialState => InitialMemberJobsState();
 
   @override

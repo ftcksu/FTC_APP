@@ -71,11 +71,13 @@ class EventCard extends StatelessWidget {
 
     Widget _userButtons() {
       if (event.full) {
-        return RaisedButton(
-            color: Colors.grey,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            padding: EdgeInsets.all(8.0),
+        return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.grey,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)),
+              padding: EdgeInsets.all(8.0),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -94,11 +96,13 @@ class EventCard extends StatelessWidget {
             ),
             onPressed: () => null);
       } else if (isUserEnlisted()) {
-        return RaisedButton(
-            color: Colors.grey,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            padding: EdgeInsets.all(8.0),
+        return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.grey,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)),
+              padding: EdgeInsets.all(8.0),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -117,11 +121,13 @@ class EventCard extends StatelessWidget {
             ),
             onPressed: () => null);
       } else if (event.full) {
-        return RaisedButton(
-            color: Colors.grey,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            padding: EdgeInsets.all(8.0),
+        return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.grey,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)),
+              padding: EdgeInsets.all(8.0),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -140,11 +146,13 @@ class EventCard extends StatelessWidget {
             ),
             onPressed: () => null);
       } else {
-        return RaisedButton(
-            color: config.Colors().accentColor(1),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            padding: EdgeInsets.all(8.0),
+        return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: config.Colors().accentColor(1),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)),
+              padding: EdgeInsets.all(8.0),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -200,7 +208,7 @@ class EventCard extends StatelessWidget {
                   'انتهت الفعاليه',
                   style: Theme.of(context)
                       .textTheme
-                      .body1
+                      .bodyText2
                       .merge(TextStyle(fontWeight: FontWeight.w600)),
                 ))
             : Positioned(
@@ -264,6 +272,7 @@ class EventCard extends StatelessWidget {
                                         )),
                                     Text(
                                       event.leader.name,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ],
                                 ),
@@ -283,8 +292,9 @@ class EventCard extends StatelessWidget {
                                       Text(
                                         event.title,
                                         overflow: TextOverflow.ellipsis,
-                                        style:
-                                            Theme.of(context).textTheme.subhead,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2,
                                       ),
                                       Row(
                                         children: <Widget>[
@@ -312,7 +322,7 @@ class EventCard extends StatelessWidget {
                               event.description.length > 150 && !leaderView
                                   ? event.description.substring(0, 130) + " ..."
                                   : event.description,
-                              style: Theme.of(context).textTheme.body1,
+                              style: Theme.of(context).textTheme.bodyText2,
                               textAlign: TextAlign.center,
                             ),
                             !leaderView
@@ -325,14 +335,16 @@ class EventCard extends StatelessWidget {
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0),
-                                          child: RaisedButton(
-                                              color: config.Colors()
-                                                  .accentColor(1),
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30.0)),
-                                              padding: EdgeInsets.all(8.0),
+                                          child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                primary: config.Colors()
+                                                    .accentColor(1),
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.0)),
+                                                padding: EdgeInsets.all(8.0),
+                                              ),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -368,14 +380,16 @@ class EventCard extends StatelessWidget {
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0),
-                                          child: RaisedButton(
-                                              color: config.Colors()
-                                                  .accentColor(1),
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30.0)),
-                                              padding: EdgeInsets.all(8.0),
+                                          child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                primary: config.Colors()
+                                                    .accentColor(1),
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.0)),
+                                                padding: EdgeInsets.all(8.0),
+                                              ),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,

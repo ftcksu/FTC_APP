@@ -23,10 +23,11 @@ class SendNotificationCard extends StatelessWidget {
             children: <Widget>[
               Text(
                 'ارسل تنبيهك',
-                style: Theme.of(context).textTheme.title,
+                style: Theme.of(context).textTheme.headline2,
               ),
               Container(
                 child: TextField(
+                  style: Theme.of(context).textTheme.subtitle2,
                   autofocus: true,
                   textDirection: TextDirection.rtl,
                   keyboardType: TextInputType.text,
@@ -41,11 +42,13 @@ class SendNotificationCard extends StatelessWidget {
                 ),
               ),
               Padding(padding: EdgeInsets.only(top: 30.0)),
-              RaisedButton(
-                color: config.Colors().accentColor(1),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0)),
-                padding: EdgeInsets.all(16.0),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: config.Colors().accentColor(1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  padding: EdgeInsets.all(16.0),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[

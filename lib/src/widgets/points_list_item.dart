@@ -37,35 +37,15 @@ class PointsListItem extends StatelessWidget {
             Text(member.rank.toString()),
             Expanded(
               child: ListTile(
-                leading: Container(
-                  decoration: member.id == currentMember.id
-                      ? BoxDecoration(
-                          color: Colors.transparent,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: config.Colors().accentColor(1),
-                              blurRadius: 3.0,
-                              spreadRadius: 1,
-                            ),
-                          ],
-                        )
-                      : null,
-                  child: Hero(
-                    tag: heroTag + member.id.toString(),
-                    child: MemberImage(
-                      id: member.id,
-                      hasProfileImage: member.hasProfileImage,
-                      height: 45,
-                      width: 45,
-                      thumb: true,
-                    ),
-                  ),
-                ),
+                leading: getLeading(member, currentMember, heroTag),
                 title: Text(
                   member.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle2
+                      .merge(TextStyle(fontSize: 14)),
                 ),
                 subtitle: member?.bio != null
                     ? Text(
@@ -101,4 +81,31 @@ class PointsListItem extends StatelessWidget {
     );
   }
 }
-//'assets/images/profile.JPG'
+
+Widget getLeading(Member member, Member currentMember, String heroTag) {
+  return Container(
+    decoration: member.id == currentMember.id
+        ? BoxDecoration(
+            color: Colors.transparent,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: config.Colors().accentColor(1),
+                blurRadius: 3.0,
+                spreadRadius: 1,
+              ),
+            ],
+          )
+        : null,
+    child: Hero(
+      tag: heroTag + member.id.toString(),
+      child: MemberImage(
+        id: member.id,
+        hasProfileImage: member.hasProfileImage,
+        height: 45,
+        width: 45,
+        thumb: true,
+      ),
+    ),
+  );
+}

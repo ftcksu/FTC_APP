@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ftc_application/src/models/Member.dart';
+import 'package:ftc_application/src/models/MembersRange.dart';
 import 'package:ftc_application/src/widgets/MemberWidgets/member_image.dart';
 
 class HomeTitle extends StatelessWidget {
   final Member member;
-
-  HomeTitle({this.member});
+  final MembersRange range;
+  HomeTitle({this.member, this.range});
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +31,10 @@ class HomeTitle extends StatelessWidget {
                 ))),
         Text(
           member.name,
-          style: Theme.of(context).textTheme.headline,
+          style: Theme.of(context).textTheme.headline1,
         ),
-        Text('الهامور', style: Theme.of(context).textTheme.subtitle),
+        Text(getRankTitle(member.rank),
+            style: Theme.of(context).textTheme.subtitle1),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -110,5 +112,21 @@ class HomeTitle extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String getRankTitle(int rank) {
+    if (rank == 1) {
+      return 'الهامور';
+    } else if (rank < 4) {
+      return 'هويمر';
+    } else if (rank <= range.muscleRange) {
+      return 'معضل';
+    } else if (rank <= range.turtleRange) {
+      return 'سلحوف';
+    } else if (rank <= range.sleepRange) {
+      return 'نايم';
+    } else {
+      return 'ميت';
+    }
   }
 }

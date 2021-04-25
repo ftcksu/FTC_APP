@@ -1,3 +1,4 @@
+import 'package:flutter_config/flutter_config.dart';
 import 'package:ftc_application/config/app_config.dart' as config;
 import 'package:flutter/material.dart';
 import 'package:ftc_application/src/models/image_history.dart';
@@ -5,6 +6,8 @@ import 'package:ftc_application/src/models/image_history.dart';
 class ImageHistoryCard extends StatelessWidget {
   final Function onClick;
   final ImageHistory image;
+  final String baseLink = FlutterConfig.get('API_BASE_URL');
+
   ImageHistoryCard({this.image, this.onClick});
 
   @override
@@ -34,8 +37,8 @@ class ImageHistoryCard extends StatelessWidget {
                         topLeft: Radius.circular(8.0),
                         topRight: Radius.circular(8.0)),
                     image: DecorationImage(
-                      image: NetworkImage("http://157.245.240.12:8080/api/images/" +
-                          image.id.toString()),
+                      image: NetworkImage(
+                          baseLink + "images/" + image.id.toString()),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -56,9 +59,11 @@ class ImageHistoryCard extends StatelessWidget {
 
   Widget _getButton() {
     return image.used
-        ? RaisedButton(
-            color: config.Colors().accentColor(1),
-            padding: EdgeInsets.all(8.0),
+        ? ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: config.Colors().divider(1),
+              padding: EdgeInsets.all(8.0),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -72,9 +77,11 @@ class ImageHistoryCard extends StatelessWidget {
               ],
             ),
             onPressed: () {})
-        : RaisedButton(
-            color: config.Colors().accentColor(1),
-            padding: EdgeInsets.all(8.0),
+        : ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: config.Colors().accentColor(1),
+              padding: EdgeInsets.all(8.0),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

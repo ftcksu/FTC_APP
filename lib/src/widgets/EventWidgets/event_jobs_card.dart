@@ -71,7 +71,7 @@ class EventsJobCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
-                              .title
+                              .headline2
                               .merge(TextStyle(fontWeight: FontWeight.w500)),
                         ),
                       ),
@@ -87,12 +87,14 @@ class EventsJobCard extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 8),
-                          child: RaisedButton(
-                            color: config.Colors().accentColor(1),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0)),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 12),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: config.Colors().accentColor(1),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0)),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 12),
+                            ),
                             child: Text(
                               'ارصد اعماله',
                               style: new TextStyle(

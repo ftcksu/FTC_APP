@@ -10,7 +10,6 @@ class MemberTasksBloc extends Bloc<MemberTasksEvent, MemberTasksState> {
   MemberTasksBloc({@required this.ftcRepository})
       : assert(ftcRepository != null),
         super(null);
-  @override
   MemberTasksState get initialState => InitialMemberTasksState();
 
   @override

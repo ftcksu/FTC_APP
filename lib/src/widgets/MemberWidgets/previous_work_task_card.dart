@@ -24,8 +24,7 @@ class PreviousWorkTaskCard extends StatelessWidget {
               DialogButton(
                 child: Text(
                   "اسف فيصل",
-                  style: TextStyle(
-                      color: Colors.white, fontSize: 20),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () => Navigator.pop(context),
               )
@@ -39,8 +38,7 @@ class PreviousWorkTaskCard extends StatelessWidget {
               DialogButton(
                 child: Text(
                   "شكرا اسم الشخص هنا",
-                  style: TextStyle(
-                      color: Colors.white, fontSize: 20),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () => Navigator.pop(context),
               )
@@ -50,6 +48,7 @@ class PreviousWorkTaskCard extends StatelessWidget {
           });
         }
       }
+
       return showBottomSheet(
           context: context,
           shape: RoundedRectangleBorder(
@@ -105,14 +104,16 @@ class PreviousWorkTaskCard extends StatelessWidget {
     Widget _getAction() {
       if (task.approvalStatus == 'READY') {
         if (jobType == "SELF") {
-          return RaisedButton(
+          return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0),
+                  side: BorderSide(color: config.Colors().accentColor(1))),
+            ),
             onPressed: () {
               _bottomSheet();
             },
             child: Text('Edit'),
-            shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                side: BorderSide(color: config.Colors().accentColor(1))),
           );
         } else {
           return Container();
@@ -129,14 +130,16 @@ class PreviousWorkTaskCard extends StatelessWidget {
           ),
         );
       } else {
-        return RaisedButton(
+        return ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                side: BorderSide(color: config.Colors().accentColor(1))),
+          ),
           onPressed: () {
             _bottomSheet();
           },
           child: Text('Edit'),
-          shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(18.0),
-              side: BorderSide(color: config.Colors().accentColor(1))),
         );
       }
     }
@@ -173,13 +176,13 @@ class PreviousWorkTaskCard extends StatelessWidget {
                       _getTitle(),
                       style: Theme.of(context)
                           .textTheme
-                          .title
+                          .headline6
                           .merge(TextStyle(fontSize: 20)),
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
                       _getStatus(),
-                      style: Theme.of(context).textTheme.subhead.merge(
+                      style: Theme.of(context).textTheme.subtitle2.merge(
                           TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
                     )
                   ],
@@ -187,7 +190,7 @@ class PreviousWorkTaskCard extends StatelessWidget {
                 SizedBox(height: 10.0),
                 Text(
                   task.description,
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.subtitle2,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),

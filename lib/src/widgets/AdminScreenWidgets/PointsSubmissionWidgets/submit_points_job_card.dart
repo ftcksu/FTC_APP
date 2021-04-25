@@ -40,7 +40,7 @@ class SubmitPointsJobCard extends StatelessWidget {
           children: <Widget>[
             Text(
               job.assignedMember.name,
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.headline2,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -52,11 +52,13 @@ class SubmitPointsJobCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                color: config.Colors().accentColor(1),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0)),
-                padding: EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: config.Colors().accentColor(1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  padding: EdgeInsets.all(16.0),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[

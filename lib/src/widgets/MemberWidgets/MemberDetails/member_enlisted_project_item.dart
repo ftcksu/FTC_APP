@@ -51,7 +51,7 @@ class MemberEnlistedProject extends StatelessWidget {
                   title: Text(event.title,
                       style: Theme.of(context)
                           .textTheme
-                          .title
+                          .headline6
                           .merge(TextStyle(color: Colors.white))),
                 ),
               ),

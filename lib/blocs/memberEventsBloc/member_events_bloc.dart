@@ -11,7 +11,6 @@ class MemberEventsBloc extends Bloc<MemberEventsEvent, MemberEventsState> {
   MemberEventsBloc({@required this.ftcRepository})
       : assert(ftcRepository != null),
         super(null);
-  @override
   MemberEventsState get initialState => InitialMemberEventsState();
 
   @override

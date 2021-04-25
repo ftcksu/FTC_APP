@@ -12,14 +12,8 @@ import 'package:ftc_application/src/widgets/MemberWidgets/tasks_submission_list_
 
 class EventTasksSubmit extends StatefulWidget {
   final RouteArgument routeArgument;
-  int jobId;
-  Member member;
-  int eventId;
-  EventTasksSubmit({Key key, this.routeArgument}) {
-    jobId = routeArgument.argumentsList[0] as int;
-    member = routeArgument.argumentsList[1] as Member;
-    eventId = routeArgument.argumentsList[2] as int;
-  }
+
+  EventTasksSubmit({Key key, this.routeArgument});
 
   @override
   _EventTasksSubmitState createState() => _EventTasksSubmitState();
@@ -27,11 +21,15 @@ class EventTasksSubmit extends StatefulWidget {
 
 class _EventTasksSubmitState extends State<EventTasksSubmit> {
   List<Task> tasks;
+  int jobId;
+  Member member;
+  int eventId;
 
   @override
   void initState() {
+    _setRouteArguments();
     BlocProvider.of<MemberTasksBloc>(context)
-        .add(GetMemberJobTasks(jobId: widget.jobId));
+        .add(GetMemberJobTasks(jobId: jobId));
     super.initState();
   }
 
@@ -41,7 +39,7 @@ class _EventTasksSubmitState extends State<EventTasksSubmit> {
       builder: (context, taskState) {
         if (taskState is InitialMemberTasksState) {
           BlocProvider.of<MemberTasksBloc>(context)
-              .add(GetMemberJobTasks(jobId: widget.jobId));
+              .add(GetMemberJobTasks(jobId: jobId));
           return LoadingWidget();
         } else if (taskState is MemberTasksLoading) {
           return LoadingWidget();
@@ -51,7 +49,7 @@ class _EventTasksSubmitState extends State<EventTasksSubmit> {
           return _eventTasksSubmit();
         } else {
           BlocProvider.of<MemberTasksBloc>(context)
-              .add(GetMemberJobTasks(jobId: widget.jobId));
+              .add(GetMemberJobTasks(jobId: jobId));
           return LoadingWidget();
         }
       },
@@ -67,7 +65,7 @@ class _EventTasksSubmitState extends State<EventTasksSubmit> {
               return <Widget>[
                 SliverAppBar(
                   centerTitle: true,
-                  title: Text('رصد أعمال ' + widget.member.name),
+                  title: Text('رصد أعمال ' + member.name),
                   backgroundColor: Colors.deepPurpleAccent,
                   elevation: 8,
                   floating: true,
@@ -96,20 +94,19 @@ class _EventTasksSubmitState extends State<EventTasksSubmit> {
                       itemBuilder: (context, count) {
                         return EventTasksApproveLeader(
                           task: tasks[count],
-                          memberId: widget.member.id,
-                          memberName: widget.member.name,
-                          hasImage: widget.member.hasProfileImage,
+                          memberId: member.id,
+                          memberName: member.name,
+                          hasImage: member.hasProfileImage,
                           onAccept: onAccept,
                           onReject: onReject,
                         );
-//                  return EventTasksApproveLeader(tasks[count], () {}, () {});
                       })
                   : Center(
                       child: Text(
                       'مافيه اعمال',
                       style: Theme.of(context)
                           .textTheme
-                          .title
+                          .headline6
                           .merge(TextStyle(color: Colors.white, fontSize: 24)),
                     )),
             ),
@@ -119,10 +116,10 @@ class _EventTasksSubmitState extends State<EventTasksSubmit> {
 
   onAccept(int taskId) {
     BlocProvider.of<MemberTasksBloc>(context).add(UpdateTaskApproval(
-        eventId: widget.eventId, taskId: taskId, approval: "READY"));
+        eventId: eventId, taskId: taskId, approval: "READY"));
 
-    BlocProvider.of<NotificationBloc>(context).add(sendMemberMessage(
-        memberId: widget.member.id,
+    BlocProvider.of<NotificationBloc>(context).add(SendMemberMessage(
+        memberId: member.id,
         notification: PushNotificationRequest.message(
             'أعمالك', "انقبل عملك من رئيس الفعاليه بيرصده الرئيس قريب")));
   }
@@ -131,9 +128,15 @@ class _EventTasksSubmitState extends State<EventTasksSubmit> {
     BlocProvider.of<MemberTasksBloc>(context)
         .add(UpdateTaskApproval(taskId: taskId, approval: "UNAPPROVED"));
 
-    BlocProvider.of<NotificationBloc>(context).add(sendMemberMessage(
-        memberId: widget.member.id,
+    BlocProvider.of<NotificationBloc>(context).add(SendMemberMessage(
+        memberId: member.id,
         notification: PushNotificationRequest.message(
             'أعمالك', "انرفظ عملك من رئيس الفعاليه عدله")));
+  }
+
+  _setRouteArguments() {
+    jobId = widget.routeArgument.argumentsList[0] as int;
+    member = widget.routeArgument.argumentsList[1] as Member;
+    eventId = widget.routeArgument.argumentsList[2] as int;
   }
 }

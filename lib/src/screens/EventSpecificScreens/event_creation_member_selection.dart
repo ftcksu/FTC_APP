@@ -9,6 +9,16 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 class EventMemberSelection extends StatefulWidget {
   final RouteArgument routeArgument;
+
+  EventMemberSelection({this.routeArgument});
+
+  @override
+  _EventMemberSelectionState createState() => _EventMemberSelectionState();
+}
+
+class _EventMemberSelectionState extends State<EventMemberSelection> {
+  List<Member> _newData;
+  List<Member> selectedMembers;
   Member currentMember;
   List<Member> members;
   int maxUsers;
@@ -17,28 +27,11 @@ class EventMemberSelection extends StatefulWidget {
   //use this when cancelling the selection
   List<Member> initialMembers = [];
 
-  EventMemberSelection({this.routeArgument}) {
-    currentMember = routeArgument.argumentsList[0] as Member;
-    maxUsers = routeArgument.argumentsList[1] as int;
-    members = routeArgument.argumentsList[2] as List<Member>;
-    _selectedMembers =
-        new List<Member>.from(routeArgument.argumentsList[3] as List<Member>);
-    if (_selectedMembers == null) _selectedMembers = [];
-    //clone the selected members list
-    initialMembers = new List<Member>.from(_selectedMembers);
-  }
-
   @override
-  _EventMemberSelectionState createState() =>
-      _EventMemberSelectionState(_selectedMembers);
-}
-
-class _EventMemberSelectionState extends State<EventMemberSelection> {
-  List<Member> _newData;
-
-  List<Member> selectedMembers;
-
-  _EventMemberSelectionState(this.selectedMembers);
+  void initState() {
+    super.initState();
+    _setRouteArgument();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +59,7 @@ class _EventMemberSelectionState extends State<EventMemberSelection> {
               ),
               onPressed: () {
                 Navigator.pop(context);
-                Navigator.pop(context, widget.initialMembers);
+                Navigator.pop(context, initialMembers);
               },
             )
           ],
@@ -81,7 +74,7 @@ class _EventMemberSelectionState extends State<EventMemberSelection> {
             child: CustomScrollView(slivers: <Widget>[
               SliverAppBar(
                 leading: GestureDetector(
-                    onTap: () => Navigator.pop(context, widget.initialMembers),
+                    onTap: () => Navigator.pop(context, initialMembers),
                     child: Icon(Icons.keyboard_backspace)),
                 actions: <Widget>[
                   Padding(
@@ -136,7 +129,7 @@ class _EventMemberSelectionState extends State<EventMemberSelection> {
             itemBuilder: (context, index) {
               //this is temp
               if (index >= selectedMembers.length) return Container();
-              if (selectedMembers[index].id == widget.currentMember.id)
+              if (selectedMembers[index].id == currentMember.id)
                 return Container();
               return MemberSelectionHorzListItem(
                   selectedMembers[index], _unCheck);
@@ -153,7 +146,7 @@ class _EventMemberSelectionState extends State<EventMemberSelection> {
         (context, index) {
           Member m = _newData != null && _newData.length != 0
               ? _newData[index]
-              : widget.members[index];
+              : members[index];
           bool startChosen = selectedMembers.contains(m);
           return MemberSelectionListItem(
             index: index,
@@ -165,13 +158,13 @@ class _EventMemberSelectionState extends State<EventMemberSelection> {
         },
         childCount: _newData != null && _newData.length != 0
             ? _newData.length
-            : widget.members.length,
+            : members.length,
       ),
     );
   }
 
   bool _onCheck(Member member) {
-    if (selectedMembers.length >= widget.maxUsers) {
+    if (selectedMembers.length >= maxUsers) {
       Alert(
         context: context,
         title: 'وصلت ماكس عدد الاعضاء',
@@ -218,10 +211,21 @@ class _EventMemberSelectionState extends State<EventMemberSelection> {
 
   _onChanged(String value) {
     setState(() {
-      _newData = widget.members
+      _newData = members
           .where((member) =>
               member.name.toLowerCase().contains(value.toLowerCase()))
           .toList();
     });
+  }
+
+  _setRouteArgument() {
+    currentMember = widget.routeArgument.argumentsList[0] as Member;
+    maxUsers = widget.routeArgument.argumentsList[1] as int;
+    members = widget.routeArgument.argumentsList[2] as List<Member>;
+    _selectedMembers = new List<Member>.from(
+        widget.routeArgument.argumentsList[3] as List<Member>);
+    if (_selectedMembers == null) _selectedMembers = [];
+    //clone the selected members list
+    initialMembers = new List<Member>.from(_selectedMembers);
   }
 }

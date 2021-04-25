@@ -13,8 +13,8 @@ class AdminSendNotification extends NotificationEvent {
   AdminSendNotification({this.notification});
 }
 
-class sendMemberMessage extends NotificationEvent {
+class SendMemberMessage extends NotificationEvent {
   final PushNotificationRequest notification;
   final int memberId;
-  sendMemberMessage({this.memberId, this.notification});
+  SendMemberMessage({this.memberId, this.notification});
 }

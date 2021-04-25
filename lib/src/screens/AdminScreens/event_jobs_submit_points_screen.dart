@@ -9,10 +9,7 @@ import 'package:ftc_application/src/widgets/loading_widget.dart';
 
 class EventJobsScreen extends StatefulWidget {
   final RouteArgument routeArgument;
-  int eventID;
-  EventJobsScreen({this.routeArgument}) {
-    eventID = routeArgument.argumentsList[0] as int;
-  }
+  EventJobsScreen({this.routeArgument});
 
   @override
   _EventJobsScreenState createState() => _EventJobsScreenState();
@@ -20,11 +17,13 @@ class EventJobsScreen extends StatefulWidget {
 
 class _EventJobsScreenState extends State<EventJobsScreen> {
   List<Job> jobs;
+  int eventID;
 
   @override
   void initState() {
+    eventID = widget.routeArgument.argumentsList[0] as int;
     BlocProvider.of<MemberJobsBloc>(context)
-        .add(GetEventJobs(eventId: widget.eventID));
+        .add(GetEventJobs(eventId: eventID));
     super.initState();
   }
 
@@ -34,7 +33,7 @@ class _EventJobsScreenState extends State<EventJobsScreen> {
       builder: (context, jobsState) {
         if (jobsState is InitialMemberJobsState) {
           BlocProvider.of<MemberJobsBloc>(context)
-              .add(GetEventJobs(eventId: widget.eventID));
+              .add(GetEventJobs(eventId: eventID));
           return LoadingWidget();
         } else if (jobsState is EventJobsLoading) {
           return LoadingWidget();
@@ -44,7 +43,7 @@ class _EventJobsScreenState extends State<EventJobsScreen> {
           return _eventJobsScreen();
         } else {
           BlocProvider.of<MemberJobsBloc>(context)
-              .add(GetEventJobs(eventId: widget.eventID));
+              .add(GetEventJobs(eventId: eventID));
           return LoadingWidget();
         }
       },
@@ -101,7 +100,7 @@ class _EventJobsScreenState extends State<EventJobsScreen> {
             'مافيه شغل',
             style: Theme.of(context)
                 .textTheme
-                .title
+                .headline2
                 .merge(TextStyle(color: Colors.white, fontSize: 24)),
           ));
   }

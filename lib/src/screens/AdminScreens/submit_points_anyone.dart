@@ -95,7 +95,7 @@ class _SubmitPointsAnyoneState extends State<SubmitPointsAnyone> {
               'مافيش عضو بهل اسم',
               style: Theme.of(context)
                   .textTheme
-                  .title
+                  .headline6
                   .merge(TextStyle(color: Colors.white, fontSize: 24)),
             ),
           ),
@@ -147,7 +147,7 @@ class _SubmitPointsAnyoneState extends State<SubmitPointsAnyone> {
     BlocProvider.of<AdminBloc>(context)
         .add(AdminSubmitPoints(memberId: memberId, payload: task.toJson()));
 
-    BlocProvider.of<NotificationBloc>(context).add(sendMemberMessage(
+    BlocProvider.of<NotificationBloc>(context).add(SendMemberMessage(
         memberId: memberId,
         notification: PushNotificationRequest.message(
           'أعمالك',

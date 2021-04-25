@@ -96,7 +96,7 @@ class EventDetailsTop extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Text(
                 event.title,
-                style: Theme.of(context).textTheme.title,
+                style: Theme.of(context).textTheme.headline2,
               ),
             ),
             Divider(
@@ -108,7 +108,7 @@ class EventDetailsTop extends StatelessWidget {
               'وصف المشروع',
               style: Theme.of(context)
                   .textTheme
-                  .subtitle
+                  .subtitle1
                   .merge(TextStyle(color: Colors.black)),
               textAlign: TextAlign.center,
             ),
@@ -117,7 +117,7 @@ class EventDetailsTop extends StatelessWidget {
               child: Text(
                 event.description,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
             Divider(
@@ -134,7 +134,7 @@ class EventDetailsTop extends StatelessWidget {
                     event.date.toIso8601String().split("T")[0],
                     style: Theme.of(context)
                         .textTheme
-                        .body1
+                        .bodyText2
                         .merge(TextStyle(fontSize: 18)),
                   ),
                   GestureDetector(

@@ -59,7 +59,7 @@ class _EventTasksApproveLeaderState extends State<EventTasksApproveLeader> {
             Center(
               child: Text(
                 widget.memberName,
-                style: Theme.of(context).textTheme.title,
+                style: Theme.of(context).textTheme.headline2,
               ),
             ),
             Padding(
@@ -75,7 +75,7 @@ class _EventTasksApproveLeaderState extends State<EventTasksApproveLeader> {
               child: Text(
                 widget.task.description,
                 maxLines: null,
-                style: Theme.of(context).textTheme.body1,
+                style: Theme.of(context).textTheme.bodyText2,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -86,7 +86,13 @@ class _EventTasksApproveLeaderState extends State<EventTasksApproveLeader> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: RaisedButton(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: config.Colors().accentColor(1),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0)),
+                          padding: EdgeInsets.all(8.0),
+                        ),
                         onPressed: () {
                           Alert(
                             context: context,
@@ -114,10 +120,6 @@ class _EventTasksApproveLeaderState extends State<EventTasksApproveLeader> {
                             ],
                           ).show();
                         },
-                        color: config.Colors().accentColor(1),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
-                        padding: EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -136,11 +138,13 @@ class _EventTasksApproveLeaderState extends State<EventTasksApproveLeader> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: RaisedButton(
-                          color: config.Colors().accentColor(1),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0)),
-                          padding: EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: config.Colors().accentColor(1),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0)),
+                            padding: EdgeInsets.all(8.0),
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[

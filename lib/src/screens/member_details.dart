@@ -12,15 +12,8 @@ import 'package:ftc_application/blocs/memberEventsBloc/bloc.dart';
 class MemberDetails extends StatefulWidget {
   final BuildContext context;
   final RouteArgument routeArgument;
-  Member member;
-  Member currentMember;
-  String _heroTag;
 
-  MemberDetails({Key key, this.context, this.routeArgument}) {
-    member = this.routeArgument.argumentsList[0] as Member;
-    _heroTag = this.routeArgument.argumentsList[1] as String;
-    currentMember = this.routeArgument.argumentsList[2] as Member;
-  }
+  MemberDetails({Key key, this.context, this.routeArgument});
   @override
   _MemberDetailsState createState() => _MemberDetailsState();
 }
@@ -28,12 +21,16 @@ class MemberDetails extends StatefulWidget {
 class _MemberDetailsState extends State<MemberDetails> {
   List<Event> events;
   bool eventsLoaded = false;
+  Member member;
+  Member currentMember;
+  String _heroTag;
 
   @override
   void initState() {
     super.initState();
+    _setRouteArgument();
     BlocProvider.of<MemberEventsBloc>(context)
-        .add(GetMemberEvents(memberId: widget.member.id));
+        .add(GetMemberEvents(memberId: member.id));
   }
 
   @override
@@ -42,7 +39,7 @@ class _MemberDetailsState extends State<MemberDetails> {
       builder: (context, eventState) {
         if (eventState is InitialMemberEventsState) {
           BlocProvider.of<MemberEventsBloc>(context)
-              .add(GetMemberEvents(memberId: widget.member.id));
+              .add(GetMemberEvents(memberId: member.id));
           return _detailsScreen();
         } else if (eventState is MemberEventsLoading) {
           return _detailsScreen();
@@ -52,7 +49,7 @@ class _MemberDetailsState extends State<MemberDetails> {
           return _detailsScreen();
         } else {
           BlocProvider.of<MemberEventsBloc>(context)
-              .add(GetMemberEvents(memberId: widget.member.id));
+              .add(GetMemberEvents(memberId: member.id));
           return _detailsScreen();
         }
       },
@@ -69,8 +66,8 @@ class _MemberDetailsState extends State<MemberDetails> {
               SliverAppBar(
                 centerTitle: true,
                 title: Text(
-                  widget.member.name,
-                  style: Theme.of(context).textTheme.subtitle,
+                  member.name,
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
                 backgroundColor: Colors.deepPurpleAccent,
                 floating: true,
@@ -110,17 +107,13 @@ class _MemberDetailsState extends State<MemberDetails> {
                           onTap: () => Navigator.of(context).pushNamed(
                               '/ProfileImagePreview',
                               arguments: RouteArgument(
-                                  id: widget.member.id,
-                                  argumentsList: [
-                                    false,
-                                    widget.member,
-                                    widget._heroTag
-                                  ])),
+                                  id: member.id,
+                                  argumentsList: [false, member, _heroTag])),
                           child: Hero(
-                              tag: widget._heroTag + widget.routeArgument.id,
+                              tag: _heroTag + widget.routeArgument.id,
                               child: MemberImage(
-                                id: widget.member.id,
-                                hasProfileImage: widget.member.hasProfileImage,
+                                id: member.id,
+                                hasProfileImage: member.hasProfileImage,
                                 height: 250,
                                 width: 250,
                                 thumb: false,
@@ -130,8 +123,8 @@ class _MemberDetailsState extends State<MemberDetails> {
                     )),
                 Center(
                   child: Text(
-                    widget.member.name,
-                    style: Theme.of(context).textTheme.headline,
+                    member.name,
+                    style: Theme.of(context).textTheme.headline1,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -139,10 +132,10 @@ class _MemberDetailsState extends State<MemberDetails> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   child: Center(
-                    child: widget.member?.bio != null
+                    child: member?.bio != null
                         ? Text(
-                            widget.member.bio,
-                            style: Theme.of(context).textTheme.subtitle,
+                            member.bio,
+                            style: Theme.of(context).textTheme.subtitle1,
                             textAlign: TextAlign.center,
                           )
                         : Text(''),
@@ -157,8 +150,7 @@ class _MemberDetailsState extends State<MemberDetails> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 8, horizontal: 30),
                         child: GestureDetector(
-                          onTap: () =>
-                              _onWhatsAppTap(widget.member.phoneNumber),
+                          onTap: () => _onWhatsAppTap(member.phoneNumber),
                           child: CircleAvatar(
                             radius: 20,
                             backgroundImage:
@@ -171,7 +163,7 @@ class _MemberDetailsState extends State<MemberDetails> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 8, horizontal: 30),
                           child: GestureDetector(
-                            onTap: () => _onPhoneTap(widget.member.phoneNumber),
+                            onTap: () => _onPhoneTap(member.phoneNumber),
                             child: Icon(
                               Icons.phone,
                               color: Colors.white,
@@ -192,7 +184,7 @@ class _MemberDetailsState extends State<MemberDetails> {
                           'المشاريع الي مسجل فيها',
                           style: Theme.of(context)
                               .textTheme
-                              .title
+                              .headline2
                               .merge(TextStyle(color: Colors.white)),
                         ),
                       ),
@@ -210,7 +202,7 @@ class _MemberDetailsState extends State<MemberDetails> {
                 eventsLoaded
                     ? MemberProjects(
                         events: events,
-                        currentMember: widget.currentMember,
+                        currentMember: currentMember,
                       )
                     : Center(child: CircularProgressIndicator())
               ],
@@ -236,5 +228,11 @@ class _MemberDetailsState extends State<MemberDetails> {
     } else {
       throw 'Could not launch the number"';
     }
+  }
+
+  _setRouteArgument() {
+    member = widget.routeArgument.argumentsList[0] as Member;
+    _heroTag = widget.routeArgument.argumentsList[1] as String;
+    currentMember = widget.routeArgument.argumentsList[2] as Member;
   }
 }

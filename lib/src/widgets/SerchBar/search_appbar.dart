@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ftc_application/src/widgets/painter.dart';
 import 'package:ftc_application/src/widgets/SerchBar/search_bar.dart';
 
+// ignore: must_be_immutable
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
   final Function(String) onSearchQueryChanged;

@@ -15,15 +15,8 @@ import 'package:ftc_application/src/widgets/loading_widget.dart';
 
 class EventDetails extends StatefulWidget {
   final RouteArgument routeArgument;
-  Event event;
-  String _heroTag;
-  Member currentMember;
-  bool eventMembersLoaded = false;
-  EventDetails({Key key, this.routeArgument}) {
-    event = this.routeArgument.argumentsList[0] as Event;
-    _heroTag = this.routeArgument.argumentsList[1] as String;
-    currentMember = this.routeArgument.argumentsList[2] as Member;
-  }
+
+  EventDetails({Key key, this.routeArgument});
 
   @override
   _EventDetailsState createState() => _EventDetailsState();
@@ -31,13 +24,17 @@ class EventDetails extends StatefulWidget {
 
 class _EventDetailsState extends State<EventDetails> {
   List<Member> members;
+  Event event;
+  String _heroTag;
+  Member currentMember;
+  bool eventMembersLoaded = false;
 
   bool isUserEnlisted() {
-    if (widget.currentMember.id == widget.event.leader.id) {
+    if (currentMember.id == event.leader.id) {
       return true;
     }
     for (Member member in members) {
-      if (member.id == widget.currentMember.id) {
+      if (member.id == currentMember.id) {
         return true;
       }
     }
@@ -47,9 +44,10 @@ class _EventDetailsState extends State<EventDetails> {
   @override
   void initState() {
     super.initState();
+    _setRouteArgument();
     BlocProvider.of<MemberBloc>(context)
-        .add(GetEventMembers(eventId: widget.event.id));
-    widget.eventMembersLoaded = false;
+        .add(GetEventMembers(eventId: event.id));
+    eventMembersLoaded = false;
   }
 
   @override
@@ -58,17 +56,17 @@ class _EventDetailsState extends State<EventDetails> {
       builder: (context, eventState) {
         if (eventState is InitialMemberEventsState) {
           BlocProvider.of<MemberBloc>(context)
-              .add(GetEventMembers(eventId: widget.event.id));
+              .add(GetEventMembers(eventId: event.id));
           return _eventDetailsPage();
         } else if (eventState is EventMembersLoading) {
           return _eventDetailsPage();
         } else if (eventState is EventMembersLoaded) {
           members = eventState.members;
-          widget.eventMembersLoaded = true;
+          eventMembersLoaded = true;
           return _eventDetailsPage();
         } else {
           BlocProvider.of<MemberBloc>(context)
-              .add(GetEventMembers(eventId: widget.event.id));
+              .add(GetEventMembers(eventId: event.id));
           return LoadingWidget();
         }
       },
@@ -86,8 +84,8 @@ class _EventDetailsState extends State<EventDetails> {
             ),
             centerTitle: true,
             title: Text(
-              widget.event.title,
-              style: Theme.of(context).textTheme.subtitle,
+              event.title,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             backgroundColor: Colors.deepPurpleAccent,
           ),
@@ -107,11 +105,11 @@ class _EventDetailsState extends State<EventDetails> {
   }
 
   Widget _eventShare() {
-    if (!widget.event.finished) {
+    if (!event.finished) {
       return ShareEventWidget(
-        eventTitle: widget.event.title,
-        eventId: widget.event.id,
-        description: widget.event.description,
+        eventTitle: event.title,
+        eventId: event.id,
+        description: event.description,
       );
     } else {
       return Container();
@@ -122,16 +120,16 @@ class _EventDetailsState extends State<EventDetails> {
     return ListView(
       children: <Widget>[
         EventDetailsTop(
-          event: widget.event,
-          heroTag: widget._heroTag,
+          event: event,
+          heroTag: _heroTag,
         ),
-        widget.eventMembersLoaded
+        eventMembersLoaded
             ? EventDetailsBottom(
                 members: members,
                 isUserEnlisted: isUserEnlisted(),
-                full: widget.event.full,
+                full: event.full,
                 addMember: _addMember,
-                currentMember: widget.currentMember,
+                currentMember: currentMember,
               )
             : Center(child: CircularProgressIndicator())
       ],
@@ -140,9 +138,15 @@ class _EventDetailsState extends State<EventDetails> {
 
   _addMember() {
     BlocProvider.of<EventsBloc>(context)
-        .add(AddCurrentMemberToEvent(eventId: widget.event.id));
+        .add(AddCurrentMemberToEvent(eventId: event.id));
     setState(() {
-      members.add(widget.currentMember);
+      members.add(currentMember);
     });
+  }
+
+  _setRouteArgument() {
+    event = widget.routeArgument.argumentsList[0] as Event;
+    _heroTag = widget.routeArgument.argumentsList[1] as String;
+    currentMember = widget.routeArgument.argumentsList[2] as Member;
   }
 }

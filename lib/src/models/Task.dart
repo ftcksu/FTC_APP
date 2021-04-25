@@ -2,7 +2,7 @@ import 'package:ftc_application/src/models/Member.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'Task.g.dart';
 
-@JsonSerializable(nullable: false)
+@JsonSerializable()
 class Task {
   int id;
   String description;

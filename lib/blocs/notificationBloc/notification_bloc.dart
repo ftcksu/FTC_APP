@@ -9,7 +9,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   NotificationBloc({@required this.ftcRepository})
       : assert(ftcRepository != null),
         super(null);
-  @override
   NotificationState get initialState => InitialNotificationState();
 
   @override
@@ -19,7 +18,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     if (event is AdminSendNotification) {
       ftcRepository.sendNotification(event.notification);
     }
-    if (event is sendMemberMessage) {
+    if (event is SendMemberMessage) {
       ftcRepository.sendMessage(event.memberId, event.notification);
     }
   }

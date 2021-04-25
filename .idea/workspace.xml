@@ -11,6 +11,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1hoz3br602yjp28DMrTBpqiYjsf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -22,9 +23,17 @@
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
+    <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\FlutterProjects\FTC_APP" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\FlutterProjects\FTC_APP\lib" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
@@ -46,25 +55,53 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1060" y="454" key="FileChooserDialogImpl" timestamp="1614889700883">
+    <state x="1009" y="489" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1619155179034">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1060" y="454" key="FileChooserDialogImpl/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1614889700883" />
-    <state width="2517" height="519" key="GridCell.Tab.0.bottom" timestamp="1614902296199">
+    <state x="1009" y="489" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1619155179034" />
+    <state x="972" y="437" key="#main.dart" timestamp="1619155202542">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="519" key="GridCell.Tab.0.bottom/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1614902296199" />
-    <state width="2517" height="519" key="GridCell.Tab.0.center" timestamp="1614902296198">
+    <state x="972" y="437" key="#main.dart/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1619155202542" />
+    <state x="92" y="92" width="2376" height="1216" key="AVDManager" timestamp="1619155131470">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="519" key="GridCell.Tab.0.center/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1614902296198" />
-    <state width="2517" height="519" key="GridCell.Tab.0.left" timestamp="1614902296198">
+    <state x="92" y="92" width="2376" height="1216" key="AVDManager/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1619155131470" />
+    <state x="1060" y="454" key="FileChooserDialogImpl" timestamp="1619147473443">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="519" key="GridCell.Tab.0.left/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1614902296198" />
-    <state width="2517" height="519" key="GridCell.Tab.0.right" timestamp="1614902296199">
+    <state x="1060" y="454" key="FileChooserDialogImpl/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1619147473443" />
+    <state width="2508" height="514" key="GridCell.Tab.0.bottom" timestamp="1619163804364">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="519" key="GridCell.Tab.0.right/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1614902296199" />
+    <state width="2508" height="514" key="GridCell.Tab.0.bottom/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1619163804364" />
+    <state width="2508" height="514" key="GridCell.Tab.0.center" timestamp="1619163804364">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2508" height="514" key="GridCell.Tab.0.center/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1619163804363" />
+    <state width="2508" height="514" key="GridCell.Tab.0.left" timestamp="1619163804363">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2508" height="514" key="GridCell.Tab.0.left/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1619163804363" />
+    <state width="2508" height="514" key="GridCell.Tab.0.right" timestamp="1619163804364">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2508" height="514" key="GridCell.Tab.0.right/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1619163804364" />
+    <state x="781" y="344" key="SettingsEditor" timestamp="1619155131097">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="781" y="344" key="SettingsEditor/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1619155131097" />
+    <state width="970" height="82" key="javadoc.popup.new" timestamp="1619156040509">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="970" height="82" key="javadoc.popup.new/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1619156040509" />
+    <state x="932" y="328" key="run.anything.popup" timestamp="1619156256934">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="932" y="328" key="run.anything.popup/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1619156256934" />
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1619155095511">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400/-3840.-191.1920.1080@0.0.2560.1400" timestamp="1619155095511" />
   </component>
 </project>

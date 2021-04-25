@@ -13,8 +13,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  final FocusNode _numberFocus  = FocusNode();
+  final FocusNode _numberFocus = FocusNode();
   final FocusNode _passFocus = FocusNode();
   bool _showPassword = false;
   bool _memberLoginIn = false;
@@ -23,7 +22,7 @@ class _SignInPageState extends State<SignInPage> {
     return BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginFailure) {
-            _scaffoldKey.currentState.showSnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.error),
                 backgroundColor: Colors.red,
@@ -40,7 +39,6 @@ class _SignInPageState extends State<SignInPage> {
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
-            key: _scaffoldKey,
             body: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -65,7 +63,7 @@ class _SignInPageState extends State<SignInPage> {
                       Text('تسجيل الدخول',
                           style: Theme.of(context)
                               .textTheme
-                              .title
+                              .headline2
                               .merge(TextStyle(color: Colors.white))),
                       SizedBox(height: 20),
                       Padding(
@@ -77,13 +75,15 @@ class _SignInPageState extends State<SignInPage> {
                           textInputAction: TextInputAction.next,
                           focusNode: _numberFocus,
                           onFieldSubmitted: (term) {
-                            _fieldFocusChange(context, _numberFocus, _passFocus);
+                            _fieldFocusChange(
+                                context, _numberFocus, _passFocus);
                           },
                           decoration: InputDecoration(
                             labelText: 'الرقم الجامعي',
-                            labelStyle: Theme.of(context).textTheme.body1.merge(
-                                  TextStyle(color: Colors.white),
-                                ),
+                            labelStyle:
+                                Theme.of(context).textTheme.bodyText1.merge(
+                                      TextStyle(color: Colors.white),
+                                    ),
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)),
                             focusedBorder: UnderlineInputBorder(
@@ -107,9 +107,10 @@ class _SignInPageState extends State<SignInPage> {
                           focusNode: _passFocus,
                           decoration: new InputDecoration(
                             labelText: 'كلمة المرور',
-                            labelStyle: Theme.of(context).textTheme.body1.merge(
-                                  TextStyle(color: Colors.white),
-                                ),
+                            labelStyle:
+                                Theme.of(context).textTheme.bodyText1.merge(
+                                      TextStyle(color: Colors.white),
+                                    ),
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)),
                             focusedBorder: UnderlineInputBorder(
@@ -135,17 +136,16 @@ class _SignInPageState extends State<SignInPage> {
                       SizedBox(height: 45),
                       _memberLoginIn
                           ? CircularProgressIndicator()
-                          : RaisedButton(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 70),
+                          : ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 70)),
                               onPressed: () => _onLoginButtonPressed(),
                               child: Text('تسجيل الدخول',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .title
+                                      .headline2
                                       .merge(TextStyle(color: Colors.white))),
-                              color: Theme.of(context).accentColor,
-                              shape: StadiumBorder(),
                             ),
                     ],
                   ),
@@ -156,7 +156,8 @@ class _SignInPageState extends State<SignInPage> {
         ));
   }
 
-  _fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFocus) {
+  _fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }

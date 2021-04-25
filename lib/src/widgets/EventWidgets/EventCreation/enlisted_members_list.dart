@@ -29,7 +29,10 @@ class EnlistedMembersList extends StatelessWidget {
             ),
             title: Text(
               currentMember.name,
-              style: TextStyle(fontSize: 18),
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle2
+                  .merge(TextStyle(fontSize: 18)),
             ),
           );
         if (currentMember.id == selectedMembers[index - 1].id)

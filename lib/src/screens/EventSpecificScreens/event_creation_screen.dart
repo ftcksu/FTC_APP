@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:ftc_application/blocs/eventsBloc/bloc.dart';
 import 'package:ftc_application/blocs/memberBloc/bloc.dart';
 import 'package:ftc_application/blocs/memberEventsBloc/bloc.dart';
@@ -8,28 +9,19 @@ import 'package:ftc_application/config/app_config.dart' as config;
 import 'package:ftc_application/config/ui_icons.dart';
 import 'package:ftc_application/src/models/Event.dart';
 import 'package:ftc_application/src/models/Member.dart';
-import 'package:ftc_application/src/models/PushNotificationRequest.dart';
 import 'package:ftc_application/src/models/route_argument.dart';
 import 'package:ftc_application/src/widgets/EventWidgets/EventCreation/enlisted_members_list.dart';
 import 'package:ftc_application/src/widgets/EventWidgets/EventCreation/max_part_widget.dart';
 import 'package:ftc_application/src/widgets/loading_widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_place_picker/google_maps_place_picker.dart';
+import 'package:place_picker/entities/location_result.dart';
+import 'package:place_picker/widgets/place_picker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class EventCreationScreen extends StatefulWidget {
   final RouteArgument routeArgument;
-  Event event;
-  bool editing;
-  Member currentMember;
 
-  EventCreationScreen({this.routeArgument}) {
-    editing = routeArgument.argumentsList[0];
-    currentMember = routeArgument.argumentsList[1];
-    if (editing) {
-      event = routeArgument.argumentsList[2];
-    }
-  }
+  EventCreationScreen({this.routeArgument});
 
   @override
   _EventCreationScreenState createState() => _EventCreationScreenState();
@@ -40,8 +32,10 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
   int numberOfMaxParticipants;
   DateTime eventDate;
   bool sendNotification = false;
-
   List<Member> members, selectedMembers = [];
+  Event event;
+  bool editing;
+  Member currentMember;
 
   final FocusNode _titleFocus = FocusNode();
   final FocusNode _descriptionFocus = FocusNode();
@@ -50,6 +44,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
   @override
   void initState() {
     super.initState();
+    _setRouteArgument();
     _initialDispatch();
     _onPageEnter();
   }
@@ -75,9 +70,9 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
   }
 
   void _initialDispatch() {
-    if (widget.editing) {
+    if (editing) {
       BlocProvider.of<MemberBloc>(context)
-          .add(GetEventCreation(eventId: widget.event.id));
+          .add(GetEventCreation(eventId: event.id));
     } else {
       BlocProvider.of<MemberBloc>(context).add(GetEventCreation());
     }
@@ -92,7 +87,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
           centerTitle: true,
           elevation: 8,
           title: Text(
-            widget.editing ? 'عدل فعاليتك الحلوه' : 'زبط فعاليتك الحلوه',
+            editing ? 'عدل فعاليتك الحلوه' : 'زبط فعاليتك الحلوه',
           ),
         ),
         body: Container(
@@ -115,7 +110,6 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
             child: ListView(
               children: <Widget>[
                 SizedBox(height: 25),
-
                 //EventName
                 _easyTextFieldFactory(
                     35,
@@ -125,7 +119,6 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
                     'وش ناوي تسمي الفعالية؟',
                     _titleFocus,
                     _descriptionFocus),
-
                 //EventDescription
                 _easyTextFieldFactory(
                     120,
@@ -155,10 +148,12 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Expanded(
-                        child: RaisedButton(
-                          color: Colors.blueAccent,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0)),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.blueAccent,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0)),
+                          ),
                           onPressed: () => _selectDate(context),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -193,12 +188,13 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
                         flex: 1,
                         child: Container(),
                       ),
-                      //maxPartSelection
                       Expanded(
-                        child: RaisedButton(
-                            color: Colors.blueAccent,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0)),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.blueAccent,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0)),
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -220,22 +216,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
                               ],
                             ),
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => PlacePicker(
-                                    apiKey:
-                                        'no can do',
-                                    onPlacePicked: (result) {
-                                      locationLink = result.url;
-                                      Navigator.of(context).pop();
-                                    },
-                                    initialPosition:
-                                        LatLng(24.723389, 46.619855),
-                                    useCurrentLocation: true,
-                                  ),
-                                ),
-                              );
+                              showPlacePicker();
                             }),
                         flex: 4,
                       )
@@ -250,7 +231,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
                     onPressed: _onMaxPartSubmit),
                 EnlistedMembersList(
                   selectedMembers: selectedMembers,
-                  currentMember: widget.currentMember,
+                  currentMember: currentMember,
                   deleteMember: _deleteMember,
                 ),
 
@@ -271,19 +252,25 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
                     ),
                     title: Text(
                       "عدل المسجلين",
-                      style: TextStyle(fontSize: 18),
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle2
+                          .merge(TextStyle(fontSize: 18)),
                     ),
                   ),
                   onTap: _memberSelection,
                 ),
-                widget.editing
+                editing
                     ? Container()
                     : Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: CheckboxListTile(
                           title: Text(
                             'تبي ترسل تنبيه للكل؟',
-                            style: TextStyle(fontSize: 18),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2
+                                .merge(TextStyle(fontSize: 18)),
                           ),
                           value: sendNotification,
                           onChanged: (bool value) {
@@ -301,15 +288,17 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
                       ),
                 Padding(
                   padding: const EdgeInsets.all(32.0),
-                  child: RaisedButton(
-                      color: widget.editing && widget.event.finished
-                          ? Colors.grey
-                          : Colors.blueAccent,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      padding: EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: editing && event.finished
+                            ? Colors.grey
+                            : Colors.blueAccent,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                        padding: EdgeInsets.all(16.0),
+                      ),
                       child: Text(
-                        widget.editing ? 'عدل الفعالية' : 'اضف الفعالية',
+                        editing ? 'عدل الفعالية' : 'اضف الفعالية',
                         style: new TextStyle(
                             fontSize: 14.0,
                             fontWeight: FontWeight.w500,
@@ -327,14 +316,16 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
   }
 
   Widget _returnEventButton() {
-    if (widget.editing && widget.event.finished) {
+    if (editing && event.finished) {
       return Padding(
         padding: const EdgeInsets.all(18.0),
-        child: RaisedButton(
-            color: Colors.blueAccent,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            padding: EdgeInsets.all(16.0),
+        child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blueAccent,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)),
+              padding: EdgeInsets.all(16.0),
+            ),
             child: Text(
               'رجع الفعالية',
               style: new TextStyle(
@@ -385,9 +376,9 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () {
-            if (widget.editing)
-              BlocProvider.of<EventsBloc>(context).add(RemoveMemberFromEvent(
-                  eventId: widget.event.id, memberId: memberId));
+            if (editing)
+              BlocProvider.of<EventsBloc>(context).add(
+                  RemoveMemberFromEvent(eventId: event.id, memberId: memberId));
             setState(() {
               selectedMembers.removeAt(index);
             });
@@ -406,21 +397,21 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
   }
 
   void _addEvent() {
-    if (widget.editing) {
+    if (editing) {
       Event newEvent = Event(
           title: eventName,
           description: eventDescription,
           whatsAppLink: whatsAppLink,
           maxUsers: numberOfMaxParticipants,
           date: eventDate,
-          leader: widget.currentMember,
+          leader: currentMember,
           location: locationLink);
 
-      BlocProvider.of<EventsBloc>(context).add(UpdateEvent(
-          eventId: widget.event.id, payload: newEvent.toJsonNoMembers()));
+      BlocProvider.of<EventsBloc>(context).add(
+          UpdateEvent(eventId: event.id, payload: newEvent.toJsonNoMembers()));
 
-      BlocProvider.of<EventsBloc>(context).add(AddNewMembersToEvent(
-          eventId: widget.event.id, newMembers: selectedMembers));
+      BlocProvider.of<EventsBloc>(context).add(
+          AddNewMembersToEvent(eventId: event.id, newMembers: selectedMembers));
     } else {
       Event newEvent = Event(
           title: eventName,
@@ -428,7 +419,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
           whatsAppLink: whatsAppLink,
           maxUsers: numberOfMaxParticipants,
           date: eventDate,
-          leader: widget.currentMember,
+          leader: currentMember,
           location: locationLink);
 
       if (selectedMembers.isEmpty) {
@@ -444,12 +435,12 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
   }
 
   _onPageEnter() {
-    if (widget.editing) {
-      eventName = widget.event.title;
-      eventDescription = widget.event.description;
-      whatsAppLink = widget.event.whatsAppLink;
-      numberOfMaxParticipants = widget.event.maxUsers;
-      eventDate = widget.event.date;
+    if (editing) {
+      eventName = event.title;
+      eventDescription = event.description;
+      whatsAppLink = event.whatsAppLink;
+      numberOfMaxParticipants = event.maxUsers;
+      eventDate = event.date;
     } else {
       eventName = "";
       eventDescription = "";
@@ -464,18 +455,18 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
     List<Member> newSelectedMembers = await Navigator.of(context).pushNamed(
         "/EventMemberSelection",
         arguments: RouteArgument(argumentsList: [
-          widget.currentMember,
+          currentMember,
           numberOfMaxParticipants,
           members,
           selectedMembers
         ])) as List<Member>;
-    if (widget.editing) {
+    if (editing) {
       List<Member> removedMembers = selectedMembers
           .where((element) => !newSelectedMembers.contains(element))
           .toList();
       removedMembers.forEach((element) {
-        BlocProvider.of<EventsBloc>(context).add(RemoveMemberFromEvent(
-            eventId: widget.event.id, memberId: element.id));
+        BlocProvider.of<EventsBloc>(context).add(
+            RemoveMemberFromEvent(eventId: event.id, memberId: element.id));
       });
     }
     setState(() {
@@ -485,7 +476,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
 
   _returnEvent() {
     BlocProvider.of<EventsBloc>(context)
-        .add(ChangeEventStatus(eventId: widget.event.id, status: false));
+        .add(ChangeEventStatus(eventId: event.id, status: false));
 
     BlocProvider.of<MemberEventsBloc>(context)
         .add(RefreshCurrentMemberEvents());
@@ -495,15 +486,15 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
 
   _setMembers(RouteArgument argument) {
     members = argument.argumentsList[0];
-    members.removeWhere((member) => member.id == widget.currentMember.id);
-    if (widget.editing) {
+    members.removeWhere((member) => member.id == currentMember.id);
+    if (editing) {
       if (selectedMembers == null || selectedMembers.length <= 1)
         selectedMembers = argument.argumentsList[1];
     }
     //is this fishy? yes it never is will or has been 0
     if (numberOfMaxParticipants == 0) {
       numberOfMaxParticipants = members.length;
-      selectedMembers = [widget.currentMember];
+      selectedMembers = [currentMember];
     }
   }
 
@@ -549,6 +540,10 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: TextFormField(
+        style: Theme.of(context)
+            .textTheme
+            .subtitle2
+            .merge(TextStyle(fontSize: 18)),
         maxLength: maxLength,
         initialValue: initialValue,
         maxLines: null,
@@ -563,7 +558,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
         },
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.body1,
+          hintStyle: Theme.of(context).textTheme.bodyText2,
           enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: config.Colors().accentColor(1))),
         ),
@@ -591,7 +586,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
   }
 
   void _validateAndSubmitEvent() {
-    if (widget.editing && widget.event.finished) {
+    if (editing && event.finished) {
       return null;
     }
     if (eventName.isEmpty || eventDescription.length < 15) {
@@ -600,9 +595,32 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
         !whatsAppLink.contains('chat.whatsapp.com')) {
       _easyAlert("جروب الواتس غلط", context);
     } else {
-      _easyAlert(widget.editing ? 'عدلنا الفعالية' : 'اضفنا الفعالية', context,
+      _easyAlert(editing ? 'عدلنا الفعالية' : 'اضفنا الفعالية', context,
               btnText: "تمام", extraOnPressed: _addEvent)
           .whenComplete(() => Navigator.pop(context));
+    }
+  }
+
+  void showPlacePicker() async {
+    LocationResult result = await Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => PlacePicker(
+              FlutterConfig.get('GOOGLE_CLOUD_KEY'),
+              displayLocation: LatLng(24.723389, 46.619855),
+            )));
+
+    result != null
+        ? locationLink =
+            'https://maps.google.com/?ll=${result.latLng.latitude},${result.latLng.longitude}'
+        : locationLink = '';
+
+    print(locationLink);
+  }
+
+  _setRouteArgument() {
+    editing = widget.routeArgument.argumentsList[0];
+    currentMember = widget.routeArgument.argumentsList[1];
+    if (editing) {
+      event = widget.routeArgument.argumentsList[2];
     }
   }
 

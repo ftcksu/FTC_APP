@@ -28,7 +28,7 @@ class HomeBoringBox extends StatelessWidget {
                 Center(
                     child: Text(
                   'كلام مايهمك',
-                  style: Theme.of(context).textTheme.title,
+                  style: Theme.of(context).textTheme.headline2,
                 )),
                 Divider(
                   color: config.Colors().divider(1),
@@ -41,13 +41,13 @@ class HomeBoringBox extends StatelessWidget {
                   child: Text(
                     text != null ? text : "No message ?",
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 )),
                 Center(
                   child: Text(
                     '-' + author != null ? author : "No Member ?",
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 )
               ],

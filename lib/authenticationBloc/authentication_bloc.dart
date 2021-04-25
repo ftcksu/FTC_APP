@@ -14,7 +14,6 @@ class AuthenticationBloc
       : assert(userRepo != null),
         super(null);
 
-  @override
   AuthenticationState get initialState => AuthenticationUninitialized();
 
   @override

@@ -16,7 +16,7 @@ class EmptyPageWidget extends StatelessWidget {
           text,
           style: Theme.of(context)
               .textTheme
-              .title
+              .headline6
               .merge(TextStyle(color: Colors.white, fontSize: 24)),
         )),
       ),

@@ -36,7 +36,7 @@ class HomeProject extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'المشاريع الي سجلت فيها',
-                  style: Theme.of(context).textTheme.title,
+                  style: Theme.of(context).textTheme.headline2,
                 ),
               ),
               Divider(

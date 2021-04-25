@@ -11,7 +11,6 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
       : assert(ftcRepository != null),
         super(null);
 
-  @override
   EventsState get initialState => InitialEventsState();
 
   @override

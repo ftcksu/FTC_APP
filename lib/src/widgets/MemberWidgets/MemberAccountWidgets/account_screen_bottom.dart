@@ -91,7 +91,7 @@ class AccountScreenBottom extends StatelessWidget {
                   autofocus: true,
                   focusNode: _passFocusNode,
                   maxLength: 25,
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.subtitle2,
                   keyboardType: TextInputType.text,
                   onChanged: (string) => _password = string,
                   onSubmitted: (e) {
@@ -135,7 +135,7 @@ class AccountScreenBottom extends StatelessWidget {
                     _newPassFocusNode.unfocus();
                     _onPasswordChange();
                   },
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.subtitle2,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     hintText: 'تاكيد كلمة المرور',
@@ -213,6 +213,7 @@ class AccountScreenBottom extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: TextField(
+                  style: Theme.of(context).textTheme.subtitle2,
                   autofocus: true,
                   textAlign: TextAlign.right,
                   textDirection: TextDirection.rtl,
@@ -312,6 +313,7 @@ class AccountScreenBottom extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextField(
+                    style: Theme.of(context).textTheme.subtitle2,
                     autofocus: true,
                     textAlign: TextAlign.right,
                     textDirection: TextDirection.rtl,
@@ -366,12 +368,12 @@ class AccountScreenBottom extends StatelessWidget {
           ),
           title: Text(
             "تغير كلمة السر",
-            style: Theme.of(context).textTheme.title.merge(
+            style: Theme.of(context).textTheme.headline2.merge(
                   TextStyle(color: Colors.white),
                 ),
           ),
           subtitle: Text('موب عاجبتك كلمة سرك؟ غيرها',
-              style: Theme.of(context).textTheme.subtitle.merge(
+              style: Theme.of(context).textTheme.subtitle1.merge(
                     TextStyle(fontSize: 14),
                   )),
           trailing: Icon(Icons.edit, color: Colors.white),
@@ -390,13 +392,13 @@ class AccountScreenBottom extends StatelessWidget {
           ),
           title: Text(
             "فلسفتك",
-            style: Theme.of(context).textTheme.title.merge(
+            style: Theme.of(context).textTheme.headline2.merge(
                   TextStyle(color: Colors.white),
                 ),
           ),
           subtitle: Text(
             'وش ودك تفيد الناس فيه اليوم؟',
-            style: Theme.of(context).textTheme.subtitle.merge(
+            style: Theme.of(context).textTheme.subtitle1.merge(
                   TextStyle(fontSize: 14),
                 ),
           ),
@@ -416,12 +418,12 @@ class AccountScreenBottom extends StatelessWidget {
           ),
           title: Text(
             "كلام مايهمك",
-            style: Theme.of(context).textTheme.title.merge(
+            style: Theme.of(context).textTheme.headline2.merge(
                   TextStyle(color: Colors.white),
                 ),
           ),
           subtitle: Text('وش ودك تفيد الكل فيه اليوم؟',
-              style: Theme.of(context).textTheme.subtitle.merge(
+              style: Theme.of(context).textTheme.subtitle1.merge(
                     TextStyle(fontSize: 14),
                   )),
           trailing: Icon(Icons.edit, color: Colors.white),
@@ -440,12 +442,12 @@ class AccountScreenBottom extends StatelessWidget {
           ),
           title: Text(
             "صورك الحلوه",
-            style: Theme.of(context).textTheme.title.merge(
+            style: Theme.of(context).textTheme.headline2.merge(
                   TextStyle(color: Colors.white),
                 ),
           ),
           subtitle: Text('رجع وحده من صورك المولعه',
-              style: Theme.of(context).textTheme.subtitle.merge(
+              style: Theme.of(context).textTheme.subtitle1.merge(
                     TextStyle(fontSize: 14),
                   )),
         ),

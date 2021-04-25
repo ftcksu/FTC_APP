@@ -20,7 +20,7 @@ class PreviousJobCard extends StatelessWidget {
           children: <Widget>[
             Text(
               _getJobTitle(),
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.headline2,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -30,11 +30,13 @@ class PreviousJobCard extends StatelessWidget {
                 thickness: 1,
               ),
             ),
-            RaisedButton(
-              color: config.Colors().accentColor(1),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0)),
-              padding: EdgeInsets.all(8.0),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: config.Colors().accentColor(1),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0)),
+                padding: EdgeInsets.all(8.0),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

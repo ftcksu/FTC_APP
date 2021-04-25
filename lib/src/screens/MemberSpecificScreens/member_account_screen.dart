@@ -21,6 +21,7 @@ class MemberAccountScreen extends StatefulWidget {
 class _MemberAccountScreenState extends State<MemberAccountScreen> {
   Member member;
   Completer<void> _refreshCompleter;
+  final picker = ImagePicker();
 
   @override
   void initState() {
@@ -56,7 +57,7 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
           centerTitle: true,
           title: Text(
             member.name,
-            style: Theme.of(context).textTheme.subtitle,
+            style: Theme.of(context).textTheme.subtitle1,
           ),
           backgroundColor: Colors.deepPurpleAccent,
           leading: IconButton(
@@ -125,7 +126,7 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
   }
 
   Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await picker.getImage(source: ImageSource.gallery);
     if (image != null) {
       File croppedFile = await ImageCropper.cropImage(
           sourcePath: image.path,

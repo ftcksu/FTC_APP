@@ -6,6 +6,12 @@
       <excludeFolder url="file://$MODULE_DIR$/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
+      <excludeFolder url="file://$MODULE_DIR$/google_maps_place_picker-master/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/google_maps_place_picker-master/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/google_maps_place_picker-master/build" />
+      <excludeFolder url="file://$MODULE_DIR$/google_maps_place_picker-master/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/google_maps_place_picker-master/example/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/google_maps_place_picker-master/example/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

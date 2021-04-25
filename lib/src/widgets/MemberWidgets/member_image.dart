@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 
 class MemberImage extends StatelessWidget {
   final int id;
@@ -6,6 +7,8 @@ class MemberImage extends StatelessWidget {
   final double height;
   final double width;
   final bool thumb;
+  final String baseLink = FlutterConfig.get('API_BASE_URL');
+
   MemberImage(
       {this.id, this.hasProfileImage, this.height, this.width, this.thumb});
 
@@ -33,7 +36,7 @@ class MemberImage extends StatelessWidget {
 
   _getImage() {
     return thumb
-        ? "http://157.245.240.12:8080/api/users/" + id.toString() + "/thumb"
-        : "http://157.245.240.12:8080/api/users/" + id.toString() + "/image";
+        ? baseLink + "users/" + id.toString() + "/thumb"
+        : baseLink + "users/" + id.toString() + "/image";
   }
 }

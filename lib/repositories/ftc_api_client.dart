@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ftc_application/repositories/firebase_notification_handler.dart';
 import 'package:ftc_application/src/models/Event.dart';
@@ -13,7 +14,7 @@ import 'package:ftc_application/src/models/message_of_the_day.dart';
 import 'dart:convert';
 
 class FtcApiClient {
-  static var baseUrl = "http://157.245.240.12:8080/api/";
+  static var baseUrl = FlutterConfig.get('API_BASE_URL');
 
   static BaseOptions options = new BaseOptions(
     baseUrl: baseUrl,
@@ -150,11 +151,7 @@ class FtcApiClient {
           .map((i) => Member.fromJson(i))
           .toList();
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -165,11 +162,7 @@ class FtcApiClient {
           .map((i) => Job.fromJson(i))
           .toList();
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -180,11 +173,7 @@ class FtcApiClient {
           .map((i) => Job.fromJson(i))
           .toList();
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -198,11 +187,7 @@ class FtcApiClient {
           .toList();
       return events;
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -214,11 +199,7 @@ class FtcApiClient {
           .map((i) => Event.fromJson(i))
           .toList();
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -229,11 +210,7 @@ class FtcApiClient {
           .map((i) => Member.fromJson(i))
           .toList();
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -241,11 +218,7 @@ class FtcApiClient {
     try {
       await dio.put("users/$userId", data: payload);
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -254,11 +227,7 @@ class FtcApiClient {
       Response response = await dio.get("events/$userId");
       return response.data['result'];
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -269,11 +238,7 @@ class FtcApiClient {
           .map((i) => Event.fromJson(i))
           .toList();
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -284,11 +249,7 @@ class FtcApiClient {
           .map((i) => Job.fromJson(i))
           .toList();
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -298,11 +259,7 @@ class FtcApiClient {
               data: payload, queryParameters: {"notify_users": notification}))
           .data['result']['id'];
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -311,11 +268,7 @@ class FtcApiClient {
       await dio
           .post("users/$userId/events", queryParameters: {"event_id": eventId});
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -324,27 +277,19 @@ class FtcApiClient {
       await dio
           .post("events/$eventId/users", queryParameters: {"user_id": userId});
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
   Future<void> addMembersToEvent(int eventId, List<Member> members) async {
     try {
-      List jsonList = List();
+      List jsonList = [];
       for (Member member in members) {
         jsonList.add(member.id);
       }
       await dio.post("events/$eventId/users", data: jsonList);
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -352,11 +297,7 @@ class FtcApiClient {
     try {
       return (await dio.put("events/$id", data: payload)).data['status'] as int;
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -373,11 +314,7 @@ class FtcApiClient {
       await dio.delete("events/$eventId/users",
           queryParameters: {"user_id": userId});
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -388,11 +325,7 @@ class FtcApiClient {
           queryParameters: {"user_id": userId});
       return response.data['result'];
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -401,11 +334,7 @@ class FtcApiClient {
       Response response = await dio.get("jobs/$id");
       return Job.fromJson(response.data['result']);
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -426,11 +355,7 @@ class FtcApiClient {
       Response response = await dio.post("jobs", data: payload);
       return response.data['result'];
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -438,11 +363,7 @@ class FtcApiClient {
     try {
       await dio.post("jobs/$jobId/tasks", data: payload);
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -451,11 +372,7 @@ class FtcApiClient {
     try {
       await dio.post("users/$memberId/jobs/admin-submit", data: payload);
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -463,11 +380,7 @@ class FtcApiClient {
     try {
       await dio.delete("events/$id");
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -476,11 +389,7 @@ class FtcApiClient {
       Response response = await dio.get("tasks/$id");
       return Task.fromJson(response.data['result']);
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -492,11 +401,7 @@ class FtcApiClient {
           .map((i) => Task.fromJson(i))
           .toList();
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -506,11 +411,7 @@ class FtcApiClient {
       await dio.put("events/$eventId/jobs",
           queryParameters: {"approval_status": approval, "task_id": taskId});
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -518,11 +419,7 @@ class FtcApiClient {
     try {
       await dio.put("tasks/$id", data: payload);
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -530,11 +427,7 @@ class FtcApiClient {
     try {
       await dio.put("tasks/$id/admin-update", data: payload);
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -543,11 +436,7 @@ class FtcApiClient {
       Response response = await dio.delete("tasks/$id");
       return response.data['result'];
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -559,11 +448,7 @@ class FtcApiClient {
       Response response = await dio.post("images/$userId", data: formData);
       return response.data['result'];
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -574,11 +459,7 @@ class FtcApiClient {
           .map((i) => ImageHistory.fromJson(i))
           .toList();
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -595,11 +476,7 @@ class FtcApiClient {
       await dio
           .put("users/$userId/image", queryParameters: {"image_id": imageId});
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -608,11 +485,7 @@ class FtcApiClient {
       await dio.put("images/pending/$id",
           queryParameters: {"approval_status": status});
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -621,11 +494,7 @@ class FtcApiClient {
       Response response = await dio.get('motd');
       return MessageOfTheDay.fromJson(response.data['result']);
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -634,11 +503,7 @@ class FtcApiClient {
       Response response = await dio.post('motd', data: payload);
       return response.data['result'];
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 
@@ -658,11 +523,7 @@ class FtcApiClient {
           .map((i) => Job.fromJson(i))
           .toList();
     } catch (e) {
-      if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        }
-      }
+      throw e;
     }
   }
 }

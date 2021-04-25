@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:ftc_application/src/models/Member.dart';
+import 'package:ftc_application/src/models/route_argument.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -14,6 +14,6 @@ class InitialPointsState extends PointsState {}
 class PointsPageLoading extends PointsState {}
 
 class PointsPageLoaded extends PointsState {
-  final List<Member> members;
-  PointsPageLoaded({this.members}) : assert(members != null);
+  final RouteArgument pointsPageInfo;
+  PointsPageLoaded({this.pointsPageInfo}) : assert(pointsPageInfo != null);
 }

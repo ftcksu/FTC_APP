@@ -11,7 +11,6 @@ class AdminBloc extends Bloc<AdminEvent, AdminState> {
       : assert(ftcRepository != null),
         super(null);
 
-  @override
   AdminState get initialState => InitialAdminState();
 
   @override

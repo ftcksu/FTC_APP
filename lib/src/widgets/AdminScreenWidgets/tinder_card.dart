@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:ftc_application/src/models/image_history.dart';
 import 'package:ftc_application/src/models/route_argument.dart';
 
@@ -8,6 +9,7 @@ class TinderCard extends StatelessWidget {
   final Function onSwipe;
   final ImageHistory image;
   final Random rnd = new Random();
+  final String baseLink = FlutterConfig.get('API_BASE_URL');
   TinderCard({this.image, this.onSwipe});
 
   @override
@@ -46,8 +48,7 @@ class TinderCard extends StatelessWidget {
                             topRight: Radius.circular(8.0)),
                         image: DecorationImage(
                           image: NetworkImage(
-                              "http://157.245.240.12:8080/api/images/" +
-                                  image.id.toString()),
+                              baseLink + "images/" + image.id.toString()),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -72,11 +73,11 @@ class TinderCard extends StatelessWidget {
                         image.userName +
                             ' ,' +
                             (1 + rnd.nextInt(69 - 1)).toString(),
-                        style: Theme.of(context).textTheme.title,
+                        style: Theme.of(context).textTheme.headline2,
                       ),
                       subtitle: Text(
                         'عضو حار',
-                        style: Theme.of(context).textTheme.subtitle.merge(
+                        style: Theme.of(context).textTheme.subtitle1.merge(
                             TextStyle(color: Colors.blueGrey, fontSize: 15)),
                       ),
                     )),

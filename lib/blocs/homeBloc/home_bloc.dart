@@ -12,7 +12,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       : assert(ftcRepository != null),
         super(null);
 
-  @override
   HomeState get initialState => InitialHomeState();
 
   @override

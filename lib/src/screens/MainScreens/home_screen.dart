@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ftc_application/blocs/homeBloc/bloc.dart';
 import 'package:ftc_application/config/app_config.dart' as config;
 import 'package:ftc_application/src/models/Member.dart';
+import 'package:ftc_application/src/models/MembersRange.dart';
 import 'package:ftc_application/src/models/message_of_the_day.dart';
 import 'package:ftc_application/src/widgets/HomeScreenWidgets/home_boring_box.dart';
 import 'package:ftc_application/src/widgets/HomeScreenWidgets/home_projects.dart';
@@ -13,8 +14,6 @@ import 'package:ftc_application/src/widgets/loading_widget.dart';
 
 class Home extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
-  Member member;
-  MessageOfTheDay messageOfTheDay;
   Home({this.scaffoldKey});
 
   @override
@@ -23,6 +22,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Completer<void> _refreshCompleter;
+  Member member;
+  MessageOfTheDay messageOfTheDay;
+  MembersRange range;
   @override
   void initState() {
     super.initState();
@@ -39,9 +41,10 @@ class _HomeState extends State<Home> {
         } else if (homeState is HomePageLoading) {
           return LoadingWidget();
         } else if (homeState is HomePageLoaded) {
-          widget.member = homeState.homePageInfo.argumentsList[0] as Member;
-          widget.messageOfTheDay =
+          member = homeState.homePageInfo.argumentsList[0] as Member;
+          messageOfTheDay =
               homeState.homePageInfo.argumentsList[1] as MessageOfTheDay;
+          range = homeState.homePageInfo.argumentsList[2] as MembersRange;
           return _homePage();
         } else {
           BlocProvider.of<HomeBloc>(context).add(GetHomePage());
@@ -86,15 +89,16 @@ class _HomeState extends State<Home> {
                     )),
               ),
               HomeTitle(
-                member: widget.member,
+                member: member,
+                range: range,
               ),
               HomeBoringBox(
-                text: widget.messageOfTheDay.message,
-                author: widget.messageOfTheDay.member,
+                text: messageOfTheDay.message,
+                author: messageOfTheDay.member,
               ),
               HomeProject(
-                events: widget.member.participatedEvents,
-                currentMember: widget.member,
+                events: member.participatedEvents,
+                currentMember: member,
               ),
             ],
           ),

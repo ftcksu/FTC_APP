@@ -37,7 +37,7 @@ class _MemberProjectsState extends State<MemberProjects>
             child: Text('ماعنده فعاليات مشترك فيها',
                 style: Theme.of(context)
                     .textTheme
-                    .title
+                    .headline6
                     .merge(TextStyle(color: Colors.white, fontSize: 24))),
           );
   }

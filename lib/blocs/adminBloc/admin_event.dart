@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:ftc_application/src/models/PushNotificationRequest.dart';
 
 abstract class AdminEvent extends Equatable {
   const AdminEvent();

@@ -12,16 +12,9 @@ import 'package:ftc_application/src/widgets/loading_widget.dart';
 import 'package:ftc_application/blocs/memberTasksBloc/bloc.dart';
 
 class SubmitPointsAnyoneMemberScreen extends StatefulWidget {
-  int selfJobId;
-  int assignedMemberId;
-  String memberName;
   final RouteArgument routeArgument;
 
-  SubmitPointsAnyoneMemberScreen({this.routeArgument}) {
-    selfJobId = routeArgument.argumentsList[0] as int;
-    assignedMemberId = routeArgument.argumentsList[1] as int;
-    memberName = routeArgument.argumentsList[2] as String;
-  }
+  SubmitPointsAnyoneMemberScreen({this.routeArgument});
 
   @override
   _SubmitPointsAnyoneMemberScreenState createState() =>
@@ -31,11 +24,15 @@ class SubmitPointsAnyoneMemberScreen extends StatefulWidget {
 class _SubmitPointsAnyoneMemberScreenState
     extends State<SubmitPointsAnyoneMemberScreen> {
   List<Task> tasks = [];
+  int selfJobId;
+  int assignedMemberId;
+  String memberName;
 
   @override
   void initState() {
+    _setRouteArguments();
     BlocProvider.of<MemberTasksBloc>(context)
-        .add(GetMemberSelfTasks(jobId: widget.selfJobId));
+        .add(GetMemberSelfTasks(jobId: selfJobId));
     super.initState();
   }
 
@@ -45,7 +42,7 @@ class _SubmitPointsAnyoneMemberScreenState
       builder: (context, taskState) {
         if (taskState is InitialMemberTasksState) {
           BlocProvider.of<MemberTasksBloc>(context)
-              .add(GetMemberSelfTasks(jobId: widget.selfJobId));
+              .add(GetMemberSelfTasks(jobId: selfJobId));
           return LoadingWidget();
         } else if (taskState is GetMemberSelfTasksLoading) {
           return LoadingWidget();
@@ -55,7 +52,7 @@ class _SubmitPointsAnyoneMemberScreenState
           return _memberTasks();
         } else {
           BlocProvider.of<MemberTasksBloc>(context)
-              .add(GetMemberSelfTasks(jobId: widget.selfJobId));
+              .add(GetMemberSelfTasks(jobId: selfJobId));
           return LoadingWidget();
         }
       },
@@ -69,8 +66,8 @@ class _SubmitPointsAnyoneMemberScreenState
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            widget.memberName,
-            style: Theme.of(context).textTheme.subtitle,
+            memberName,
+            style: Theme.of(context).textTheme.subtitle1,
           ),
           backgroundColor: Colors.deepPurpleAccent,
         ),
@@ -106,7 +103,7 @@ class _SubmitPointsAnyoneMemberScreenState
             'ماعنده اعمال جديده',
             style: Theme.of(context)
                 .textTheme
-                .title
+                .headline2
                 .merge(TextStyle(color: Colors.white, fontSize: 24)),
           ));
   }
@@ -119,9 +116,15 @@ class _SubmitPointsAnyoneMemberScreenState
       tasks.remove(task);
     });
 
-    BlocProvider.of<NotificationBloc>(context).add(sendMemberMessage(
-        memberId: widget.assignedMemberId,
+    BlocProvider.of<NotificationBloc>(context).add(SendMemberMessage(
+        memberId: assignedMemberId,
         notification: PushNotificationRequest.message(
             'أعمالك', "الرئيس رصد وحده من اعمالك")));
+  }
+
+  _setRouteArguments() {
+    selfJobId = widget.routeArgument.argumentsList[0] as int;
+    assignedMemberId = widget.routeArgument.argumentsList[1] as int;
+    memberName = widget.routeArgument.argumentsList[2] as String;
   }
 }

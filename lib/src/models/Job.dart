@@ -3,7 +3,7 @@ import 'package:ftc_application/src/models/Task.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'Job.g.dart';
 
-@JsonSerializable(nullable: false)
+@JsonSerializable()
 class Job {
   int id;
   String title;

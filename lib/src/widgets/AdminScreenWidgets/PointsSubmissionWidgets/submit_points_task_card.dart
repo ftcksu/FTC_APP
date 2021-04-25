@@ -24,10 +24,14 @@ class SubmitPointsTaskCard extends StatelessWidget {
           children: <Widget>[
             Text(
               task.description,
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.headline2,
             ),
             TextField(
-              autofocus: index==0,
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle2
+                  .merge(TextStyle(fontSize: 18)),
+              autofocus: index == 0,
               showCursor: false,
               textDirection: TextDirection.rtl,
               keyboardType:
@@ -37,7 +41,7 @@ class SubmitPointsTaskCard extends StatelessWidget {
               onChanged: (value) {
                 _points = int.parse(value);
               },
-              onSubmitted: (e) => _onSubmit(_points,context),
+              onSubmitted: (e) => _onSubmit(_points, context),
               decoration: InputDecoration(
                 hintText: 'كم تقيمه',
                 hintStyle: TextStyle(
@@ -47,11 +51,13 @@ class SubmitPointsTaskCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                color: config.Colors().accentColor(1),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0)),
-                padding: EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: config.Colors().accentColor(1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  padding: EdgeInsets.all(16.0),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -64,7 +70,7 @@ class SubmitPointsTaskCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                onPressed: () => _onSubmit(_points,context),
+                onPressed: () => _onSubmit(_points, context),
               ),
             ),
           ],
@@ -72,7 +78,8 @@ class SubmitPointsTaskCard extends StatelessWidget {
       ),
     );
   }
-  _onSubmit(_points,context) {
+
+  _onSubmit(_points, context) {
     print(_points);
     if (_points < 0) {
       Alert(
@@ -111,5 +118,4 @@ class SubmitPointsTaskCard extends StatelessWidget {
       });
     }
   }
-
 }

@@ -9,11 +9,8 @@ import 'package:ftc_application/config/app_config.dart' as config;
 
 class EventJobsApprovalScreen extends StatefulWidget {
   final RouteArgument routeArgument;
-  int eventId;
 
-  EventJobsApprovalScreen({this.routeArgument}) {
-    eventId = routeArgument.argumentsList[0] as int;
-  }
+  EventJobsApprovalScreen({this.routeArgument});
 
   @override
   _EventJobsApprovalScreenState createState() =>
@@ -22,12 +19,14 @@ class EventJobsApprovalScreen extends StatefulWidget {
 
 class _EventJobsApprovalScreenState extends State<EventJobsApprovalScreen> {
   List<Job> eventJobs;
+  int eventId;
 
   @override
   void initState() {
     super.initState();
+    _setRouteArgument();
     BlocProvider.of<MemberJobsBloc>(context)
-        .add(GetEventJobs(eventId: widget.eventId));
+        .add(GetEventJobs(eventId: eventId));
   }
 
   @override
@@ -36,7 +35,7 @@ class _EventJobsApprovalScreenState extends State<EventJobsApprovalScreen> {
       builder: (context, taskState) {
         if (taskState is InitialMemberJobsState) {
           BlocProvider.of<MemberJobsBloc>(context)
-              .add(GetEventJobs(eventId: widget.eventId));
+              .add(GetEventJobs(eventId: eventId));
           return LoadingWidget();
         } else if (taskState is EventJobsLoading) {
           return LoadingWidget();
@@ -46,7 +45,7 @@ class _EventJobsApprovalScreenState extends State<EventJobsApprovalScreen> {
           return _eventJobsScreen();
         } else {
           BlocProvider.of<MemberJobsBloc>(context)
-              .add(GetEventJobs(eventId: widget.eventId));
+              .add(GetEventJobs(eventId: eventId));
           return LoadingWidget();
         }
       },
@@ -89,12 +88,16 @@ class _EventJobsApprovalScreenState extends State<EventJobsApprovalScreen> {
               itemCount: eventJobs.length,
               itemBuilder: (context, index) {
                 return EventsJobCard(
-                  eventId: widget.eventId,
+                  eventId: eventId,
                   job: eventJobs[index],
                 );
               },
             ),
           ),
         )));
+  }
+
+  _setRouteArgument() {
+    eventId = widget.routeArgument.argumentsList[0] as int;
   }
 }

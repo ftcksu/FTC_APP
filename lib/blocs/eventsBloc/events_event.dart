@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:ftc_application/src/models/Member.dart';
-import 'package:ftc_application/src/models/PushNotificationRequest.dart';
 import 'package:meta/meta.dart';
 
 @immutable

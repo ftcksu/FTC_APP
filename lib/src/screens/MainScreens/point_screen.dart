@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:ftc_application/src/models/Member.dart';
+import 'package:ftc_application/src/models/MembersRange.dart';
 import 'package:ftc_application/src/widgets/loading_widget.dart';
 import 'package:ftc_application/src/widgets/points_list_item.dart';
 import 'package:ftc_application/blocs/pointsBloc/bloc.dart';
@@ -21,15 +22,13 @@ class Points extends StatefulWidget {
 class _PointsState extends State<Points> {
   Completer<void> _refreshCompleter;
   List<Member> members;
-
   List<Member> _newData;
+  MembersRange range;
   bool searchState = false;
-  int muscleRange, sleepRange, turtleRange, trashRange;
 
   @override
   void initState() {
     _refreshCompleter = Completer<void>();
-    muscleRange = 0;
     super.initState();
   }
 
@@ -39,7 +38,8 @@ class _PointsState extends State<Points> {
       builder: (context, pointsState) {
         if (pointsState is PointsPageLoading) return LoadingWidget();
         if (pointsState is PointsPageLoaded) {
-          members = pointsState.members;
+          members = pointsState.pointsPageInfo.argumentsList[0] as List<Member>;
+          range = pointsState.pointsPageInfo.argumentsList[1] as MembersRange;
           return _pointsPage();
         }
         BlocProvider.of<PointsBloc>(context).add(GetPointsPage());
@@ -82,7 +82,7 @@ class _PointsState extends State<Points> {
               'مافيش عضو بهل اسم',
               style: Theme.of(context)
                   .textTheme
-                  .title
+                  .headline6
                   .merge(TextStyle(color: Colors.white, fontSize: 24)),
             ),
           ),
@@ -129,19 +129,13 @@ class _PointsState extends State<Points> {
   }
 
   _getRankImage(int rank) {
-    if (muscleRange == 0) {
-      int membersLength = members.length - 1;
-      turtleRange = (membersLength / 2).round();
-      muscleRange = (turtleRange / 2).round();
-      sleepRange = turtleRange + muscleRange;
-    }
     if (rank < 4) {
       return 'assets/images/fireIcon.png';
-    } else if (rank <= muscleRange) {
+    } else if (rank <= range.muscleRange) {
       return 'assets/images/muscle.png';
-    } else if (rank <= turtleRange) {
+    } else if (rank <= range.turtleRange) {
       return 'assets/images/turtle.png';
-    } else if (rank <= sleepRange) {
+    } else if (rank <= range.sleepRange) {
       return 'assets/images/sleep.png';
     } else {
       return 'assets/images/trash.png';

@@ -12,6 +12,7 @@ import 'package:ftc_application/blocs/eventsBloc/bloc.dart';
 import 'package:ftc_application/src/widgets/loading_widget.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+// ignore: must_be_immutable
 class Events extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final Member currentMember;
@@ -19,6 +20,7 @@ class Events extends StatefulWidget {
 
   Events({this.scaffoldKey, this.currentMember, this.eventId = ''});
   Events.leadTo({this.scaffoldKey, this.currentMember, this.eventId});
+
   @override
   _EventsState createState() => _EventsState();
 }
@@ -138,7 +140,6 @@ class _EventsState extends State<Events> with TickerProviderStateMixin {
 
   Widget speedDial() {
     return SpeedDial(
-      marginRight: 18,
       marginBottom: 45,
       animatedIcon: AnimatedIcons.menu_close,
       closeManually: false,
@@ -154,7 +155,8 @@ class _EventsState extends State<Events> with TickerProviderStateMixin {
             child: Icon(Icons.add, color: Colors.white),
             backgroundColor: Colors.deepPurpleAccent,
             label: 'أضف فعاليه',
-            labelStyle: TextStyle(fontSize: 18.0),
+            labelStyle: TextStyle(fontSize: 18.0, color: Colors.white),
+            labelBackgroundColor: Colors.deepPurpleAccent,
             onTap: () => _onEventCreation()),
         SpeedDialChild(
           child: Icon(
@@ -163,7 +165,8 @@ class _EventsState extends State<Events> with TickerProviderStateMixin {
           ),
           backgroundColor: Colors.deepPurpleAccent,
           label: 'فعالياتك',
-          labelStyle: TextStyle(fontSize: 18.0),
+          labelStyle: TextStyle(fontSize: 18.0, color: Colors.white),
+          labelBackgroundColor: Colors.deepPurpleAccent,
           onTap: () => _onEventManagement(),
         ),
       ],

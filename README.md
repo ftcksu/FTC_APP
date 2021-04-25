@@ -31,6 +31,7 @@ If you **notice a bug**, **have a new feature to suggest**, or **just want to di
 * [share](https://pub.dev/packages/share)
 * [swipe_stack](https://pub.dev/packages/swipe_stack)
 * [url_launcher](https://pub.dev/packages/url_launcher)
+* [flutter_config](https://pub.dev/packages/flutter_config)
 ## Release build note:
 Make sure to remove `application android:usesCleartextTraffic="true"` from AndroidManifest.xml for the release build.
 ## Troubleshooting:

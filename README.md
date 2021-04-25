@@ -22,7 +22,7 @@ If you **notice a bug**, **have a new feature to suggest**, or **just want to di
 * [flutter_secure_storage](https://pub.dev/packages/flutter_secure_storage)
 * [flutter_speed_dial](https://pub.dev/packages/flutter_speed_dial)
 * [google_maps_flutter](https://pub.dev/packages/google_maps_flutter)
-* [google_maps_place_picker](https://pub.dev/packages/google_maps_place_picker)
+* [place_picker](https://pub.dev/packages/place_picker)
 * [image_crop](https://pub.dev/packages/image_crop)
 * [image_picker](https://pub.dev/packages/image_picker)
 * [json_annotation](https://pub.dev/packages/json_annotation)

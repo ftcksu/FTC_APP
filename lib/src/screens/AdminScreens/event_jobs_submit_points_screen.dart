@@ -9,15 +9,15 @@ import 'package:ftc_application/src/widgets/loading_widget.dart';
 
 class EventJobsScreen extends StatefulWidget {
   final RouteArgument routeArgument;
-  EventJobsScreen({this.routeArgument});
+  EventJobsScreen({required this.routeArgument});
 
   @override
   _EventJobsScreenState createState() => _EventJobsScreenState();
 }
 
 class _EventJobsScreenState extends State<EventJobsScreen> {
-  List<Job> jobs;
-  int eventID;
+  late List<Job> jobs;
+  late int eventID;
 
   @override
   void initState() {
@@ -100,7 +100,7 @@ class _EventJobsScreenState extends State<EventJobsScreen> {
             'مافيه شغل',
             style: Theme.of(context)
                 .textTheme
-                .headline2
+                .headline2!
                 .merge(TextStyle(color: Colors.white, fontSize: 24)),
           ));
   }

@@ -9,7 +9,9 @@ class EnlistedMembersList extends StatelessWidget {
   final Function deleteMember;
 
   EnlistedMembersList(
-      {this.selectedMembers, this.currentMember, this.deleteMember});
+      {required this.selectedMembers,
+      required this.currentMember,
+      required this.deleteMember});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class EnlistedMembersList extends StatelessWidget {
               currentMember.name,
               style: Theme.of(context)
                   .textTheme
-                  .subtitle2
+                  .subtitle2!
                   .merge(TextStyle(fontSize: 18)),
             ),
           );

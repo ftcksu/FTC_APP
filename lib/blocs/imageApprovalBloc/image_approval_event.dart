@@ -11,8 +11,7 @@ class GetPendingImages extends ImageApprovalEvent {}
 class UpdateImageStatus extends ImageApprovalEvent {
   final int imageId;
   final String status;
-  UpdateImageStatus(this.imageId, this.status)
-      : assert(imageId != null, status != null);
+  UpdateImageStatus(this.imageId, this.status);
 }
 
 class GetUserImageHistory extends ImageApprovalEvent {}
@@ -20,7 +19,7 @@ class GetUserImageHistory extends ImageApprovalEvent {}
 class MemberImageUpdated extends ImageApprovalEvent {
   final int imageId;
 
-  MemberImageUpdated({this.imageId}) : assert(imageId != null);
+  MemberImageUpdated({required this.imageId});
 }
 
 class RefreshPendingImages extends ImageApprovalEvent {}

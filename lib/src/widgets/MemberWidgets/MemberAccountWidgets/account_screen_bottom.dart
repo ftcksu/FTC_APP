@@ -11,7 +11,7 @@ class AccountScreenBottom extends StatelessWidget {
   final FocusNode _passFocusNode = FocusNode();
   final FocusNode _newPassFocusNode = FocusNode();
 
-  AccountScreenBottom({this.member}) : assert(member != null);
+  AccountScreenBottom({required this.member});
 
   @override
   Widget build(BuildContext context) {
@@ -368,12 +368,12 @@ class AccountScreenBottom extends StatelessWidget {
           ),
           title: Text(
             "تغير كلمة السر",
-            style: Theme.of(context).textTheme.headline2.merge(
+            style: Theme.of(context).textTheme.headline2!.merge(
                   TextStyle(color: Colors.white),
                 ),
           ),
           subtitle: Text('موب عاجبتك كلمة سرك؟ غيرها',
-              style: Theme.of(context).textTheme.subtitle1.merge(
+              style: Theme.of(context).textTheme.subtitle1!.merge(
                     TextStyle(fontSize: 14),
                   )),
           trailing: Icon(Icons.edit, color: Colors.white),
@@ -392,13 +392,13 @@ class AccountScreenBottom extends StatelessWidget {
           ),
           title: Text(
             "فلسفتك",
-            style: Theme.of(context).textTheme.headline2.merge(
+            style: Theme.of(context).textTheme.headline2!.merge(
                   TextStyle(color: Colors.white),
                 ),
           ),
           subtitle: Text(
             'وش ودك تفيد الناس فيه اليوم؟',
-            style: Theme.of(context).textTheme.subtitle1.merge(
+            style: Theme.of(context).textTheme.subtitle1!.merge(
                   TextStyle(fontSize: 14),
                 ),
           ),
@@ -418,12 +418,12 @@ class AccountScreenBottom extends StatelessWidget {
           ),
           title: Text(
             "كلام مايهمك",
-            style: Theme.of(context).textTheme.headline2.merge(
+            style: Theme.of(context).textTheme.headline2!.merge(
                   TextStyle(color: Colors.white),
                 ),
           ),
           subtitle: Text('وش ودك تفيد الكل فيه اليوم؟',
-              style: Theme.of(context).textTheme.subtitle1.merge(
+              style: Theme.of(context).textTheme.subtitle1!.merge(
                     TextStyle(fontSize: 14),
                   )),
           trailing: Icon(Icons.edit, color: Colors.white),
@@ -442,12 +442,12 @@ class AccountScreenBottom extends StatelessWidget {
           ),
           title: Text(
             "صورك الحلوه",
-            style: Theme.of(context).textTheme.headline2.merge(
+            style: Theme.of(context).textTheme.headline2!.merge(
                   TextStyle(color: Colors.white),
                 ),
           ),
           subtitle: Text('رجع وحده من صورك المولعه',
-              style: Theme.of(context).textTheme.subtitle1.merge(
+              style: Theme.of(context).textTheme.subtitle1!.merge(
                     TextStyle(fontSize: 14),
                   )),
         ),

@@ -4,15 +4,13 @@ import 'package:ftc_application/repositories/ftc_repository.dart';
 import 'package:ftc_application/repositories/user_repo.dart';
 import 'package:ftc_application/src/models/Member.dart';
 import './authentication.dart';
-import 'package:meta/meta.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepo userRepo;
   final FtcRepository ftcRepository;
-  AuthenticationBloc({@required this.userRepo, this.ftcRepository})
-      : assert(userRepo != null),
-        super(null);
+  AuthenticationBloc({required this.userRepo, required this.ftcRepository})
+      : super(AuthenticationUninitialized());
 
   AuthenticationState get initialState => AuthenticationUninitialized();
 

@@ -13,7 +13,7 @@ import 'package:ftc_application/src/widgets/HomeScreenWidgets/home_title.dart';
 import 'package:ftc_application/src/widgets/loading_widget.dart';
 
 class Home extends StatefulWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
   Home({this.scaffoldKey});
 
   @override
@@ -21,15 +21,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Completer<void> _refreshCompleter;
-  Member member;
-  MessageOfTheDay messageOfTheDay;
-  MembersRange range;
-  @override
-  void initState() {
-    super.initState();
-    _refreshCompleter = Completer<void>();
-  }
+  Completer<void> _refreshCompleter = new Completer();
+  late Member member;
+  late MessageOfTheDay messageOfTheDay;
+  late MembersRange range;
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +76,7 @@ class _HomeState extends State<Home> {
                     alignment: Alignment.topRight,
                     child: GestureDetector(
                       onTap: () =>
-                          widget.scaffoldKey.currentState.openEndDrawer(),
+                          widget.scaffoldKey?.currentState?.openEndDrawer(),
                       child: Icon(
                         Icons.reorder,
                         color: Colors.white,

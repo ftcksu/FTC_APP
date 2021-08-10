@@ -16,15 +16,17 @@ class GetMembersLoading extends MemberState {}
 class GetMembersLoaded extends MemberState {
   final List<Member> members;
 
-  GetMembersLoaded({this.members}) : assert(members != null);
+  GetMembersLoaded({required this.members});
 }
 
 class GetEventCreationLoading extends MemberState {}
 
+class EventCreationCreating extends MemberState {}
+
 class GetEventCreationLoaded extends MemberState {
   final RouteArgument argument;
 
-  GetEventCreationLoaded({this.argument}) : assert(argument != null);
+  GetEventCreationLoaded({required this.argument});
 }
 
 class GetMemberLoading extends MemberState {}
@@ -32,7 +34,7 @@ class GetMemberLoading extends MemberState {}
 class GetMemberLoaded extends MemberState {
   final Member member;
 
-  GetMemberLoaded({this.member}) : assert(member != null);
+  GetMemberLoaded({required this.member});
 }
 
 class EventMembersLoading extends MemberState {}
@@ -40,5 +42,5 @@ class EventMembersLoading extends MemberState {}
 class EventMembersLoaded extends MemberState {
   final List<Member> members;
 
-  EventMembersLoaded({this.members}) : assert(members != null);
+  EventMembersLoaded({required this.members});
 }

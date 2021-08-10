@@ -7,10 +7,8 @@ import './bloc.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final FtcRepository ftcRepository;
-  RouteArgument homePageInfo;
-  HomeBloc({@required this.ftcRepository})
-      : assert(ftcRepository != null),
-        super(null);
+  RouteArgument homePageInfo = RouteArgument(argumentsList: []);
+  HomeBloc({required this.ftcRepository}) : super(InitialHomeState());
 
   HomeState get initialState => InitialHomeState();
 

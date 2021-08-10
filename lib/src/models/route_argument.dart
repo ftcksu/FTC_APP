@@ -1,8 +1,8 @@
 class RouteArgument {
-  dynamic id;
+  dynamic id = 0;
   List<dynamic> argumentsList;
 
-  RouteArgument({this.id, this.argumentsList});
+  RouteArgument({this.id, required this.argumentsList});
 
   @override
   String toString() {

@@ -18,24 +18,29 @@ class Events extends StatefulWidget {
   final Member currentMember;
   String eventId;
 
-  Events({this.scaffoldKey, this.currentMember, this.eventId = ''});
-  Events.leadTo({this.scaffoldKey, this.currentMember, this.eventId});
+  Events(
+      {required this.scaffoldKey,
+      required this.currentMember,
+      this.eventId = ''});
+  Events.leadTo(
+      {required this.scaffoldKey,
+      required this.currentMember,
+      required this.eventId});
 
   @override
   _EventsState createState() => _EventsState();
 }
 
 class _EventsState extends State<Events> with TickerProviderStateMixin {
-  AnimationController animationController;
-  Completer<void> _refreshCompleter;
-  List<Event> events;
-  List<int> enlistedEvents;
+  late AnimationController animationController;
+  Completer<void> _refreshCompleter = new Completer<void>();
+  late List<Event> events;
+  late List<int> enlistedEvents;
 
   @override
   void initState() {
     animationController =
         AnimationController(duration: Duration(milliseconds: 800), vsync: this);
-    _refreshCompleter = Completer<void>();
     super.initState();
   }
 
@@ -99,7 +104,7 @@ class _EventsState extends State<Events> with TickerProviderStateMixin {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  widget.scaffoldKey.currentState.openEndDrawer();
+                  widget.scaffoldKey.currentState?.openEndDrawer();
                 },
               ),
             ],

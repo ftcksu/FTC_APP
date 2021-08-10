@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math.dart';
 
 class HalfPainter extends CustomPainter {
+  late Paint arcPaint;
   HalfPainter(Color paintColor) {
     this.arcPaint = Paint()..color = paintColor;
   }
-
-  Paint arcPaint;
-
   @override
   void paint(Canvas canvas, Size size) {
     final Rect beforeRect = Rect.fromLTWH(0, (size.height / 2) - 10, 10, 10);
     final Rect largeRect = Rect.fromLTWH(10, 0, size.width - 20, 70);
     final Rect afterRect =
-    Rect.fromLTWH(size.width - 10, (size.height / 2) - 10, 10, 10);
+        Rect.fromLTWH(size.width - 10, (size.height / 2) - 10, 10, 10);
 
     final path = Path();
     path.arcTo(beforeRect, radians(0), radians(90), false);

@@ -19,15 +19,9 @@ class MemberAccountScreen extends StatefulWidget {
 }
 
 class _MemberAccountScreenState extends State<MemberAccountScreen> {
-  Member member;
-  Completer<void> _refreshCompleter;
+  late Member member;
+  Completer<void> _refreshCompleter = new Completer();
   final picker = ImagePicker();
-
-  @override
-  void initState() {
-    super.initState();
-    _refreshCompleter = Completer<void>();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +122,7 @@ class _MemberAccountScreenState extends State<MemberAccountScreen> {
   Future getImage() async {
     var image = await picker.getImage(source: ImageSource.gallery);
     if (image != null) {
-      File croppedFile = await ImageCropper.cropImage(
+      File? croppedFile = await ImageCropper.cropImage(
           sourcePath: image.path,
           aspectRatioPresets: [
             CropAspectRatioPreset.square,

@@ -8,10 +8,13 @@ class SubmitWorkCard extends StatelessWidget {
   final Job job;
   final Function submitWork;
   final AnimationController animationController;
-  final Animation animation;
+  final Animation<double> animation;
 
   SubmitWorkCard(
-      {this.job, this.submitWork, this.animationController, this.animation});
+      {required this.job,
+      required this.submitWork,
+      required this.animationController,
+      required this.animation});
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +115,7 @@ class SubmitWorkCard extends StatelessWidget {
     Widget _animatedSelf() {
       return AnimatedBuilder(
         animation: animationController,
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext context, Widget? child) {
           return FadeTransition(
             opacity: animation,
             child: Transform(

@@ -6,7 +6,7 @@ import 'package:ftc_application/src/widgets/MemberWidgets/member_image.dart';
 class HomeTitle extends StatelessWidget {
   final Member member;
   final MembersRange range;
-  HomeTitle({this.member, this.range});
+  HomeTitle({required this.member, required this.range});
 
   @override
   Widget build(BuildContext context) {

@@ -13,17 +13,17 @@ class MemberDetails extends StatefulWidget {
   final BuildContext context;
   final RouteArgument routeArgument;
 
-  MemberDetails({Key key, this.context, this.routeArgument});
+  MemberDetails({required this.context, required this.routeArgument});
   @override
   _MemberDetailsState createState() => _MemberDetailsState();
 }
 
 class _MemberDetailsState extends State<MemberDetails> {
-  List<Event> events;
+  List<Event> events = [];
   bool eventsLoaded = false;
-  Member member;
-  Member currentMember;
-  String _heroTag;
+  Member member = Member.initial();
+  Member currentMember = Member.initial();
+  String _heroTag = "";
 
   @override
   void initState() {
@@ -132,14 +132,11 @@ class _MemberDetailsState extends State<MemberDetails> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   child: Center(
-                    child: member?.bio != null
-                        ? Text(
-                            member.bio,
-                            style: Theme.of(context).textTheme.subtitle1,
-                            textAlign: TextAlign.center,
-                          )
-                        : Text(''),
-                  ),
+                      child: Text(
+                    member.bio,
+                    style: Theme.of(context).textTheme.subtitle1,
+                    textAlign: TextAlign.center,
+                  )),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -184,7 +181,7 @@ class _MemberDetailsState extends State<MemberDetails> {
                           'المشاريع الي مسجل فيها',
                           style: Theme.of(context)
                               .textTheme
-                              .headline2
+                              .headline2!
                               .merge(TextStyle(color: Colors.white)),
                         ),
                       ),

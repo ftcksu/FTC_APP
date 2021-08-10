@@ -13,24 +13,18 @@ import 'package:ftc_application/config/app_config.dart' as config;
 class Points extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final Member currentMember;
-  Points({this.scaffoldKey, this.currentMember});
+  Points({required this.scaffoldKey, required this.currentMember});
 
   @override
   _PointsState createState() => _PointsState();
 }
 
 class _PointsState extends State<Points> {
-  Completer<void> _refreshCompleter;
-  List<Member> members;
-  List<Member> _newData;
-  MembersRange range;
+  Completer<void> _refreshCompleter = new Completer();
+  late List<Member> members;
+  List<Member> _newData = [];
+  late MembersRange range;
   bool searchState = false;
-
-  @override
-  void initState() {
-    _refreshCompleter = Completer<void>();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +50,7 @@ class _PointsState extends State<Points> {
       },
       child: Scaffold(
         appBar: SearchAppBar('نقاط الأعضاء', _onChanged,
-            widget.scaffoldKey.currentState.openEndDrawer, _setSearchState),
+            widget.scaffoldKey.currentState!.openEndDrawer, _setSearchState),
         body: Directionality(
             textDirection: TextDirection.rtl, child: _pointsList()),
       ),
@@ -64,7 +58,7 @@ class _PointsState extends State<Points> {
   }
 
   Widget _pointsList() {
-    if (searchState && _newData != null) {
+    if (searchState) {
       if (_newData.length == 0) {
         return Container(
           decoration: BoxDecoration(
@@ -82,7 +76,7 @@ class _PointsState extends State<Points> {
               'مافيش عضو بهل اسم',
               style: Theme.of(context)
                   .textTheme
-                  .headline6
+                  .headline6!
                   .merge(TextStyle(color: Colors.white, fontSize: 24)),
             ),
           ),

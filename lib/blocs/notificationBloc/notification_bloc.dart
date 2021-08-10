@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:ftc_application/repositories/ftc_repository.dart';
 import './bloc.dart';
 
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   final FtcRepository ftcRepository;
-  NotificationBloc({@required this.ftcRepository})
-      : assert(ftcRepository != null),
-        super(null);
+  NotificationBloc({required this.ftcRepository})
+      : super(InitialNotificationState());
   NotificationState get initialState => InitialNotificationState();
 
   @override

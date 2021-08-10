@@ -21,21 +21,21 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 class EventCreationScreen extends StatefulWidget {
   final RouteArgument routeArgument;
 
-  EventCreationScreen({this.routeArgument});
+  EventCreationScreen({required this.routeArgument});
 
   @override
   _EventCreationScreenState createState() => _EventCreationScreenState();
 }
 
 class _EventCreationScreenState extends State<EventCreationScreen> {
-  String eventName, eventDescription, whatsAppLink, locationLink;
-  int numberOfMaxParticipants;
-  DateTime eventDate;
+  late String eventName, eventDescription, whatsAppLink, locationLink;
+  late int numberOfMaxParticipants;
+  late DateTime eventDate;
   bool sendNotification = false;
-  List<Member> members, selectedMembers = [];
-  Event event;
-  bool editing;
-  Member currentMember;
+  Member currentMember = Member.initial();
+  late List<Member> members, selectedMembers = [currentMember];
+  late Event event;
+  bool editing = false;
 
   final FocusNode _titleFocus = FocusNode();
   final FocusNode _descriptionFocus = FocusNode();
@@ -56,6 +56,8 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
         if (memberState is InitialMemberState) {
           _initialDispatch();
           return LoadingWidget();
+        } else if (memberState is EventCreationCreating) {
+          return _eventCreationScreen();
         } else if (memberState is GetEventCreationLoading) {
           return LoadingWidget();
         } else if (memberState is GetEventCreationLoaded) {
@@ -74,7 +76,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
       BlocProvider.of<MemberBloc>(context)
           .add(GetEventCreation(eventId: event.id));
     } else {
-      BlocProvider.of<MemberBloc>(context).add(GetEventCreation());
+      BlocProvider.of<MemberBloc>(context).add(GetEventCreation(eventId: -1));
     }
   }
 
@@ -131,13 +133,13 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
 
                 //EventWhatsApp
                 _easyTextFieldFactory(
-                    null,
+                    0,
                     whatsAppLink,
                     TextInputType.url,
                     (string) => whatsAppLink = string,
                     'رابط قروب الواتس؟',
                     _whatsFocus,
-                    null,
+                    FocusNode(),
                     onSubmit: () => _selectDate(context)),
 
                 //EventDate/Location
@@ -254,7 +256,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
                       "عدل المسجلين",
                       style: Theme.of(context)
                           .textTheme
-                          .subtitle2
+                          .subtitle2!
                           .merge(TextStyle(fontSize: 18)),
                     ),
                   ),
@@ -269,12 +271,12 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
                             'تبي ترسل تنبيه للكل؟',
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle2
+                                .subtitle2!
                                 .merge(TextStyle(fontSize: 18)),
                           ),
                           value: sendNotification,
-                          onChanged: (bool value) {
-                            if (value) {
+                          onChanged: (bool? value) {
+                            if (value!) {
                               setState(() {
                                 sendNotification = value;
                               });
@@ -399,12 +401,15 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
   void _addEvent() {
     if (editing) {
       Event newEvent = Event(
+          id: event.id,
           title: eventName,
           description: eventDescription,
           whatsAppLink: whatsAppLink,
           maxUsers: numberOfMaxParticipants,
           date: eventDate,
           leader: currentMember,
+          finished: false,
+          full: event.full,
           location: locationLink);
 
       BlocProvider.of<EventsBloc>(context).add(
@@ -414,12 +419,15 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
           AddNewMembersToEvent(eventId: event.id, newMembers: selectedMembers));
     } else {
       Event newEvent = Event(
+          id: 0,
           title: eventName,
           description: eventDescription,
           whatsAppLink: whatsAppLink,
           maxUsers: numberOfMaxParticipants,
           date: eventDate,
           leader: currentMember,
+          finished: false,
+          full: selectedMembers.length - 1 < numberOfMaxParticipants,
           location: locationLink);
 
       if (selectedMembers.isEmpty) {
@@ -446,7 +454,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
       eventDescription = "";
       whatsAppLink = "";
       locationLink = "";
-      numberOfMaxParticipants = 0;
+      numberOfMaxParticipants = 1;
       eventDate = DateTime.now();
     }
   }
@@ -487,19 +495,11 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
   _setMembers(RouteArgument argument) {
     members = argument.argumentsList[0];
     members.removeWhere((member) => member.id == currentMember.id);
-    if (editing) {
-      if (selectedMembers == null || selectedMembers.length <= 1)
-        selectedMembers = argument.argumentsList[1];
-    }
-    //is this fishy? yes it never is will or has been 0
-    if (numberOfMaxParticipants == 0) {
-      numberOfMaxParticipants = members.length;
-      selectedMembers = [currentMember];
-    }
+    selectedMembers = argument.argumentsList[1];
   }
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: eventDate,
         firstDate: eventDate,
@@ -542,7 +542,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
       child: TextFormField(
         style: Theme.of(context)
             .textTheme
-            .subtitle2
+            .subtitle2!
             .merge(TextStyle(fontSize: 18)),
         maxLength: maxLength,
         initialValue: initialValue,
@@ -553,7 +553,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
         focusNode: focusNode,
         onFieldSubmitted: (value) {
           focusNode.unfocus();
-          if (nextFocusNode != null) nextFocusNode.requestFocus();
+          nextFocusNode.requestFocus();
           if (onSubmit != null) onSubmit();
         },
         decoration: InputDecoration(
@@ -566,7 +566,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
     );
   }
 
-  Future<bool> _easyAlert(title, context, {extraOnPressed, btnText = "اسف"}) {
+  Future<bool?> _easyAlert(title, context, {extraOnPressed, btnText = "اسف"}) {
     return Alert(
       context: context,
       title: title,
@@ -602,7 +602,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
   }
 
   void showPlacePicker() async {
-    LocationResult result = await Navigator.of(context).push(MaterialPageRoute(
+    LocationResult? result = await Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => PlacePicker(
               FlutterConfig.get('GOOGLE_CLOUD_KEY'),
               displayLocation: LatLng(24.723389, 46.619855),
@@ -610,7 +610,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
 
     result != null
         ? locationLink =
-            'https://maps.google.com/?ll=${result.latLng.latitude},${result.latLng.longitude}'
+            'https://maps.google.com/?ll=${result.latLng?.latitude},${result.latLng?.longitude}'
         : locationLink = '';
 
     print(locationLink);

@@ -26,10 +26,10 @@ class FtcApiClient {
 
   final storage = new FlutterSecureStorage();
   final FirebaseNotifications firebaseMessaging;
-  String userId;
-  Map<String, String> auth;
+  String userId = "";
+  Map<String, String> auth = Map<String, String>();
 
-  FtcApiClient({this.firebaseMessaging}) : assert(firebaseMessaging != null);
+  FtcApiClient({required this.firebaseMessaging});
 
   String _decodeBase64(String str) {
     String output = str.replaceAll('-', '+').replaceAll('_', '/');
@@ -87,8 +87,8 @@ class FtcApiClient {
 
   Future<void> reLogIn() async {
     try {
-      String username = await storage.read(key: 'username');
-      String password = await storage.read(key: 'password');
+      String? username = await storage.read(key: 'username');
+      String? password = await storage.read(key: 'password');
       Response response = await dio
           .post("login", data: {"username": username, "password": password});
 
@@ -100,7 +100,7 @@ class FtcApiClient {
       };
     } catch (e) {
       if (e is DioError) {
-        if (e.response.statusCode == 400) {
+        if (e.response?.statusCode == 400) {
           await signOut();
           throw e;
         }
@@ -119,27 +119,22 @@ class FtcApiClient {
       Response response = await dio.get("users/$userId");
       Member member = Member.fromJson(response.data['result']);
       if (member.deviceToken == null) {
-        String token = await firebaseMessaging.getToken();
+        String token = await firebaseMessaging.getToken() as String;
         Map<String, dynamic> payload = {"device_token": token};
         updateMember(payload);
       } else {
-        String currentToken = await firebaseMessaging.getToken();
+        String currentToken = await firebaseMessaging.getToken() as String;
         if (member.deviceToken != currentToken) {
           Map<String, dynamic> payload = {"device_token": currentToken};
-          firebaseMessaging.subscribe();
           updateMember(payload);
         }
       }
       return member;
     } catch (e) {
       if (e is DioError) {
-        if (e.response.statusCode == 403) {
-          throw e;
-        } else if (e.response.statusCode == 404) {
-          print('what?');
-        }
+        throw e;
       }
-      return null;
+      throw e;
     }
   }
 

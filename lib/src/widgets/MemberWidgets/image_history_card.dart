@@ -8,7 +8,7 @@ class ImageHistoryCard extends StatelessWidget {
   final ImageHistory image;
   final String baseLink = FlutterConfig.get('API_BASE_URL');
 
-  ImageHistoryCard({this.image, this.onClick});
+  ImageHistoryCard({required this.image, required this.onClick});
 
   @override
   Widget build(BuildContext context) {

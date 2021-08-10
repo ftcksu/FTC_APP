@@ -6,7 +6,7 @@ class HomeBoringBox extends StatelessWidget {
   final String text;
   final String author;
 
-  HomeBoringBox({this.text, this.author});
+  HomeBoringBox({required this.text, required this.author});
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +39,14 @@ class HomeBoringBox extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   child: Text(
-                    text != null ? text : "No message ?",
+                    text,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 )),
                 Center(
                   child: Text(
-                    '-' + author != null ? author : "No Member ?",
+                    '-' + author,
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 )

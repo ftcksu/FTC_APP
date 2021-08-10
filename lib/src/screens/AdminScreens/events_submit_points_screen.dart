@@ -16,14 +16,8 @@ class SubmitPointsScreen extends StatefulWidget {
 }
 
 class _SubmitPointsScreenState extends State<SubmitPointsScreen> {
-  List<Event> events;
-  Completer<void> _refreshCompleter;
-
-  @override
-  void initState() {
-    super.initState();
-    _refreshCompleter = Completer<void>();
-  }
+  late List<Event> events;
+  Completer<void> _refreshCompleter = new Completer();
 
   @override
   Widget build(BuildContext context) {

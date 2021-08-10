@@ -10,7 +10,7 @@ import 'package:ftc_application/config/app_config.dart' as config;
 class EventJobsApprovalScreen extends StatefulWidget {
   final RouteArgument routeArgument;
 
-  EventJobsApprovalScreen({this.routeArgument});
+  EventJobsApprovalScreen({required this.routeArgument});
 
   @override
   _EventJobsApprovalScreenState createState() =>
@@ -18,8 +18,8 @@ class EventJobsApprovalScreen extends StatefulWidget {
 }
 
 class _EventJobsApprovalScreenState extends State<EventJobsApprovalScreen> {
-  List<Job> eventJobs;
-  int eventId;
+  late List<Job> eventJobs;
+  late int eventId;
 
   @override
   void initState() {

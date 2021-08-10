@@ -4,31 +4,33 @@ part 'Event.g.dart';
 
 @JsonSerializable()
 class Event {
-  int id;
-  String title;
-  String description;
-  DateTime date;
-  bool full;
+  int id = 0;
+  String title = "";
+  String description = "";
+  DateTime date = DateTime.now();
+  bool full = false;
   @JsonKey(name: 'whats_app_link')
-  String whatsAppLink;
+  String whatsAppLink = "";
   @JsonKey(name: 'max_users')
-  int maxUsers;
-  String location;
-  bool finished;
-  Member leader;
+  int maxUsers = 0;
+  String location = "";
+  bool finished = false;
+  Member leader = Member.initial();
 
   Event({
-    this.id,
-    this.title,
-    this.description,
-    this.date,
-    this.full,
-    this.whatsAppLink,
-    this.maxUsers,
-    this.finished,
-    this.leader,
-    this.location,
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.date,
+    required this.full,
+    required this.whatsAppLink,
+    required this.maxUsers,
+    required this.finished,
+    required this.leader,
+    required this.location,
   });
+
+  Event.initial();
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
   Map<String, dynamic> toJson() => _$EventToJson(this);

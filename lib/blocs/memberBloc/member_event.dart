@@ -15,7 +15,7 @@ class GetMembers extends MemberEvent {}
 class GetEventCreation extends MemberEvent {
   final int eventId;
 
-  GetEventCreation({this.eventId});
+  GetEventCreation({required this.eventId});
 }
 
 class GetMember extends MemberEvent {}
@@ -23,23 +23,23 @@ class GetMember extends MemberEvent {}
 class GetEventMembers extends MemberEvent {
   final int eventId;
 
-  GetEventMembers({this.eventId});
+  GetEventMembers({required this.eventId});
 }
 
 class UpdateMember extends MemberEvent {
   final Map<String, dynamic> payload;
-  UpdateMember({this.payload}) : assert(payload != null);
+  UpdateMember({required this.payload});
 }
 
 class ChangeMOTD extends MemberEvent {
   final Map<String, dynamic> payload;
-  ChangeMOTD({this.payload}) : assert(payload != null);
+  ChangeMOTD({required this.payload});
 }
 
 class AddImage extends MemberEvent {
   final File image;
 
-  AddImage({this.image});
+  AddImage({required this.image});
 }
 
 class RefreshMember extends MemberEvent {}

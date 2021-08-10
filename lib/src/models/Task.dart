@@ -4,20 +4,32 @@ part 'Task.g.dart';
 
 @JsonSerializable()
 class Task {
-  int id;
-  String description;
-  int points;
+  int id = 0;
+  String description = "";
+  int points = 0;
   @JsonKey(name: 'approval_status')
-  String approvalStatus;
+  String approvalStatus = "";
   @JsonKey(ignore: true)
-  Member assignedMember;
+  Member assignedMember = Member.initial();
 
-  Task(
-      {this.id,
-      this.description,
-      this.points,
-      this.approvalStatus,
-      this.assignedMember});
+  Task({
+    required this.id,
+    required this.description,
+    required this.points,
+    required this.approvalStatus,
+  });
+
+  Task.assignedTask({
+    required this.id,
+    required this.description,
+    required this.assignedMember,
+  });
+
+  Task.submittedTask({
+    required this.description,
+    required this.approvalStatus,
+  });
+  Task.initial();
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
   Map<String, dynamic> toJson() => _$TaskToJson(this);

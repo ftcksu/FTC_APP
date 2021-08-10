@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class EmptyPageWidget extends StatelessWidget {
   final String text;
 
-  EmptyPageWidget({this.text});
+  EmptyPageWidget({required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class EmptyPageWidget extends StatelessWidget {
           text,
           style: Theme.of(context)
               .textTheme
-              .headline6
+              .headline6!
               .merge(TextStyle(color: Colors.white, fontSize: 24)),
         )),
       ),

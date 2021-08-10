@@ -63,7 +63,7 @@ class _SignInPageState extends State<SignInPage> {
                       Text('تسجيل الدخول',
                           style: Theme.of(context)
                               .textTheme
-                              .headline2
+                              .headline2!
                               .merge(TextStyle(color: Colors.white))),
                       SizedBox(height: 20),
                       Padding(
@@ -81,7 +81,7 @@ class _SignInPageState extends State<SignInPage> {
                           decoration: InputDecoration(
                             labelText: 'الرقم الجامعي',
                             labelStyle:
-                                Theme.of(context).textTheme.bodyText1.merge(
+                                Theme.of(context).textTheme.bodyText1!.merge(
                                       TextStyle(color: Colors.white),
                                     ),
                             enabledBorder: UnderlineInputBorder(
@@ -108,7 +108,7 @@ class _SignInPageState extends State<SignInPage> {
                           decoration: new InputDecoration(
                             labelText: 'كلمة المرور',
                             labelStyle:
-                                Theme.of(context).textTheme.bodyText1.merge(
+                                Theme.of(context).textTheme.bodyText1!.merge(
                                       TextStyle(color: Colors.white),
                                     ),
                             enabledBorder: UnderlineInputBorder(
@@ -144,7 +144,7 @@ class _SignInPageState extends State<SignInPage> {
                               child: Text('تسجيل الدخول',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline2
+                                      .headline2!
                                       .merge(TextStyle(color: Colors.white))),
                             ),
                     ],

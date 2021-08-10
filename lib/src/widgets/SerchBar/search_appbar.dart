@@ -7,7 +7,7 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
   final Function(String) onSearchQueryChanged;
   final Function stateFunction;
-  Function callDrawer;
+  Function callDrawer = () => {};
   SearchAppBar(this.title, this.onSearchQueryChanged, this.callDrawer,
       this.stateFunction);
   SearchAppBar.noDrawer(
@@ -22,18 +22,15 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _SearchAppBarState extends State<SearchAppBar>
     with SingleTickerProviderStateMixin {
-  double rippleStartX, rippleStartY;
-  AnimationController _controller;
-  Animation _animation;
+  late double rippleStartX = 0, rippleStartY = 0;
+  late AnimationController _controller =
+      AnimationController(vsync: this, duration: Duration(milliseconds: 200));
+  late Animation _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
   bool isInSearchMode = false;
 
   @override
   initState() {
     super.initState();
-
-    _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 200));
-    _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
     _controller.addStatusListener(animationStatusListener);
   }
 
@@ -89,15 +86,13 @@ class _SearchAppBarState extends State<SearchAppBar>
               onTapUp: onSearchTapUp,
             ),
           ),
-          widget.callDrawer != null
-              ? Padding(
-                  padding: const EdgeInsets.only(right: 4),
-                  child: IconButton(
-                    icon: Icon(Icons.reorder),
-                    onPressed: () => widget.callDrawer(),
-                  ),
-                )
-              : Container()
+          Padding(
+            padding: const EdgeInsets.only(right: 4),
+            child: IconButton(
+              icon: Icon(Icons.reorder),
+              onPressed: () => widget.callDrawer(),
+            ),
+          )
         ],
       ),
       AnimatedBuilder(
@@ -106,7 +101,7 @@ class _SearchAppBarState extends State<SearchAppBar>
           return CustomPaint(
             painter: MyPainter(
               containerHeight: widget.preferredSize.height,
-              center: Offset(rippleStartX ?? 0, rippleStartY ?? 0),
+              center: Offset(rippleStartX, rippleStartY),
               radius: _animation.value * screenWidth,
               context: context,
             ),

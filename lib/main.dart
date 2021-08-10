@@ -23,7 +23,7 @@ void main() async {
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final FirebaseNotifications firebaseNotifications =
-      FirebaseNotifications(scaffoldKey);
+      FirebaseNotifications(scaffoldKey: scaffoldKey);
 
   final FtcRepository ftcRepository = FtcRepository(
       ftcApiClient: FtcApiClient(firebaseMessaging: firebaseNotifications));

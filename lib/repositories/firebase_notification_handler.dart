@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:ftc_application/config/app_config.dart' as config;
 
 class FirebaseNotifications {
-  FirebaseMessaging _firebaseMessaging;
+  FirebaseMessaging? _firebaseMessaging;
   final GlobalKey<ScaffoldState> scaffoldKey;
   bool onReceive = true;
-  FirebaseNotifications(this.scaffoldKey);
+  FirebaseNotifications({required this.scaffoldKey});
 
   void setUpFirebase() async {
     _firebaseMessaging = FirebaseMessaging.instance;
@@ -19,38 +19,29 @@ class FirebaseNotifications {
   void firebaseCloudMessagingListeners() {
     if (Platform.isIOS) iosPermissions();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification notification = message.notification;
-      AndroidNotification android = message.notification?.android;
-      if (notification != null && android != null) {
-        if (onReceive) {
-          onReceive = false;
-          String title, notificationMessage;
-          title = notification.title;
-          notificationMessage = notification.body;
-          _showNotification(title, notificationMessage);
-        } else {
-          onReceive = true;
-        }
+      RemoteNotification? notification = message.notification;
+      if (onReceive) {
+        onReceive = false;
+        String title, notificationMessage;
+        title = notification?.title as String;
+        notificationMessage = notification?.body as String;
+        _showNotification(title, notificationMessage);
+      } else {
+        onReceive = true;
       }
     });
   }
 
-  Future<String> getToken() async {
-    String token = await _firebaseMessaging.getToken();
-    _firebaseMessaging.subscribeToTopic('FTC-APP');
-    return token;
+  Future<String?> getToken() async {
+    return await _firebaseMessaging?.getToken();
   }
 
-  Future<String> getNewToken() async {
-    return await _firebaseMessaging.getToken();
-  }
-
-  void subscribe() async {
-    _firebaseMessaging.subscribeToTopic('FTC-APP');
+  Future<String?> getNewToken() async {
+    return await _firebaseMessaging?.getToken();
   }
 
   void iosPermissions() {
-    _firebaseMessaging.requestPermission(
+    _firebaseMessaging?.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -82,13 +73,13 @@ class FirebaseNotifications {
       margin: EdgeInsets.all(8),
       duration: Duration(seconds: 2),
       borderColor: Colors.white,
-      borderRadius: 8,
+      borderRadius: BorderRadius.all(Radius.circular(8)),
       backgroundGradient: LinearGradient(
         colors: [
           config.Colors().mainColor(1),
           config.Colors().accentColor(.8),
         ],
       ),
-    )..show(scaffoldKey.currentState.context);
+    )..show(scaffoldKey.currentState!.context);
   }
 }

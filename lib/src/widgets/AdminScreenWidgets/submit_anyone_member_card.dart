@@ -11,7 +11,7 @@ class SubmitAnyoneMemberCard extends StatelessWidget {
   final FocusNode _whyFocusNode = FocusNode();
   final FocusNode _pointsFocusNode = FocusNode();
 
-  SubmitAnyoneMemberCard({this.adminJob, this.onClick});
+  SubmitAnyoneMemberCard({required this.adminJob, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +170,7 @@ class SubmitAnyoneMemberCard extends StatelessWidget {
                     child: TextField(
                       style: Theme.of(context)
                           .textTheme
-                          .subtitle2
+                          .subtitle2!
                           .merge(TextStyle(fontSize: 18)),
                       autofocus: true,
                       focusNode: _whyFocusNode,
@@ -207,7 +207,7 @@ class SubmitAnyoneMemberCard extends StatelessWidget {
                     child: TextField(
                       style: Theme.of(context)
                           .textTheme
-                          .subtitle2
+                          .subtitle2!
                           .merge(TextStyle(fontSize: 18)),
                       focusNode: _pointsFocusNode,
                       textAlign: TextAlign.right,

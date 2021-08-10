@@ -11,7 +11,7 @@ class GetEvents extends MemberEventsEvent {}
 class GetMemberEvents extends MemberEventsEvent {
   final int memberId;
 
-  GetMemberEvents({this.memberId}) : assert(memberId != null);
+  GetMemberEvents({required this.memberId});
 }
 
 class GetCurrentMemberEvents extends MemberEventsEvent {}

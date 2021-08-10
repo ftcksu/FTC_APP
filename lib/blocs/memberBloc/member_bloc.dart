@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:ftc_application/repositories/ftc_repository.dart';
 import 'package:ftc_application/src/models/Member.dart';
 import 'package:ftc_application/src/models/route_argument.dart';
@@ -8,9 +7,7 @@ import './bloc.dart';
 
 class MemberBloc extends Bloc<MemberEvent, MemberState> {
   final FtcRepository ftcRepository;
-  MemberBloc({@required this.ftcRepository})
-      : assert(ftcRepository != null),
-        super(null);
+  MemberBloc({required this.ftcRepository}) : super(InitialMemberState());
   MemberState get initialState => InitialMemberState();
 
   @override
@@ -63,17 +60,16 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
   }
 
   Stream<MemberState> _mapGetEventCreation(int eventId) async* {
-    yield GetEventCreationLoading();
-    final List<Member> members = await ftcRepository.getMembers(false);
-    if (eventId != null) {
+    if (eventId == -1) {
+      yield EventCreationCreating();
+    } else {
+      yield GetEventCreationLoading();
+      final List<Member> members = await ftcRepository.getMembers(false);
       final List<Member> participatedMembers =
           await ftcRepository.getEventMembers(eventId);
       yield GetEventCreationLoaded(
           argument:
               RouteArgument(argumentsList: [members, participatedMembers]));
-    } else {
-      yield GetEventCreationLoaded(
-          argument: RouteArgument(argumentsList: [members]));
     }
   }
 }

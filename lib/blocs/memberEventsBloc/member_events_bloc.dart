@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:ftc_application/repositories/ftc_repository.dart';
 import 'package:ftc_application/src/models/Event.dart';
 import 'package:ftc_application/src/models/route_argument.dart';
@@ -8,9 +7,8 @@ import './bloc.dart';
 
 class MemberEventsBloc extends Bloc<MemberEventsEvent, MemberEventsState> {
   final FtcRepository ftcRepository;
-  MemberEventsBloc({@required this.ftcRepository})
-      : assert(ftcRepository != null),
-        super(null);
+  MemberEventsBloc({required this.ftcRepository})
+      : super(InitialMemberEventsState());
   MemberEventsState get initialState => InitialMemberEventsState();
 
   @override

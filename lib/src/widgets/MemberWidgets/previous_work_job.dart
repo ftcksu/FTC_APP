@@ -6,7 +6,7 @@ import 'package:ftc_application/src/models/route_argument.dart';
 class PreviousJobCard extends StatelessWidget {
   final Job job;
 
-  PreviousJobCard({this.job});
+  PreviousJobCard({required this.job});
 
   @override
   Widget build(BuildContext context) {

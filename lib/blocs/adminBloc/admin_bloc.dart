@@ -7,9 +7,7 @@ import './bloc.dart';
 
 class AdminBloc extends Bloc<AdminEvent, AdminState> {
   final FtcRepository ftcRepository;
-  AdminBloc({@required this.ftcRepository})
-      : assert(ftcRepository != null),
-        super(null);
+  AdminBloc({required this.ftcRepository}) : super(InitialAdminState());
 
   AdminState get initialState => InitialAdminState();
 

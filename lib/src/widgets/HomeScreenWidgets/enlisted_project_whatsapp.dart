@@ -7,7 +7,9 @@ class EnlistedProject extends StatelessWidget {
   final Function onTap;
   final String heroTag;
   EnlistedProject(
-      {this.event, this.onTap, this.heroTag}); //add the whats app link
+      {required this.event,
+      required this.onTap,
+      required this.heroTag}); //add the whats app link
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -25,6 +27,10 @@ class EnlistedProject extends StatelessWidget {
         event.title,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
+        style: Theme.of(context)
+            .textTheme
+            .bodyText2!
+            .merge(TextStyle(fontSize: 16)),
       ),
     );
   }

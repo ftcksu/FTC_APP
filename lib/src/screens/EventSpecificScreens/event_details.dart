@@ -16,17 +16,17 @@ import 'package:ftc_application/src/widgets/loading_widget.dart';
 class EventDetails extends StatefulWidget {
   final RouteArgument routeArgument;
 
-  EventDetails({Key key, this.routeArgument});
+  EventDetails({required this.routeArgument});
 
   @override
   _EventDetailsState createState() => _EventDetailsState();
 }
 
 class _EventDetailsState extends State<EventDetails> {
-  List<Member> members;
-  Event event;
-  String _heroTag;
-  Member currentMember;
+  late List<Member> members;
+  late Event event;
+  late String _heroTag;
+  late Member currentMember;
   bool eventMembersLoaded = false;
 
   bool isUserEnlisted() {

@@ -12,13 +12,12 @@ class UpdateTask extends AdminEvent {
   final int taskId;
   final Map<String, dynamic> payload;
 
-  UpdateTask({this.taskId, this.payload})
-      : assert(taskId != null, payload != null);
+  const UpdateTask({required this.taskId, required this.payload});
 }
 
 class AdminSubmitPoints extends AdminEvent {
   final int memberId;
   final Map<String, dynamic> payload;
 
-  AdminSubmitPoints({this.memberId, this.payload}) : assert(payload != null);
+  const AdminSubmitPoints({required this.memberId, required this.payload});
 }

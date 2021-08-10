@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:ftc_application/repositories/ftc_repository.dart';
 import 'package:ftc_application/src/models/Task.dart';
 import './bloc.dart';
 
 class MemberTasksBloc extends Bloc<MemberTasksEvent, MemberTasksState> {
   final FtcRepository ftcRepository;
-  MemberTasksBloc({@required this.ftcRepository})
-      : assert(ftcRepository != null),
-        super(null);
+  MemberTasksBloc({required this.ftcRepository})
+      : super(InitialMemberTasksState());
   MemberTasksState get initialState => InitialMemberTasksState();
 
   @override

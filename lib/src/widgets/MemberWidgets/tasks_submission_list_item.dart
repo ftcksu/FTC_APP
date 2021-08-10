@@ -12,12 +12,12 @@ class EventTasksApproveLeader extends StatefulWidget {
   final Function onAccept, onReject;
 
   EventTasksApproveLeader(
-      {this.task,
-      this.memberId,
-      this.memberName,
-      this.hasImage,
-      this.onAccept,
-      this.onReject});
+      {required this.task,
+      required this.memberId,
+      required this.memberName,
+      required this.hasImage,
+      required this.onAccept,
+      required this.onReject});
 
   @override
   _EventTasksApproveLeaderState createState() =>

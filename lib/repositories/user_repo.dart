@@ -2,17 +2,18 @@ import 'dart:async';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ftc_application/repositories/ftc_repository.dart';
-import 'package:meta/meta.dart';
+import 'package:ftc_application/src/models/Member.dart';
 
 class UserRepo {
   final FtcRepository ftcRepository;
   final storage = new FlutterSecureStorage();
+  Member? member;
 
-  UserRepo({@required this.ftcRepository}) : assert(ftcRepository != null);
+  UserRepo({required this.ftcRepository});
 
   Future<String> authenticate({
-    @required String username,
-    @required String password,
+    required String username,
+    required String password,
   }) async {
     String auth = await ftcRepository.login(username, password);
     return auth;

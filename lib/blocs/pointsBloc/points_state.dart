@@ -15,5 +15,5 @@ class PointsPageLoading extends PointsState {}
 
 class PointsPageLoaded extends PointsState {
   final RouteArgument pointsPageInfo;
-  PointsPageLoaded({this.pointsPageInfo}) : assert(pointsPageInfo != null);
+  PointsPageLoaded({required this.pointsPageInfo});
 }

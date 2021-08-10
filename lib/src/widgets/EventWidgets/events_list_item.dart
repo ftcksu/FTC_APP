@@ -16,16 +16,16 @@ class EventCard extends StatelessWidget {
   final bool leaderView;
   final Member currentMember;
   final AnimationController animationController;
-  final Animation animation;
+  final Animation<double> animation;
 
   EventCard(
-      {@required this.event,
-      this.enlistedEvents,
-      this.heroTag,
+      {required this.event,
+      this.enlistedEvents = const [],
+      required this.heroTag,
       this.leaderView = false,
-      this.animationController,
-      this.currentMember,
-      this.animation});
+      required this.animationController,
+      required this.currentMember,
+      required this.animation});
 
   bool isUserEnlisted() {
     if (currentMember.id == event.leader.id) {
@@ -208,7 +208,7 @@ class EventCard extends StatelessWidget {
                   'انتهت الفعاليه',
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2
+                      .bodyText2!
                       .merge(TextStyle(fontWeight: FontWeight.w600)),
                 ))
             : Positioned(
@@ -228,7 +228,7 @@ class EventCard extends StatelessWidget {
 
     return AnimatedBuilder(
       animation: animationController,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         return FadeTransition(
           opacity: animation,
           child: Transform(

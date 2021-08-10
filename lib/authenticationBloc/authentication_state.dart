@@ -13,7 +13,7 @@ class AuthenticationUninitialized extends AuthenticationState {}
 class AuthenticationAuthenticated extends AuthenticationState {
   final Member member;
 
-  AuthenticationAuthenticated({this.member});
+  AuthenticationAuthenticated({required this.member});
 }
 
 class AuthenticationUnauthenticated extends AuthenticationState {}
@@ -21,4 +21,3 @@ class AuthenticationUnauthenticated extends AuthenticationState {}
 class AuthenticationLoading extends AuthenticationState {}
 
 class LoginFailed extends AuthenticationState {}
-

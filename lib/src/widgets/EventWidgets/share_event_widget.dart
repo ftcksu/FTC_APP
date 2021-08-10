@@ -6,7 +6,10 @@ class ShareEventWidget extends StatelessWidget {
   final String eventTitle;
   final String description;
   final int eventId;
-  ShareEventWidget({this.eventTitle, this.eventId, this.description});
+  ShareEventWidget(
+      {required this.eventTitle,
+      required this.eventId,
+      required this.description});
 
   @override
   Widget build(BuildContext context) {

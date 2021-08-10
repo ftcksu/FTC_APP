@@ -1,16 +1,13 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:ftc_application/repositories/ftc_repository.dart';
 import 'package:ftc_application/src/models/route_argument.dart';
 import './bloc.dart';
 
 class PointsBloc extends Bloc<PointsEvent, PointsState> {
   final FtcRepository ftcRepository;
-  RouteArgument pointsPageInfo;
-  PointsBloc({@required this.ftcRepository})
-      : assert(ftcRepository != null),
-        super(null);
+  RouteArgument pointsPageInfo = RouteArgument(argumentsList: []);
+  PointsBloc({required this.ftcRepository}) : super(InitialPointsState());
 
   PointsState get initialState => InitialPointsState();
 

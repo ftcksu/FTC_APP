@@ -15,7 +15,7 @@ class MemberJobsLoading extends MemberJobsState {}
 class MemberJobsLoaded extends MemberJobsState {
   final RouteArgument jobsInfo;
 
-  MemberJobsLoaded({this.jobsInfo}) : assert(jobsInfo != null);
+  MemberJobsLoaded({required this.jobsInfo});
 }
 
 class CurrentMemberJobsLoading extends MemberJobsState {}
@@ -23,7 +23,7 @@ class CurrentMemberJobsLoading extends MemberJobsState {}
 class CurrentMemberJobsLoaded extends MemberJobsState {
   final List<Job> jobs;
 
-  CurrentMemberJobsLoaded({this.jobs}) : assert(jobs != null);
+  CurrentMemberJobsLoaded({required this.jobs});
 }
 
 class EventJobsLoading extends MemberJobsState {}
@@ -31,5 +31,5 @@ class EventJobsLoading extends MemberJobsState {}
 class EventJobsLoaded extends MemberJobsState {
   final List<Job> jobs;
 
-  EventJobsLoaded({this.jobs}) : assert(jobs != null);
+  EventJobsLoaded({required this.jobs});
 }

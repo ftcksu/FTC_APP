@@ -8,14 +8,14 @@ import 'package:ftc_application/src/widgets/MemberWidgets/member_image.dart';
 class HomeDrawer extends StatefulWidget {
   final FtcRepository ftcRepository;
   final Member member;
-  HomeDrawer({this.member, this.ftcRepository, Key key}) : super(key: key);
+  HomeDrawer({required this.member, required this.ftcRepository});
 
   @override
   _HomeDrawerState createState() => _HomeDrawerState();
 }
 
 class _HomeDrawerState extends State<HomeDrawer> {
-  List<DrawerList> drawerList;
+  late List<DrawerList> drawerList;
   bool isUserAdmin = false;
   @override
   void initState() {
@@ -198,7 +198,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
   }
 
   Widget inkwell(DrawerList listData) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Material(
@@ -303,8 +302,8 @@ class DrawerList {
   DrawerList({
     this.isAssetsImage = false,
     this.labelName = '',
-    this.icon,
-    this.index,
+    required this.icon,
+    required this.index,
     this.imageName = '',
   });
 }

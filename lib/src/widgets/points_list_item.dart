@@ -14,11 +14,11 @@ class PointsListItem extends StatelessWidget {
   final String rankImage;
 
   PointsListItem(
-      {@required this.member,
-      @required this.heroTag,
-      @required this.index,
-      @required this.currentMember,
-      this.rankImage});
+      {required this.member,
+      required this.heroTag,
+      required this.index,
+      required this.currentMember,
+      required this.rankImage});
 
   @override
   Widget build(BuildContext context) {
@@ -39,21 +39,19 @@ class PointsListItem extends StatelessWidget {
               child: ListTile(
                 leading: getLeading(member, currentMember, heroTag),
                 title: Text(
-                  member.name,
+                  member.name ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle2
+                      .subtitle2!
                       .merge(TextStyle(fontSize: 14)),
                 ),
-                subtitle: member?.bio != null
-                    ? Text(
-                        member.bio,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                    : Text(''),
+                subtitle: Text(
+                  member.bio ?? "",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
                 trailing: CircleAvatar(
                   radius: 20,
                   backgroundImage: AssetImage(rankImage),
@@ -66,7 +64,7 @@ class PointsListItem extends StatelessWidget {
               width: 45,
               child: Center(
                 child: Text(
-                  member.points.toString(),
+                  member.points.toString() ?? "",
                   textDirection: TextDirection.ltr,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,

@@ -10,11 +10,11 @@ abstract class NotificationEvent extends Equatable {
 class AdminSendNotification extends NotificationEvent {
   final PushNotificationRequest notification;
 
-  AdminSendNotification({this.notification});
+  AdminSendNotification({required this.notification});
 }
 
 class SendMemberMessage extends NotificationEvent {
   final PushNotificationRequest notification;
   final int memberId;
-  SendMemberMessage({this.memberId, this.notification});
+  SendMemberMessage({required this.memberId, required this.notification});
 }

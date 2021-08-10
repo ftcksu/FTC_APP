@@ -3,10 +3,9 @@ import 'package:flutter/painting.dart';
 
 class SearchBar extends StatefulWidget implements PreferredSizeWidget {
   SearchBar({
-    Key key,
-    @required this.onCancelSearch,
-    @required this.onSearchQueryChanged,
-  }) : super(key: key);
+    required this.onCancelSearch,
+    required this.onSearchQueryChanged,
+  });
 
   final VoidCallback onCancelSearch;
   final Function(String) onSearchQueryChanged;

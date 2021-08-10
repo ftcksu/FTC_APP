@@ -21,15 +21,9 @@ class MemberImageHistory extends StatefulWidget {
 }
 
 class _MemberImageHistoryState extends State<MemberImageHistory> {
-  List<ImageHistory> memberImages;
-  Completer<void> _refreshCompleter;
+  late List<ImageHistory> memberImages;
+  Completer<void> _refreshCompleter = new Completer();
   final picker = ImagePicker();
-
-  @override
-  void initState() {
-    super.initState();
-    _refreshCompleter = Completer<void>();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +108,7 @@ class _MemberImageHistoryState extends State<MemberImageHistory> {
   Future getImage() async {
     var image = await picker.getImage(source: ImageSource.gallery);
     if (image != null) {
-      File croppedFile = await ImageCropper.cropImage(
+      File? croppedFile = await ImageCropper.cropImage(
           sourcePath: image.path,
           aspectRatioPresets: [
             CropAspectRatioPreset.square,

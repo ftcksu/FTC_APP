@@ -5,28 +5,29 @@ part 'Job.g.dart';
 
 @JsonSerializable()
 class Job {
-  int id;
-  String title;
+  int id = 0;
+  String title = "";
   @JsonKey(name: 'user')
-  Member assignedMember;
-  String description;
+  Member assignedMember = Member.initial();
+  String description = "";
   @JsonKey(ignore: true)
-  List<Task> tasks;
-  String jobType;
+  List<Task> tasks = [];
+  String jobType = "";
   @JsonKey(name: 'event_status')
-  bool eventStatus;
-  int readyTasks;
-  int waitingTasks;
+  bool eventStatus = false;
+  int readyTasks = 0;
+  int waitingTasks = 0;
+
   Job(
-      {this.id,
-      this.title,
-      this.assignedMember,
-      this.description,
-      this.tasks,
-      this.jobType,
-      this.readyTasks,
-      this.waitingTasks,
-      this.eventStatus});
+      {required this.id,
+      required this.title,
+      required this.assignedMember,
+      required this.jobType,
+      required this.readyTasks,
+      required this.waitingTasks,
+      required this.eventStatus});
+
+  Job.initial();
 
   factory Job.fromJson(Map<String, dynamic> json) => _$JobFromJson(json);
   Map<String, dynamic> toJsonNoTasks() => _$JobToJsonNT(this);

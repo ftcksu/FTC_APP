@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:ftc_application/repositories/ftc_repository.dart';
 import 'package:ftc_application/src/models/image_history.dart';
 import './bloc.dart';
 
 class ImageApprovalBloc extends Bloc<ImageApprovalEvent, ImageApprovalState> {
   final FtcRepository ftcRepository;
-  ImageApprovalBloc({@required this.ftcRepository})
-      : assert(ftcRepository != null),
-        super(null);
+  ImageApprovalBloc({required this.ftcRepository})
+      : super(InitialImageApprovalState());
   ImageApprovalState get initialState => InitialImageApprovalState();
 
   @override

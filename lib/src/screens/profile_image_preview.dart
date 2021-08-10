@@ -6,7 +6,7 @@ import 'package:ftc_application/src/models/route_argument.dart';
 
 class ProfileImagePreview extends StatefulWidget {
   final RouteArgument routeArgument;
-  ProfileImagePreview({this.routeArgument});
+  ProfileImagePreview({required this.routeArgument});
 
   @override
   _ProfileImagePreviewState createState() => _ProfileImagePreviewState();
@@ -14,10 +14,10 @@ class ProfileImagePreview extends StatefulWidget {
 
 class _ProfileImagePreviewState extends State<ProfileImagePreview> {
   final String baseLink = FlutterConfig.get('API_BASE_URL');
-  bool adminPreview;
-  Member member;
-  String _heroTag;
-  ImageHistory memberImage;
+  bool adminPreview = false;
+  Member member = Member.initial();
+  String _heroTag = "";
+  ImageHistory memberImage = ImageHistory.initital();
 
   @override
   void initState() {

@@ -18,7 +18,7 @@ class EventsLoading extends MemberEventsState {}
 class EventsLoaded extends MemberEventsState {
   final List<Event> events;
 
-  EventsLoaded({this.events}) : assert(events != null);
+  EventsLoaded({required this.events});
 }
 
 class CurrentMemberEventPageLoading extends MemberEventsState {}
@@ -26,7 +26,7 @@ class CurrentMemberEventPageLoading extends MemberEventsState {}
 class CurrentMemberEventPageLoaded extends MemberEventsState {
   final RouteArgument events;
 
-  CurrentMemberEventPageLoaded({this.events}) : assert(events != null);
+  CurrentMemberEventPageLoaded({required this.events});
 }
 
 class MemberEventsLoading extends MemberEventsState {}
@@ -34,5 +34,5 @@ class MemberEventsLoading extends MemberEventsState {}
 class MemberEventsLoaded extends MemberEventsState {
   final List<Event> memberEvents;
 
-  MemberEventsLoaded({this.memberEvents}) : assert(memberEvents != null);
+  MemberEventsLoaded({required this.memberEvents});
 }

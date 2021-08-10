@@ -12,7 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ftc_application/src/widgets/loading_widget.dart';
 
 class EventManagement extends StatefulWidget {
-  const EventManagement({Key key}) : super(key: key);
+  const EventManagement();
 
   @override
   _EventManagementState createState() => _EventManagementState();
@@ -20,24 +20,15 @@ class EventManagement extends StatefulWidget {
 
 class _EventManagementState extends State<EventManagement>
     with TickerProviderStateMixin {
-  Member currentMember;
-  List<Event> currentEvents;
-  List<Event> finishedEvents;
-  AnimationController animationController;
-  Completer<void> _refreshCompleter;
-  TabController controller;
-
-  @override
-  void initState() {
-    animationController =
-        AnimationController(duration: Duration(milliseconds: 800), vsync: this);
-    _refreshCompleter = Completer<void>();
-    controller = TabController(
-      length: 2,
-      vsync: this,
-    );
-    super.initState();
-  }
+  late Member currentMember;
+  late AnimationController animationController =
+      AnimationController(duration: Duration(milliseconds: 800), vsync: this);
+  late TabController controller = TabController(
+    length: 2,
+    vsync: this,
+  );
+  Completer<void> _refreshCompleter = new Completer();
+  late List<Event> currentEvents, finishedEvents;
 
   @override
   void dispose() {

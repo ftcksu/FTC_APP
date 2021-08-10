@@ -9,14 +9,14 @@ class MemberEnlistedProject extends StatelessWidget {
   final Member currentMember;
   final String heroTag;
   final AnimationController animationController;
-  final Animation animation;
+  final Animation<double> animation;
 
   MemberEnlistedProject(
-      {this.event,
-      this.heroTag,
-      this.currentMember,
-      this.animationController,
-      this.animation}); //Event leader icon or icon icon? what to choose
+      {required this.event,
+      required this.heroTag,
+      required this.currentMember,
+      required this.animationController,
+      required this.animation}); //Event leader icon or icon icon? what to choose
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class MemberEnlistedProject extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: AnimatedBuilder(
         animation: animationController,
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext context, Widget? child) {
           return FadeTransition(
             opacity: animation,
             child: Transform(
@@ -51,7 +51,7 @@ class MemberEnlistedProject extends StatelessWidget {
                   title: Text(event.title,
                       style: Theme.of(context)
                           .textTheme
-                          .headline6
+                          .headline6!
                           .merge(TextStyle(color: Colors.white))),
                 ),
               ),

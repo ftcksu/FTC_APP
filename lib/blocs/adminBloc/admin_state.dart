@@ -18,5 +18,5 @@ class AdminGetJobsLoading extends AdminState {}
 class AdminGetJobsLoaded extends AdminState {
   final List<Job> jobs;
 
-  AdminGetJobsLoaded({this.jobs}) : assert(jobs != null);
+  AdminGetJobsLoaded({required this.jobs});
 }

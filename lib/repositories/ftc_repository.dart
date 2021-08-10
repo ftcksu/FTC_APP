@@ -12,12 +12,12 @@ import 'package:ftc_application/src/models/message_of_the_day.dart';
 import 'package:ftc_application/src/models/route_argument.dart';
 
 class FtcRepository {
-  FtcApiClient ftcApiClient;
+  late FtcApiClient ftcApiClient;
   static final FtcRepository _inst = FtcRepository._internal();
   FtcRepository._internal();
-  MembersRange range;
+  MembersRange range = MembersRange.initial();
 
-  factory FtcRepository({FtcApiClient ftcApiClient}) {
+  factory FtcRepository({required FtcApiClient ftcApiClient}) {
     _inst.ftcApiClient = ftcApiClient;
     return _inst;
   }
@@ -45,7 +45,7 @@ class FtcRepository {
       member.participatedEvents =
           await ftcApiClient.getCurrentMemberEvents(false);
       member.participatedEvents.removeWhere((event) => event.finished);
-      if (range == null) {
+      if (range.muscleRange == 0) {
         List<Member> membersLength = await ftcApiClient.getMembers(false);
         getRange(membersLength.length - 1);
       }
@@ -180,7 +180,7 @@ class FtcRepository {
 
   Future<List<Task>> getMemberSelfTasks(int memberId) async {
     List<Job> jobs = await ftcApiClient.getMemberJobs(memberId);
-    int selfId;
+    int selfId = 0;
     for (Job job in jobs) {
       if (job.jobType == "SELF") {
         selfId = job.id;
@@ -196,7 +196,7 @@ class FtcRepository {
     for (Job job in jobs) {
       for (Task task in job.tasks) {
         if (task.approvalStatus == "WAITING") {
-          Task addedTask = new Task(
+          Task addedTask = new Task.assignedTask(
               id: task.id,
               description: task.description,
               assignedMember: job.assignedMember);
@@ -328,6 +328,9 @@ class FtcRepository {
     int turtleRange = (membersLength / 2).round();
     int muscleRange = (turtleRange / 2).round();
     int sleepRange = turtleRange + muscleRange;
-    range = MembersRange(muscleRange, sleepRange, turtleRange);
+    range = MembersRange(
+        muscleRange: muscleRange,
+        sleepRange: sleepRange,
+        turtleRange: turtleRange);
   }
 }

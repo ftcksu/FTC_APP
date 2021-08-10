@@ -18,16 +18,9 @@ class SubmitPointsAnyone extends StatefulWidget {
 }
 
 class _SubmitPointsAnyoneState extends State<SubmitPointsAnyone> {
-  List<Job> adminJobs, searchList, _newData;
-  Completer<void> _refreshCompleter;
+  late List<Job> adminJobs, _newData = [];
+  Completer<void> _refreshCompleter = new Completer();
   bool searchState = false;
-
-  @override
-  void initState() {
-    _refreshCompleter = Completer<void>();
-    searchList = [];
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +70,7 @@ class _SubmitPointsAnyoneState extends State<SubmitPointsAnyone> {
   }
 
   Widget _simpleSubmitAnyone() {
-    if (searchState && _newData != null) {
+    if (searchState) {
       if (_newData.length == 0) {
         return Container(
           decoration: BoxDecoration(
@@ -95,7 +88,7 @@ class _SubmitPointsAnyoneState extends State<SubmitPointsAnyone> {
               'مافيش عضو بهل اسم',
               style: Theme.of(context)
                   .textTheme
-                  .headline6
+                  .headline6!
                   .merge(TextStyle(color: Colors.white, fontSize: 24)),
             ),
           ),
@@ -142,7 +135,10 @@ class _SubmitPointsAnyoneState extends State<SubmitPointsAnyone> {
 
   _onSubmit(int memberId, String description, int points) {
     Task task = Task(
-        description: description, points: points, approvalStatus: "APPROVED");
+        id: 0,
+        description: description,
+        points: points,
+        approvalStatus: "APPROVED");
 
     BlocProvider.of<AdminBloc>(context)
         .add(AdminSubmitPoints(memberId: memberId, payload: task.toJson()));

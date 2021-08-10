@@ -6,7 +6,7 @@ import 'package:ftc_application/src/widgets/MemberWidgets/MemberDetails/member_e
 class MemberProjects extends StatefulWidget {
   final List<Event> events;
   final Member currentMember;
-  MemberProjects({this.events, this.currentMember});
+  MemberProjects({required this.events, required this.currentMember});
 
   @override
   _MemberProjectsState createState() => _MemberProjectsState();
@@ -14,14 +14,8 @@ class MemberProjects extends StatefulWidget {
 
 class _MemberProjectsState extends State<MemberProjects>
     with TickerProviderStateMixin {
-  AnimationController animationController;
-
-  @override
-  void initState() {
-    animationController =
-        AnimationController(duration: Duration(milliseconds: 800), vsync: this);
-    super.initState();
-  }
+  late AnimationController animationController = animationController =
+      AnimationController(duration: Duration(milliseconds: 800), vsync: this);
 
   @override
   void dispose() {
@@ -37,7 +31,7 @@ class _MemberProjectsState extends State<MemberProjects>
             child: Text('ماعنده فعاليات مشترك فيها',
                 style: Theme.of(context)
                     .textTheme
-                    .headline6
+                    .headline6!
                     .merge(TextStyle(color: Colors.white, fontSize: 24))),
           );
   }

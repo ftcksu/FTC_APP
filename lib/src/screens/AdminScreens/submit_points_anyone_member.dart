@@ -14,7 +14,7 @@ import 'package:ftc_application/blocs/memberTasksBloc/bloc.dart';
 class SubmitPointsAnyoneMemberScreen extends StatefulWidget {
   final RouteArgument routeArgument;
 
-  SubmitPointsAnyoneMemberScreen({this.routeArgument});
+  SubmitPointsAnyoneMemberScreen({required this.routeArgument});
 
   @override
   _SubmitPointsAnyoneMemberScreenState createState() =>
@@ -23,10 +23,10 @@ class SubmitPointsAnyoneMemberScreen extends StatefulWidget {
 
 class _SubmitPointsAnyoneMemberScreenState
     extends State<SubmitPointsAnyoneMemberScreen> {
-  List<Task> tasks = [];
-  int selfJobId;
-  int assignedMemberId;
-  String memberName;
+  late List<Task> tasks;
+  late int selfJobId;
+  late int assignedMemberId;
+  late String memberName;
 
   @override
   void initState() {
@@ -103,7 +103,7 @@ class _SubmitPointsAnyoneMemberScreenState
             'ماعنده اعمال جديده',
             style: Theme.of(context)
                 .textTheme
-                .headline2
+                .headline2!
                 .merge(TextStyle(color: Colors.white, fontSize: 24)),
           ));
   }

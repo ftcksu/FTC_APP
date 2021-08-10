@@ -9,7 +9,7 @@ class HomeProject extends StatelessWidget {
   final List<Event> events;
   final Member currentMember;
   final String heroTag = 'home_screen_event';
-  HomeProject({this.events, this.currentMember});
+  HomeProject({required this.events, required this.currentMember});
 
   @override
   Widget build(BuildContext context) {

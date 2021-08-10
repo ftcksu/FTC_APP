@@ -8,7 +8,8 @@ class SubmitPointsTaskCard extends StatelessWidget {
   final Task task;
   final Function submit;
   final int index;
-  SubmitPointsTaskCard({this.task, this.submit, this.index});
+  SubmitPointsTaskCard(
+      {required this.task, required this.submit, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class SubmitPointsTaskCard extends StatelessWidget {
             TextField(
               style: Theme.of(context)
                   .textTheme
-                  .subtitle2
+                  .subtitle2!
                   .merge(TextStyle(fontSize: 18)),
               autofocus: index == 0,
               showCursor: false,

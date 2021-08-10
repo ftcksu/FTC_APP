@@ -18,15 +18,10 @@ class ApproveImages extends StatefulWidget {
 }
 
 class _ApproveImagesState extends State<ApproveImages> {
-  List<ImageHistory> pendingImages;
-  Completer<void> _refreshCompleter;
+  late List<ImageHistory> pendingImages;
+  Completer<void> _refreshCompleter = new Completer();
   final GlobalKey<SwipeStackState> _swipeKey = GlobalKey<SwipeStackState>();
   bool end = false;
-  @override
-  void initState() {
-    super.initState();
-    _refreshCompleter = Completer<void>();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,11 +112,11 @@ class _ApproveImagesState extends State<ApproveImages> {
     if (position == SwiperPosition.Right) {
       _onSwipe(
           pendingImages[index].id, pendingImages[index].memberId, "APPROVED");
-      _swipeKey.currentState.swipeRight();
+      _swipeKey.currentState?.swipeRight();
     } else {
       _onSwipe(
           pendingImages[index].id, pendingImages[index].memberId, "UNAPPROVED");
-      _swipeKey.currentState.swipeLeft();
+      _swipeKey.currentState?.swipeLeft();
     }
   }
 

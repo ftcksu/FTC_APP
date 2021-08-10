@@ -17,18 +17,11 @@ class SubmitWorkScreen extends StatefulWidget {
 
 class _SubmitWorkScreenState extends State<SubmitWorkScreen>
     with TickerProviderStateMixin {
-  AnimationController animationController;
-  List<Job> jobs = [];
-  int selfJobId;
-  Completer<void> _refreshCompleter;
-
-  @override
-  void initState() {
-    animationController =
-        AnimationController(duration: Duration(milliseconds: 800), vsync: this);
-    _refreshCompleter = Completer<void>();
-    super.initState();
-  }
+  late AnimationController animationController =
+      AnimationController(duration: Duration(milliseconds: 800), vsync: this);
+  Completer<void> _refreshCompleter = new Completer();
+  late List<Job> jobs;
+  late int selfJobId;
 
   @override
   void dispose() {
@@ -132,21 +125,21 @@ class _SubmitWorkScreenState extends State<SubmitWorkScreen>
             })
         : Column(
             children: <Widget>[
-              SelfSubmitCard(
-                submitSelf: _submitSelfWork,
-              ),
+              SelfSubmitCard.noAnim(submitSelf: _submitSelfWork, noAnim: true)
             ],
           );
   }
 
   _submitSelfWork(String taskDescription) {
-    Task task = Task(description: taskDescription, approvalStatus: "READY");
+    Task task = Task.submittedTask(
+        description: taskDescription, approvalStatus: "READY");
     BlocProvider.of<MemberJobsBloc>(context)
         .add(AddTaskToJob(jobId: selfJobId, payload: task.toJson()));
   }
 
   _submitWorkToJob(int jobId, String taskDescription) {
-    Task task = Task(description: taskDescription, approvalStatus: "WAITING");
+    Task task = Task.submittedTask(
+        description: taskDescription, approvalStatus: "WAITING");
     BlocProvider.of<MemberJobsBloc>(context)
         .add(AddTaskToJob(jobId: jobId, payload: task.toJson()));
   }

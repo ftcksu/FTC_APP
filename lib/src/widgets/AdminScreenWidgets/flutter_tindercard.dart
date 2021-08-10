@@ -33,20 +33,20 @@ class TinderSwapCard extends StatefulWidget {
   /// it is the value of alignment, 0.0 means middle, so it need bigger than zero.
   /// , and size control params;
   TinderSwapCard(
-      {@required CardBuilder cardBuilder,
-      @required int totalNum,
+      {required CardBuilder cardBuilder,
+      required int totalNum,
       AmassOrientation orientation = AmassOrientation.BOTTOM,
       int stackNum = 3,
       int animDuration = 800,
       double swipeEdge = 3.0,
-      double maxWidth,
-      double maxHeight,
-      double minWidth,
-      double minHeight,
+      required double maxWidth,
+      required double maxHeight,
+      required double minWidth,
+      required double minHeight,
       bool allowVerticalMovement = true,
-      this.cardController,
-      this.swipeCompleteCallback,
-      this.swipeUpdateCallback})
+      required this.cardController,
+      required this.swipeCompleteCallback,
+      required this.swipeUpdateCallback})
       : this._cardBuilder = cardBuilder,
         this._totalNum = totalNum,
         assert(stackNum > 1),
@@ -95,10 +95,10 @@ class TinderSwapCard extends StatefulWidget {
 
 class _TinderSwapCardState extends State<TinderSwapCard>
     with SingleTickerProviderStateMixin {
-  Alignment frontCardAlign;
-  AnimationController _animationController;
-  int _currentFront;
-  static int _trigger; // 0: no trigger; -1: trigger left; 1: trigger right
+  late Alignment frontCardAlign;
+  late AnimationController _animationController;
+  late int _currentFront;
+  static late int _trigger; // 0: no trigger; -1: trigger left; 1: trigger right
 
   Widget _buildCard(BuildContext context, int realIndex) {
     if (realIndex < 0) {
@@ -112,7 +112,7 @@ class _TinderSwapCardState extends State<TinderSwapCard>
             'مافيش صور',
             style: Theme.of(context)
                 .textTheme
-                .headline2
+                .headline2!
                 .merge(TextStyle(color: Colors.white)),
           ),
         ),
@@ -315,7 +315,7 @@ class CardAnimation {
         new CurvedAnimation(parent: controller, curve: Curves.easeOut));
   }
 
-  static Animation<Size> backCardSize(
+  static Animation<Size?> backCardSize(
       AnimationController controller, Size beginSize, Size endSize) {
     return new SizeTween(begin: beginSize, end: endSize).animate(
         new CurvedAnimation(parent: controller, curve: Curves.easeOut));
@@ -331,7 +331,7 @@ class CardAnimation {
 typedef TriggerListener = void Function(int trigger);
 
 class CardController {
-  TriggerListener _listener;
+  late TriggerListener _listener;
 
   void triggerLeft() {
     if (_listener != null) {
@@ -350,6 +350,6 @@ class CardController {
   }
 
   void removeListener() {
-    _listener = null;
+    _listener = (int empty) => {};
   }
 }

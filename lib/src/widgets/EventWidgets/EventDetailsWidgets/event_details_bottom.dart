@@ -13,11 +13,11 @@ class EventDetailsBottom extends StatelessWidget {
   final Member currentMember;
 
   EventDetailsBottom(
-      {this.members,
-      this.full,
-      this.isUserEnlisted,
-      this.addMember,
-      this.currentMember});
+      {required this.members,
+      required this.full,
+      required this.isUserEnlisted,
+      required this.addMember,
+      required this.currentMember});
 
   @override
   Widget build(BuildContext context) {

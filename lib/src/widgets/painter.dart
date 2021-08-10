@@ -5,10 +5,14 @@ class MyPainter extends CustomPainter {
   final double radius, containerHeight;
   final BuildContext context;
 
-  Color color;
-  double statusBarHeight, screenWidth;
+  late Color color;
+  late double statusBarHeight, screenWidth;
 
-  MyPainter({this.context, this.containerHeight, this.center, this.radius}) {
+  MyPainter(
+      {required this.context,
+      required this.containerHeight,
+      required this.center,
+      required this.radius}) {
     ThemeData theme = Theme.of(context);
 
     color = theme.primaryColor;

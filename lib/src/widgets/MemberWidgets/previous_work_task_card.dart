@@ -8,7 +8,11 @@ class PreviousWorkTaskCard extends StatelessWidget {
   final String jobType;
   final String jobTitle;
   final Function editTask;
-  PreviousWorkTaskCard({this.task, this.editTask, this.jobType, this.jobTitle});
+  PreviousWorkTaskCard(
+      {required this.task,
+      required this.editTask,
+      required this.jobType,
+      required this.jobTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -176,13 +180,13 @@ class PreviousWorkTaskCard extends StatelessWidget {
                       _getTitle(),
                       style: Theme.of(context)
                           .textTheme
-                          .headline6
+                          .headline6!
                           .merge(TextStyle(fontSize: 20)),
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
                       _getStatus(),
-                      style: Theme.of(context).textTheme.subtitle2.merge(
+                      style: Theme.of(context).textTheme.subtitle2!.merge(
                           TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
                     )
                   ],
@@ -207,8 +211,6 @@ class PreviousWorkTaskCard extends StatelessWidget {
           ),
         ));
   }
-
-  bool isNullEmpty(String o) => o == null || "" == o;
 
   String _getStatus() {
     if (task.approvalStatus == 'READY') {

@@ -1,10 +1,12 @@
 class ImageHistory {
-  int id;
-  int memberId;
-  String approved;
-  bool used;
-  String userName;
-  ImageHistory({this.id, this.approved});
+  int id = 0;
+  int memberId = 0;
+  String approved = "";
+  bool used = false;
+  String userName = "";
+
+  ImageHistory({required this.id, required this.approved});
+  ImageHistory.initital();
   ImageHistory.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         used = json['used'],

@@ -14,7 +14,7 @@ class PendingImagesLoading extends ImageApprovalState {}
 class PendingImagesLoaded extends ImageApprovalState {
   final List<ImageHistory> imageHistory;
 
-  PendingImagesLoaded({this.imageHistory}) : assert(imageHistory != null);
+  PendingImagesLoaded({required this.imageHistory});
 }
 
 class MemberImagesHistoryLoading extends ImageApprovalState {}
@@ -22,8 +22,7 @@ class MemberImagesHistoryLoading extends ImageApprovalState {}
 class MemberImagesHistoryLoaded extends ImageApprovalState {
   final List<ImageHistory> imageHistory;
 
-  MemberImagesHistoryLoaded({this.imageHistory}) : assert(imageHistory != null);
+  MemberImagesHistoryLoaded({required this.imageHistory});
 }
 
 class PendingImageUpdating extends ImageApprovalState {}
-

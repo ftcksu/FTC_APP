@@ -10,7 +10,11 @@ class MemberImage extends StatelessWidget {
   final String baseLink = FlutterConfig.get('API_BASE_URL');
 
   MemberImage(
-      {this.id, this.hasProfileImage, this.height, this.width, this.thumb});
+      {required this.id,
+      required this.hasProfileImage,
+      required this.height,
+      required this.width,
+      required this.thumb});
 
   @override
   Widget build(BuildContext context) {

@@ -16,5 +16,5 @@ class HomePageLoading extends HomeState {}
 class HomePageLoaded extends HomeState {
   final RouteArgument homePageInfo;
 
-  HomePageLoaded({this.homePageInfo}) : assert(homePageInfo != null);
+  HomePageLoaded({required this.homePageInfo});
 }

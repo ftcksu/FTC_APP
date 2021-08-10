@@ -13,17 +13,17 @@ import 'package:ftc_application/src/widgets/MemberWidgets/tasks_submission_list_
 class EventTasksSubmit extends StatefulWidget {
   final RouteArgument routeArgument;
 
-  EventTasksSubmit({Key key, this.routeArgument});
+  EventTasksSubmit({required this.routeArgument});
 
   @override
   _EventTasksSubmitState createState() => _EventTasksSubmitState();
 }
 
 class _EventTasksSubmitState extends State<EventTasksSubmit> {
-  List<Task> tasks;
-  int jobId;
-  Member member;
-  int eventId;
+  late List<Task> tasks;
+  late int jobId;
+  late Member member;
+  late int eventId;
 
   @override
   void initState() {
@@ -90,7 +90,7 @@ class _EventTasksSubmitState extends State<EventTasksSubmit> {
               ),
               child: tasks.length > 0
                   ? ListView.builder(
-                      itemCount: tasks?.length,
+                      itemCount: tasks.length,
                       itemBuilder: (context, count) {
                         return EventTasksApproveLeader(
                           task: tasks[count],
@@ -106,7 +106,7 @@ class _EventTasksSubmitState extends State<EventTasksSubmit> {
                       'مافيه اعمال',
                       style: Theme.of(context)
                           .textTheme
-                          .headline6
+                          .headline6!
                           .merge(TextStyle(color: Colors.white, fontSize: 24)),
                     )),
             ),
@@ -125,8 +125,8 @@ class _EventTasksSubmitState extends State<EventTasksSubmit> {
   }
 
   onReject(int taskId) {
-    BlocProvider.of<MemberTasksBloc>(context)
-        .add(UpdateTaskApproval(taskId: taskId, approval: "UNAPPROVED"));
+    BlocProvider.of<MemberTasksBloc>(context).add(UpdateTaskApproval(
+        eventId: eventId, taskId: taskId, approval: "UNAPPROVED"));
 
     BlocProvider.of<NotificationBloc>(context).add(SendMemberMessage(
         memberId: member.id,

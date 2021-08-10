@@ -13,12 +13,12 @@ class GetMemberSelfTasksLoading extends MemberTasksState {}
 
 class GetMemberSelfTasksLoaded extends MemberTasksState {
   final List<Task> memberTasks;
-  GetMemberSelfTasksLoaded({this.memberTasks}) : assert(memberTasks != null);
+  GetMemberSelfTasksLoaded({required this.memberTasks});
 }
 
 class MemberTasksLoading extends MemberTasksState {}
 
 class MemberTasksLoaded extends MemberTasksState {
   final List<Task> memberTasks;
-  MemberTasksLoaded({this.memberTasks}) : assert(memberTasks != null);
+  MemberTasksLoaded({required this.memberTasks});
 }

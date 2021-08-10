@@ -5,21 +5,26 @@ import 'package:ftc_application/src/widgets/MemberWidgets/member_image.dart';
 class MemberSelectionHorzListItem extends StatefulWidget {
   final Member member;
   final Function uncheck;
-  const MemberSelectionHorzListItem(this.member, this.uncheck, {Key key}) : super(key: key);
+  const MemberSelectionHorzListItem(
+    this.member,
+    this.uncheck,
+  );
 
   @override
-  _MemberSelectionHorzListItemState createState() => _MemberSelectionHorzListItemState();
+  _MemberSelectionHorzListItemState createState() =>
+      _MemberSelectionHorzListItemState();
 }
 
-class _MemberSelectionHorzListItemState extends State<MemberSelectionHorzListItem> with SingleTickerProviderStateMixin{
-
-  AnimationController _animationController;
-  Animation<double> _anim;
+class _MemberSelectionHorzListItemState
+    extends State<MemberSelectionHorzListItem>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController =
+      AnimationController(vsync: this, duration: Duration(milliseconds: 150));
+  late Animation<double> _anim =
+      Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this,duration: Duration(milliseconds: 150));
-    _anim = Tween<double>(begin:0.0,end:1.0).animate(_animationController);
     _animationController.forward();
     super.initState();
   }
@@ -33,7 +38,7 @@ class _MemberSelectionHorzListItemState extends State<MemberSelectionHorzListIte
         child: AnimatedBuilder(
           animation: _anim,
           builder: (context, child) => Padding(
-            padding: EdgeInsets.all((45 - _anim.value * 45)/2),
+            padding: EdgeInsets.all((45 - _anim.value * 45) / 2),
             child: Stack(
               children: <Widget>[
                 Center(

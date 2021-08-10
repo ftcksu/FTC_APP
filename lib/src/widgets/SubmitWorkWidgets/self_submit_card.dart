@@ -5,10 +5,20 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 class SelfSubmitCard extends StatelessWidget {
   final Function submitSelf;
-  final AnimationController animationController;
-  final Animation animation;
+  late final AnimationController animationController;
+  late final Animation<double> animation;
+  final bool noAnim;
 
-  SelfSubmitCard({this.submitSelf, this.animation, this.animationController});
+  SelfSubmitCard(
+      {required this.submitSelf,
+      required this.animation,
+      required this.animationController,
+      this.noAnim = false});
+
+  SelfSubmitCard.noAnim({
+    required this.submitSelf,
+    required this.noAnim,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +119,7 @@ class SelfSubmitCard extends StatelessWidget {
     Widget _animatedSelf() {
       return AnimatedBuilder(
         animation: animationController,
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext context, Widget? child) {
           return FadeTransition(
             opacity: animation,
             child: Transform(
@@ -220,6 +230,6 @@ class SelfSubmitCard extends StatelessWidget {
       );
     }
 
-    return animation != null ? _animatedSelf() : _self();
+    return noAnim ? _self() : _animatedSelf();
   }
 }

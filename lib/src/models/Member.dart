@@ -5,36 +5,37 @@ part 'Member.g.dart';
 
 @JsonSerializable()
 class Member {
-  int id;
-  String name;
+  int id = 0;
+  String name = "";
   @JsonKey(name: 'phone_number')
-  String phoneNumber;
-  String bio;
-  String role;
-  int points;
+  String phoneNumber = "";
+  String bio = "";
+  String role = "";
+  int points = 0;
   @JsonKey(name: 'user_rank')
-  int rank;
-  bool hidden;
+  int rank = 0;
+  bool hidden = false;
   @JsonKey(name: 'device_token')
-  String deviceToken;
+  String deviceToken = "";
 
   @JsonKey(ignore: true)
-  List<Event> participatedEvents;
+  List<Event> participatedEvents = [];
   @JsonKey(ignore: true)
-  bool hasProfileImage;
+  bool hasProfileImage = false;
 
   Member(
-      {this.id,
-      this.name,
-      this.phoneNumber,
-      this.bio,
-      this.points,
-      this.rank,
-      this.hidden,
-      this.deviceToken,
-      this.role,
-      this.participatedEvents,
-      this.hasProfileImage});
+      {required this.id,
+      required this.name,
+      required this.phoneNumber,
+      required this.bio,
+      required this.points,
+      required this.rank,
+      required this.hidden,
+      required this.deviceToken,
+      required this.role,
+      required this.hasProfileImage});
+
+  Member.initial();
 
   factory Member.fromJson(Map<String, dynamic> json) => _$MemberFromJson(json);
   Map<String, dynamic> toJson() => _$MemberToJson(this);

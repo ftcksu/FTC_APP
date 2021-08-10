@@ -16,7 +16,7 @@ class EventPageLoading extends EventsState {}
 class EventPageLoaded extends EventsState {
   final RouteArgument events;
 
-  EventPageLoaded({this.events}) : assert(events != null);
+  EventPageLoaded({required this.events});
 }
 
 class EventUserBeingAdded extends EventsState {}
@@ -24,5 +24,5 @@ class EventUserBeingAdded extends EventsState {}
 class EventUserAdded extends EventsState {
   final String response;
 
-  EventUserAdded({this.response}) : assert(response != null);
+  EventUserAdded({required this.response});
 }

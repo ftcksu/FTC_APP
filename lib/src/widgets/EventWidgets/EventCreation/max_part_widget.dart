@@ -7,7 +7,9 @@ class MaxMembersBottomSheet extends StatelessWidget {
   final Function(String) onPressed;
 
   MaxMembersBottomSheet(
-      {this.numberOfMaxPart, this.onPressed, this.numberOfPart});
+      {required this.numberOfMaxPart,
+      required this.onPressed,
+      required this.numberOfPart});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class MaxMembersBottomSheet extends StatelessWidget {
                         child: TextField(
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle2
+                              .subtitle2!
                               .merge(TextStyle(fontSize: 18)),
                           textAlign: TextAlign.right,
                           textDirection: TextDirection.rtl,

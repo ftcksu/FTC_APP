@@ -24,7 +24,6 @@ import 'package:ftc_application/src/screens/AdminScreens/events_submit_points_sc
 import 'package:ftc_application/src/screens/MemberSpecificScreens/submit_work_screen.dart';
 import 'package:ftc_application/src/screens/EventSpecificScreens/event_management_screen.dart';
 import 'package:ftc_application/src/screens/EventSpecificScreens/event_tasks_submit.dart';
-import 'package:ftc_application/src/screens/MainScreens/tabs.dart';
 
 import 'blocs/imageApprovalBloc/image_approval_bloc.dart';
 
@@ -33,9 +32,6 @@ class RouteGenerator {
     final args = settings.arguments;
 
     switch (settings.name) {
-      case '/':
-        return MaterialPageRoute(builder: (_) => TabsWidget());
-
       case '/SplashScreen':
         return MaterialPageRoute(builder: (_) => SplashScreen());
 

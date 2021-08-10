@@ -6,11 +6,10 @@ import 'package:ftc_application/src/models/image_history.dart';
 import 'package:ftc_application/src/models/route_argument.dart';
 
 class TinderCard extends StatelessWidget {
-  final Function onSwipe;
   final ImageHistory image;
   final Random rnd = new Random();
   final String baseLink = FlutterConfig.get('API_BASE_URL');
-  TinderCard({this.image, this.onSwipe});
+  TinderCard({required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +76,7 @@ class TinderCard extends StatelessWidget {
                       ),
                       subtitle: Text(
                         'عضو حار',
-                        style: Theme.of(context).textTheme.subtitle1.merge(
+                        style: Theme.of(context).textTheme.subtitle1!.merge(
                             TextStyle(color: Colors.blueGrey, fontSize: 15)),
                       ),
                     )),

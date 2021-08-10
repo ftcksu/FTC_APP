@@ -19,14 +19,13 @@ class PreviousWorkScreen extends StatefulWidget {
 }
 
 class _PreviousWorkScreenState extends State<PreviousWorkScreen> {
-  Completer<void> _refreshCompleter;
+  Completer<void> _refreshCompleter = new Completer();
   List<Job> jobs = [];
 
   @override
   void initState() {
     super.initState();
     BlocProvider.of<MemberJobsBloc>(context).add(GetCurrentMemberJobs());
-    _refreshCompleter = Completer<void>();
   }
 
   @override

@@ -10,12 +10,12 @@ class EventDetailsTop extends StatelessWidget {
   final Event event;
   final String heroTag;
 
-  EventDetailsTop({this.event, this.heroTag});
+  EventDetailsTop({required this.event, required this.heroTag});
 
   @override
   Widget build(BuildContext context) {
     _launchGoogleMaps(String link) async {
-      if (link == null || link.isEmpty) {
+      if (link.isEmpty) {
         Alert(
           context: context,
           title: 'ماحط موقع',
@@ -39,7 +39,7 @@ class EventDetailsTop extends StatelessWidget {
     }
 
     _onWhatsAppTap(String link) async {
-      if (link == null || link.isEmpty) {
+      if (link.isEmpty) {
         Alert(
           context: context,
           title: 'ماحط قروب',
@@ -108,7 +108,7 @@ class EventDetailsTop extends StatelessWidget {
               'وصف المشروع',
               style: Theme.of(context)
                   .textTheme
-                  .subtitle1
+                  .subtitle1!
                   .merge(TextStyle(color: Colors.black)),
               textAlign: TextAlign.center,
             ),
@@ -134,7 +134,7 @@ class EventDetailsTop extends StatelessWidget {
                     event.date.toIso8601String().split("T")[0],
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText2
+                        .bodyText2!
                         .merge(TextStyle(fontSize: 18)),
                   ),
                   GestureDetector(

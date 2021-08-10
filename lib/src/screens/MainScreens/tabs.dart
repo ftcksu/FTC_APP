@@ -14,8 +14,10 @@ class TabsWidget extends StatefulWidget {
   final FtcRepository ftcRepository;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  TabsWidget({Key key, this.member, this.ftcRepository, this.scaffoldKey})
-      : super(key: key);
+  TabsWidget(
+      {required this.member,
+      required this.ftcRepository,
+      required this.scaffoldKey});
 
   @override
   _TabsWidgetState createState() {
@@ -25,7 +27,7 @@ class TabsWidget extends StatefulWidget {
 
 class _TabsWidgetState extends State<TabsWidget> with TickerProviderStateMixin {
   int selectedTab = 0;
-  Widget currentPage;
+  late Widget currentPage;
   int currentTab = 0;
   final GlobalKey<FancyBottomNavigationState> _tabKey =
       GlobalKey<FancyBottomNavigationState>();
@@ -99,15 +101,23 @@ class _TabsWidgetState extends State<TabsWidget> with TickerProviderStateMixin {
   }
 
   void initDynamicLinks() async {
-    final PendingDynamicLinkData data =
+    final PendingDynamicLinkData? data =
         await FirebaseDynamicLinks.instance.getInitialLink();
-    final Uri deepLink = data?.link;
-    leadToEvent(deepLink);
+    final Uri? deepLink = data?.link;
+    if (deepLink != null) {
+      leadToEvent(deepLink);
+    } else {
+      //display relavent notification
+    }
 
     FirebaseDynamicLinks.instance.onLink(
-        onSuccess: (PendingDynamicLinkData dynamicLink) async {
-      final Uri deepLink = dynamicLink?.link;
-      leadToEvent(deepLink);
+        onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+      final Uri? deepLink = dynamicLink?.link;
+      if (deepLink != null) {
+        leadToEvent(deepLink);
+      } else {
+        //display relavent notification
+      }
     }, onError: (OnLinkErrorException e) async {
       print('onLinkError');
       print(e.message);
@@ -115,21 +125,19 @@ class _TabsWidgetState extends State<TabsWidget> with TickerProviderStateMixin {
   }
 
   void leadToEvent(Uri deepLink) {
-    if (deepLink != null && deepLink.queryParameters != null) {
-      final queryParams = deepLink.queryParameters;
-      if (queryParams.length > 0) {
-        String id = queryParams['eventId'];
-        _tabKey.currentState.setPage(2);
-        setState(() {
-          currentTab = 2;
-          selectedTab = 2;
-          currentPage = Events.leadTo(
-            scaffoldKey: widget.scaffoldKey,
-            currentMember: widget.member,
-            eventId: id,
-          );
-        });
-      }
+    final queryParams = deepLink.queryParameters;
+    if (queryParams.length > 0) {
+      String id = queryParams['eventId'] as String;
+      _tabKey.currentState?.setPage(2);
+      setState(() {
+        currentTab = 2;
+        selectedTab = 2;
+        currentPage = Events.leadTo(
+          scaffoldKey: widget.scaffoldKey,
+          currentMember: widget.member,
+          eventId: id,
+        );
+      });
     }
   }
 }

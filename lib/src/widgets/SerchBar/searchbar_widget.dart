@@ -4,7 +4,7 @@ import 'package:ftc_application/config/app_config.dart' as config;
 class SearchBar extends StatelessWidget {
   final Function onChanged;
 
-  SearchBar({this.onChanged}) : assert(onChanged != null);
+  SearchBar({required this.onChanged});
 
   @override
   Widget build(BuildContext context) {

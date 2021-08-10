@@ -8,13 +8,13 @@ abstract class MemberTasksEvent extends Equatable {
 
 class GetMemberJobTasks extends MemberTasksEvent {
   final int jobId;
-  GetMemberJobTasks({this.jobId}) : assert(jobId != null);
+  GetMemberJobTasks({required this.jobId});
 }
 
 class GetMemberSelfTasks extends MemberTasksEvent {
   final int jobId;
 
-  GetMemberSelfTasks({this.jobId}) : assert(jobId != null);
+  GetMemberSelfTasks({required this.jobId});
 }
 
 class EditTask extends MemberTasksEvent {
@@ -22,7 +22,8 @@ class EditTask extends MemberTasksEvent {
   final String description;
   final bool userSub;
 
-  EditTask({this.taskId, this.description, this.userSub});
+  EditTask(
+      {required this.taskId, required this.description, required this.userSub});
 }
 
 class UpdateTaskApproval extends MemberTasksEvent {
@@ -30,11 +31,12 @@ class UpdateTaskApproval extends MemberTasksEvent {
   final int taskId;
   final String approval;
 
-  UpdateTaskApproval({this.eventId, this.taskId, this.approval});
+  UpdateTaskApproval(
+      {required this.eventId, required this.taskId, required this.approval});
 }
 
 class RefreshMemberTasks extends MemberTasksEvent {
   final int jobId;
 
-  RefreshMemberTasks({this.jobId}) : assert(jobId != null);
+  RefreshMemberTasks({required this.jobId});
 }

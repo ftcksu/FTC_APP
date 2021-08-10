@@ -7,7 +7,7 @@ import 'package:ftc_application/src/widgets/MemberWidgets/member_image.dart';
 class EventsJobCard extends StatelessWidget {
   final int eventId;
   final Job job;
-  EventsJobCard({this.job, this.eventId});
+  EventsJobCard({required this.job, required this.eventId});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class EventsJobCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
-                              .headline2
+                              .headline2!
                               .merge(TextStyle(fontWeight: FontWeight.w500)),
                         ),
                       ),

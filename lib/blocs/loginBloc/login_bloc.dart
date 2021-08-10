@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:ftc_application/blocs/loginBloc/login.dart';
 import 'package:ftc_application/repositories/user_repo.dart';
-import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 import 'package:ftc_application/authenticationBloc/authentication.dart';
 
@@ -10,11 +9,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthenticationBloc authenticationBloc;
 
   LoginBloc({
-    @required this.userRepository,
-    @required this.authenticationBloc,
-  })  : assert(userRepository != null),
-        assert(authenticationBloc != null),
-        super(null);
+    required this.userRepository,
+    required this.authenticationBloc,
+  }) : super(LoginInitial());
 
   LoginState get initialState => LoginInitial();
 

@@ -15,7 +15,7 @@ import 'package:ftc_application/blocs/memberTasksBloc/bloc.dart';
 
 class SubmitPointsMemberScreen extends StatefulWidget {
   final RouteArgument routeArgument;
-  SubmitPointsMemberScreen({this.routeArgument});
+  SubmitPointsMemberScreen({required this.routeArgument});
 
   @override
   _SubmitPointsMemberScreenState createState() =>
@@ -23,17 +23,16 @@ class SubmitPointsMemberScreen extends StatefulWidget {
 }
 
 class _SubmitPointsMemberScreenState extends State<SubmitPointsMemberScreen> {
-  Completer<void> _refreshCompleter;
-  List<Task> tasks;
-  String memberName;
-  int jobId;
-  int memberId;
+  Completer<void> _refreshCompleter = new Completer();
+  late List<Task> tasks;
+  late String memberName;
+  late int jobId;
+  late int memberId;
 
   @override
   void initState() {
     super.initState();
     _setRouteArguments();
-    _refreshCompleter = Completer<void>();
     BlocProvider.of<MemberTasksBloc>(context)
         .add(GetMemberJobTasks(jobId: jobId));
   }
@@ -111,7 +110,7 @@ class _SubmitPointsMemberScreenState extends State<SubmitPointsMemberScreen> {
             'ماعنده اعمال جديده',
             style: Theme.of(context)
                 .textTheme
-                .headline2
+                .headline2!
                 .merge(TextStyle(color: Colors.white, fontSize: 24)),
           ));
   }

@@ -9,17 +9,16 @@ import 'package:ftc_application/src/widgets/MemberWidgets/previous_work_task_car
 
 class PreviousWorkTasks extends StatefulWidget {
   final RouteArgument routeArgument;
-  PreviousWorkTasks({this.routeArgument});
+  PreviousWorkTasks({required this.routeArgument});
 
   @override
   _PreviousWorkTasksState createState() => _PreviousWorkTasksState();
 }
 
 class _PreviousWorkTasksState extends State<PreviousWorkTasks> {
-  List<Task> tasks;
-  String jobType;
-  String jobTitle;
-  int jobId;
+  late List<Task> tasks;
+  late String jobType, jobTitle;
+  late int jobId;
 
   @override
   void initState() {
@@ -107,7 +106,7 @@ class _PreviousWorkTasksState extends State<PreviousWorkTasks> {
             'ماعندك اعمال سابقه',
             style: Theme.of(context)
                 .textTheme
-                .headline2
+                .headline2!
                 .merge(TextStyle(color: Colors.white, fontSize: 24)),
           ));
   }

@@ -10,19 +10,19 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 class EventMemberSelection extends StatefulWidget {
   final RouteArgument routeArgument;
 
-  EventMemberSelection({this.routeArgument});
+  EventMemberSelection({required this.routeArgument});
 
   @override
   _EventMemberSelectionState createState() => _EventMemberSelectionState();
 }
 
 class _EventMemberSelectionState extends State<EventMemberSelection> {
-  List<Member> _newData;
-  List<Member> selectedMembers;
-  Member currentMember;
-  List<Member> members;
-  int maxUsers;
-  List<Member> _selectedMembers = [];
+  late List<Member> _newData = [],
+      selectedMembers = [],
+      members,
+      _selectedMembers;
+  late Member currentMember;
+  late int maxUsers;
 
   //use this when cancelling the selection
   List<Member> initialMembers = [];
@@ -144,9 +144,7 @@ class _EventMemberSelectionState extends State<EventMemberSelection> {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          Member m = _newData != null && _newData.length != 0
-              ? _newData[index]
-              : members[index];
+          Member m = _newData.length != 0 ? _newData[index] : members[index];
           bool startChosen = selectedMembers.contains(m);
           return MemberSelectionListItem(
             index: index,
@@ -156,9 +154,7 @@ class _EventMemberSelectionState extends State<EventMemberSelection> {
             startChosen: startChosen,
           );
         },
-        childCount: _newData != null && _newData.length != 0
-            ? _newData.length
-            : members.length,
+        childCount: _newData.length != 0 ? _newData.length : members.length,
       ),
     );
   }
@@ -224,7 +220,6 @@ class _EventMemberSelectionState extends State<EventMemberSelection> {
     members = widget.routeArgument.argumentsList[2] as List<Member>;
     _selectedMembers = new List<Member>.from(
         widget.routeArgument.argumentsList[3] as List<Member>);
-    if (_selectedMembers == null) _selectedMembers = [];
     //clone the selected members list
     initialMembers = new List<Member>.from(_selectedMembers);
   }

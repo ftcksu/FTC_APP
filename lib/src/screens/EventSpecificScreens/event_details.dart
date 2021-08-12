@@ -5,6 +5,8 @@ import 'package:ftc_application/blocs/eventsBloc/events_bloc.dart';
 import 'package:ftc_application/blocs/memberBloc/bloc.dart';
 import 'package:ftc_application/blocs/memberEventsBloc/bloc.dart';
 import 'package:ftc_application/config/app_config.dart' as config;
+import 'package:ftc_application/main.dart';
+import 'package:ftc_application/repositories/user_repo.dart';
 import 'package:ftc_application/src/models/Event.dart';
 import 'package:ftc_application/src/models/Member.dart';
 import 'package:ftc_application/src/models/route_argument.dart';
@@ -23,11 +25,11 @@ class EventDetails extends StatefulWidget {
 }
 
 class _EventDetailsState extends State<EventDetails> {
+  Member currentMember = getIt<UserRepo>().getCurrentMember();
+  bool eventMembersLoaded = false;
   late List<Member> members;
   late Event event;
   late String _heroTag;
-  late Member currentMember;
-  bool eventMembersLoaded = false;
 
   bool isUserEnlisted() {
     if (currentMember.id == event.leader.id) {
@@ -147,6 +149,5 @@ class _EventDetailsState extends State<EventDetails> {
   _setRouteArgument() {
     event = widget.routeArgument.argumentsList[0] as Event;
     _heroTag = widget.routeArgument.argumentsList[1] as String;
-    currentMember = widget.routeArgument.argumentsList[2] as Member;
   }
 }

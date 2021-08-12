@@ -49,7 +49,10 @@ class EnlistedMembersList extends StatelessWidget {
           ),
           title: Text(
             selectedMembers[index - 1].name,
-            style: TextStyle(fontSize: 18),
+            style: Theme.of(context)
+                .textTheme
+                .subtitle2!
+                .merge(TextStyle(fontSize: 18)),
           ),
           trailing: InkWell(
             borderRadius: BorderRadius.circular(45),

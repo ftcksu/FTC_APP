@@ -21,7 +21,11 @@ class GetMembersLoaded extends MemberState {
 
 class GetEventCreationLoading extends MemberState {}
 
-class EventCreationCreating extends MemberState {}
+class EventCreationCreating extends MemberState {
+  final List<Member> members;
+
+  EventCreationCreating({required this.members});
+}
 
 class GetEventCreationLoaded extends MemberState {
   final RouteArgument argument;

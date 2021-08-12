@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ftc_application/config/app_config.dart' as config;
 import 'package:ftc_application/config/ui_icons.dart';
+import 'package:ftc_application/main.dart';
 import 'package:ftc_application/repositories/ftc_repository.dart';
+import 'package:ftc_application/repositories/user_repo.dart';
 import 'package:ftc_application/src/models/Member.dart';
 import 'package:ftc_application/src/widgets/MemberWidgets/member_image.dart';
 
 class HomeDrawer extends StatefulWidget {
   final FtcRepository ftcRepository;
-  final Member member;
-  HomeDrawer({required this.member, required this.ftcRepository});
+  HomeDrawer({required this.ftcRepository});
 
   @override
   _HomeDrawerState createState() => _HomeDrawerState();
@@ -16,10 +17,11 @@ class HomeDrawer extends StatefulWidget {
 
 class _HomeDrawerState extends State<HomeDrawer> {
   late List<DrawerList> drawerList;
+  Member currentMember = getIt<UserRepo>().getCurrentMember();
   bool isUserAdmin = false;
   @override
   void initState() {
-    isUserAdmin = widget.member.role != "ROLE_USER";
+    isUserAdmin = currentMember.role != "ROLE_USER";
     setDrawerListArray();
     super.initState();
   }
@@ -127,9 +129,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                     ],
                                   ),
                                   child: MemberImage(
-                                    id: widget.member.id,
+                                    id: currentMember.id,
                                     hasProfileImage:
-                                        widget.member.hasProfileImage,
+                                        currentMember.hasProfileImage,
                                     height: 60,
                                     width: 60,
                                     thumb: false,
@@ -139,7 +141,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                   padding:
                                       const EdgeInsets.only(top: 8, left: 4),
                                   child: Text(
-                                    widget.member.name,
+                                    currentMember.name,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       color: Colors.white,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ftc_application/main.dart';
+import 'package:ftc_application/repositories/user_repo.dart';
 import 'package:ftc_application/src/models/Event.dart';
 import 'package:ftc_application/src/models/Member.dart';
 import 'package:ftc_application/src/models/route_argument.dart';
@@ -21,9 +23,9 @@ class MemberDetails extends StatefulWidget {
 class _MemberDetailsState extends State<MemberDetails> {
   List<Event> events = [];
   bool eventsLoaded = false;
-  Member member = Member.initial();
-  Member currentMember = Member.initial();
-  String _heroTag = "";
+  Member currentMember = getIt<UserRepo>().getCurrentMember();
+  late Member member;
+  late String _heroTag;
 
   @override
   void initState() {
@@ -66,7 +68,7 @@ class _MemberDetailsState extends State<MemberDetails> {
               SliverAppBar(
                 centerTitle: true,
                 title: Text(
-                  member.name,
+                  member.name ?? "",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 backgroundColor: Colors.deepPurpleAccent,
@@ -123,7 +125,7 @@ class _MemberDetailsState extends State<MemberDetails> {
                     )),
                 Center(
                   child: Text(
-                    member.name,
+                    member.name ?? "",
                     style: Theme.of(context).textTheme.headline1,
                     textAlign: TextAlign.center,
                   ),
@@ -133,7 +135,7 @@ class _MemberDetailsState extends State<MemberDetails> {
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   child: Center(
                       child: Text(
-                    member.bio,
+                    member.bio ?? "",
                     style: Theme.of(context).textTheme.subtitle1,
                     textAlign: TextAlign.center,
                   )),
@@ -199,7 +201,6 @@ class _MemberDetailsState extends State<MemberDetails> {
                 eventsLoaded
                     ? MemberProjects(
                         events: events,
-                        currentMember: currentMember,
                       )
                     : Center(child: CircularProgressIndicator())
               ],
@@ -230,6 +231,5 @@ class _MemberDetailsState extends State<MemberDetails> {
   _setRouteArgument() {
     member = widget.routeArgument.argumentsList[0] as Member;
     _heroTag = widget.routeArgument.argumentsList[1] as String;
-    currentMember = widget.routeArgument.argumentsList[2] as Member;
   }
 }

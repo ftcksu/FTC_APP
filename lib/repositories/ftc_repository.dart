@@ -37,14 +37,12 @@ class FtcRepository {
   }
 
   Future<RouteArgument> getMemberHomePage() async {
-    Member member;
+    List<Event> participatedEvents;
     MessageOfTheDay messageOfTheDay;
     try {
-      member = await ftcApiClient.getCurrentMember();
       messageOfTheDay = await ftcApiClient.getMessageOfTheDay();
-      member.participatedEvents =
-          await ftcApiClient.getCurrentMemberEvents(false);
-      member.participatedEvents.removeWhere((event) => event.finished);
+      participatedEvents = await ftcApiClient.getCurrentMemberEvents(false);
+      participatedEvents.removeWhere((event) => event.finished);
       if (range.muscleRange == 0) {
         List<Member> membersLength = await ftcApiClient.getMembers(false);
         getRange(membersLength.length - 1);
@@ -52,7 +50,8 @@ class FtcRepository {
     } catch (e) {
       throw e;
     }
-    return RouteArgument(argumentsList: [member, messageOfTheDay, range]);
+    return RouteArgument(
+        argumentsList: [participatedEvents, messageOfTheDay, range]);
   }
 
   Future<RouteArgument> getPointsList() async {
@@ -80,18 +79,14 @@ class FtcRepository {
     return RouteArgument(argumentsList: [events, enlistedEvents]);
   }
 
-  Future<RouteArgument> getCurrentMemberOwnedEvents() async {
-    Member currentMember;
+  Future<List<Event>> getCurrentMemberOwnedEvents() async {
     List<Event> events;
     try {
-      currentMember = await ftcApiClient.getCurrentMember();
       events = await ftcApiClient.getCurrentMemberEvents(true);
     } catch (e) {
       throw e;
     }
-    return RouteArgument(
-        id: currentMember.id.toString(),
-        argumentsList: [currentMember, events]);
+    return events;
   }
 
   Future<List<Event>> getCurrentMemberEvents() async {

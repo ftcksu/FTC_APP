@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ftc_application/blocs/memberEventsBloc/bloc.dart';
 import 'package:ftc_application/config/app_config.dart' as config;
 import 'package:ftc_application/src/models/Event.dart';
-import 'package:ftc_application/src/models/Member.dart';
 import 'package:ftc_application/src/models/route_argument.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ftc_application/blocs/eventsBloc/bloc.dart';
@@ -14,7 +13,7 @@ class EventCard extends StatelessWidget {
   final List<int> enlistedEvents;
   final String heroTag;
   final bool leaderView;
-  final Member currentMember;
+  final int currentMemberID;
   final AnimationController animationController;
   final Animation<double> animation;
 
@@ -24,11 +23,11 @@ class EventCard extends StatelessWidget {
       required this.heroTag,
       this.leaderView = false,
       required this.animationController,
-      required this.currentMember,
+      required this.currentMemberID,
       required this.animation});
 
   bool isUserEnlisted() {
-    if (currentMember.id == event.leader.id) {
+    if (currentMemberID == event.leader.id) {
       return true;
     }
     if (enlistedEvents.contains(event.id)) {
@@ -249,7 +248,6 @@ class EventCard extends StatelessWidget {
                             arguments: new RouteArgument(argumentsList: [
                               event,
                               heroTag,
-                              currentMember
                             ]));
                       },
                       child: Padding(
@@ -415,7 +413,6 @@ class EventCard extends StatelessWidget {
                                                       arguments: RouteArgument(
                                                           argumentsList: [
                                                             true,
-                                                            currentMember,
                                                             event
                                                           ]))),
                                         ),

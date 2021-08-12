@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ftc_application/blocs/homeBloc/bloc.dart';
 import 'package:ftc_application/config/app_config.dart' as config;
+import 'package:ftc_application/main.dart';
+import 'package:ftc_application/repositories/user_repo.dart';
+import 'package:ftc_application/src/models/Event.dart';
 import 'package:ftc_application/src/models/Member.dart';
 import 'package:ftc_application/src/models/MembersRange.dart';
 import 'package:ftc_application/src/models/message_of_the_day.dart';
@@ -22,7 +25,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Completer<void> _refreshCompleter = new Completer();
-  late Member member;
+  Member currentMember = getIt<UserRepo>().getCurrentMember();
   late MessageOfTheDay messageOfTheDay;
   late MembersRange range;
 
@@ -36,7 +39,8 @@ class _HomeState extends State<Home> {
         } else if (homeState is HomePageLoading) {
           return LoadingWidget();
         } else if (homeState is HomePageLoaded) {
-          member = homeState.homePageInfo.argumentsList[0] as Member;
+          currentMember.participatedEvents =
+              homeState.homePageInfo.argumentsList[0] as List<Event>;
           messageOfTheDay =
               homeState.homePageInfo.argumentsList[1] as MessageOfTheDay;
           range = homeState.homePageInfo.argumentsList[2] as MembersRange;
@@ -84,7 +88,7 @@ class _HomeState extends State<Home> {
                     )),
               ),
               HomeTitle(
-                member: member,
+                member: currentMember,
                 range: range,
               ),
               HomeBoringBox(
@@ -92,8 +96,8 @@ class _HomeState extends State<Home> {
                 author: messageOfTheDay.member,
               ),
               HomeProject(
-                events: member.participatedEvents,
-                currentMember: member,
+                events: currentMember.participatedEvents,
+                currentMember: currentMember,
               ),
             ],
           ),

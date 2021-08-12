@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:ftc_application/repositories/ftc_repository.dart';
 import 'package:ftc_application/src/models/Event.dart';
-import 'package:ftc_application/src/models/route_argument.dart';
 import './bloc.dart';
 
 class MemberEventsBloc extends Bloc<MemberEventsEvent, MemberEventsState> {
@@ -45,8 +44,7 @@ class MemberEventsBloc extends Bloc<MemberEventsEvent, MemberEventsState> {
 
   Stream<MemberEventsState> _mapGetCurrentMemberEvents() async* {
     yield CurrentMemberEventPageLoading();
-
-    final RouteArgument events =
+    final List<Event> events =
         await ftcRepository.getCurrentMemberOwnedEvents();
     yield CurrentMemberEventPageLoaded(events: events);
   }

@@ -61,7 +61,8 @@ class MemberBloc extends Bloc<MemberEvent, MemberState> {
 
   Stream<MemberState> _mapGetEventCreation(int eventId) async* {
     if (eventId == -1) {
-      yield EventCreationCreating();
+      final List<Member> members = await ftcRepository.getMembers(false);
+      yield EventCreationCreating(members: members);
     } else {
       yield GetEventCreationLoading();
       final List<Member> members = await ftcRepository.getMembers(false);

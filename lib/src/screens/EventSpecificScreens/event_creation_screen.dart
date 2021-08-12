@@ -7,6 +7,8 @@ import 'package:ftc_application/blocs/memberBloc/bloc.dart';
 import 'package:ftc_application/blocs/memberEventsBloc/bloc.dart';
 import 'package:ftc_application/config/app_config.dart' as config;
 import 'package:ftc_application/config/ui_icons.dart';
+import 'package:ftc_application/main.dart';
+import 'package:ftc_application/repositories/user_repo.dart';
 import 'package:ftc_application/src/models/Event.dart';
 import 'package:ftc_application/src/models/Member.dart';
 import 'package:ftc_application/src/models/route_argument.dart';
@@ -28,14 +30,15 @@ class EventCreationScreen extends StatefulWidget {
 }
 
 class _EventCreationScreenState extends State<EventCreationScreen> {
+  bool sendNotification = false;
+  Member currentMember = getIt<UserRepo>().getCurrentMember();
+  bool editing = false;
+
   late String eventName, eventDescription, whatsAppLink, locationLink;
   late int numberOfMaxParticipants;
   late DateTime eventDate;
-  bool sendNotification = false;
-  Member currentMember = Member.initial();
-  late List<Member> members, selectedMembers = [currentMember];
+  late List<Member> members, selectedMembers = [];
   late Event event;
-  bool editing = false;
 
   final FocusNode _titleFocus = FocusNode();
   final FocusNode _descriptionFocus = FocusNode();
@@ -56,12 +59,13 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
         if (memberState is InitialMemberState) {
           _initialDispatch();
           return LoadingWidget();
-        } else if (memberState is EventCreationCreating) {
-          return _eventCreationScreen();
         } else if (memberState is GetEventCreationLoading) {
           return LoadingWidget();
         } else if (memberState is GetEventCreationLoaded) {
           _setMembers(memberState.argument);
+          return _eventCreationScreen();
+        } else if (memberState is EventCreationCreating) {
+          members = memberState.members;
           return _eventCreationScreen();
         } else {
           _initialDispatch();
@@ -133,7 +137,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
 
                 //EventWhatsApp
                 _easyTextFieldFactory(
-                    0,
+                    120,
                     whatsAppLink,
                     TextInputType.url,
                     (string) => whatsAppLink = string,
@@ -618,9 +622,8 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
 
   _setRouteArgument() {
     editing = widget.routeArgument.argumentsList[0];
-    currentMember = widget.routeArgument.argumentsList[1];
     if (editing) {
-      event = widget.routeArgument.argumentsList[2];
+      event = widget.routeArgument.argumentsList[1];
     }
   }
 

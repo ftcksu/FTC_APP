@@ -17,10 +17,7 @@ class EventMemberSelection extends StatefulWidget {
 }
 
 class _EventMemberSelectionState extends State<EventMemberSelection> {
-  late List<Member> _newData = [],
-      selectedMembers = [],
-      members,
-      _selectedMembers;
+  late List<Member> _newData = [], selectedMembers = [], members;
   late Member currentMember;
   late int maxUsers;
 
@@ -122,13 +119,11 @@ class _EventMemberSelectionState extends State<EventMemberSelection> {
         child: AnimatedContainer(
           duration: Duration(milliseconds: 250),
           curve: Curves.ease,
-          height: selectedMembers.length > 1 ? 50.0 : 0,
+          height: selectedMembers.length >= 1 ? 50.0 : 0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 10, // selectedMembers.length,
+            itemCount: selectedMembers.length, // selectedMembers.length,
             itemBuilder: (context, index) {
-              //this is temp
-              if (index >= selectedMembers.length) return Container();
               if (selectedMembers[index].id == currentMember.id)
                 return Container();
               return MemberSelectionHorzListItem(
@@ -218,9 +213,8 @@ class _EventMemberSelectionState extends State<EventMemberSelection> {
     currentMember = widget.routeArgument.argumentsList[0] as Member;
     maxUsers = widget.routeArgument.argumentsList[1] as int;
     members = widget.routeArgument.argumentsList[2] as List<Member>;
-    _selectedMembers = new List<Member>.from(
-        widget.routeArgument.argumentsList[3] as List<Member>);
     //clone the selected members list
-    initialMembers = new List<Member>.from(_selectedMembers);
+    initialMembers = new List<Member>.from(
+        widget.routeArgument.argumentsList[3] as List<Member>);
   }
 }

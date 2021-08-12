@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:ftc_application/main.dart';
+import 'package:ftc_application/repositories/user_repo.dart';
 import 'package:ftc_application/src/models/Event.dart';
 import 'package:ftc_application/src/models/Member.dart';
 import 'package:ftc_application/src/models/route_argument.dart';
@@ -15,34 +17,22 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 // ignore: must_be_immutable
 class Events extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
-  final Member currentMember;
   String eventId;
 
-  Events(
-      {required this.scaffoldKey,
-      required this.currentMember,
-      this.eventId = ''});
-  Events.leadTo(
-      {required this.scaffoldKey,
-      required this.currentMember,
-      required this.eventId});
+  Events({required this.scaffoldKey, this.eventId = ''});
+  Events.leadTo({required this.scaffoldKey, required this.eventId});
 
   @override
   _EventsState createState() => _EventsState();
 }
 
 class _EventsState extends State<Events> with TickerProviderStateMixin {
-  late AnimationController animationController;
   Completer<void> _refreshCompleter = new Completer<void>();
-  late List<Event> events;
-  late List<int> enlistedEvents;
-
-  @override
-  void initState() {
-    animationController =
-        AnimationController(duration: Duration(milliseconds: 800), vsync: this);
-    super.initState();
-  }
+  List<Event> events = [];
+  List<int> enlistedEvents = [];
+  Member currentMember = getIt<UserRepo>().getCurrentMember();
+  late AnimationController animationController =
+      AnimationController(duration: Duration(milliseconds: 800), vsync: this);
 
   @override
   void dispose() {
@@ -134,7 +124,7 @@ class _EventsState extends State<Events> with TickerProviderStateMixin {
             event: events[index],
             enlistedEvents: enlistedEvents,
             heroTag: 'events_screen_event',
-            currentMember: widget.currentMember,
+            currentMemberID: currentMember.id,
             animation: animation,
             animationController: animationController,
           );
@@ -183,16 +173,13 @@ class _EventsState extends State<Events> with TickerProviderStateMixin {
     Event event = events.firstWhere((event) => event.id == id);
     Future.delayed(Duration.zero, () {
       Navigator.of(context).pushNamed('/EventDetails',
-          arguments: new RouteArgument(argumentsList: [
-            event,
-            'events_screen_event',
-            widget.currentMember
-          ]));
+          arguments:
+              new RouteArgument(argumentsList: [event, 'events_screen_event']));
     });
   }
 
   _onEventCreation() {
-    if (widget.currentMember.hidden) {
+    if (currentMember.hidden) {
       Alert(
         context: context,
         title: 'خريج انت حبيبي مافيش',
@@ -208,13 +195,12 @@ class _EventsState extends State<Events> with TickerProviderStateMixin {
       ).show();
     } else {
       Navigator.of(context).pushNamed('/EventCreationScreen',
-          arguments:
-              RouteArgument(argumentsList: [false, widget.currentMember]));
+          arguments: RouteArgument(argumentsList: [false]));
     }
   }
 
   _onEventManagement() {
-    if (widget.currentMember.hidden) {
+    if (currentMember.hidden) {
       Alert(
         context: context,
         title: 'خريج انت حبيبي مافيش',

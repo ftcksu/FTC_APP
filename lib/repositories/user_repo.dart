@@ -7,7 +7,7 @@ import 'package:ftc_application/src/models/Member.dart';
 class UserRepo {
   final FtcRepository ftcRepository;
   final storage = new FlutterSecureStorage();
-  Member? member;
+  Member? currentMember;
 
   UserRepo({required this.ftcRepository});
 
@@ -24,6 +24,17 @@ class UserRepo {
     await storage.delete(key: "username");
     await storage.delete(key: "password");
     return;
+  }
+
+  Member getCurrentMember() {
+    // if (currentMember != null) return currentMember!;
+    // currentMember = await ftcRepository.getCurrentMember();
+    // return currentMember!;
+    return currentMember!;
+  }
+
+  void setCurrentMember(Member currentMember) {
+    this.currentMember = currentMember;
   }
 
   Future<void> persistToken(String token) async {

@@ -24,7 +24,7 @@ class AuthenticationBloc
         try {
           yield AuthenticationLoading();
           Member member = await ftcRepository.getCurrentMember();
-          print(member.id);
+          userRepo.setCurrentMember(member);
           yield AuthenticationAuthenticated(member: member);
         } catch (e) {
           yield* _loginFail();

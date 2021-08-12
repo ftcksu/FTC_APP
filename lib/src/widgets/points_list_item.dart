@@ -8,7 +8,7 @@ import 'package:ftc_application/src/widgets/MemberWidgets/member_image.dart';
 
 class PointsListItem extends StatelessWidget {
   final Member member;
-  final Member currentMember;
+  final int currentMemberID;
   final int index;
   final String heroTag;
   final String rankImage;
@@ -17,7 +17,7 @@ class PointsListItem extends StatelessWidget {
       {required this.member,
       required this.heroTag,
       required this.index,
-      required this.currentMember,
+      required this.currentMemberID,
       required this.rankImage});
 
   @override
@@ -29,15 +29,14 @@ class PointsListItem extends StatelessWidget {
         onTap: () {
           Navigator.of(context).pushNamed('/MemberDetails',
               arguments: new RouteArgument(
-                  id: member.id.toString(),
-                  argumentsList: [member, heroTag, currentMember]));
+                  id: member.id.toString(), argumentsList: [member, heroTag]));
         },
         child: Row(
           children: <Widget>[
             Text(member.rank.toString()),
             Expanded(
               child: ListTile(
-                leading: getLeading(member, currentMember, heroTag),
+                leading: getLeading(member, currentMemberID, heroTag),
                 title: Text(
                   member.name ?? "",
                   maxLines: 1,
@@ -80,9 +79,9 @@ class PointsListItem extends StatelessWidget {
   }
 }
 
-Widget getLeading(Member member, Member currentMember, String heroTag) {
+Widget getLeading(Member member, int currentMemberID, String heroTag) {
   return Container(
-    decoration: member.id == currentMember.id
+    decoration: member.id == currentMemberID
         ? BoxDecoration(
             color: Colors.transparent,
             shape: BoxShape.circle,

@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:ftc_application/src/models/Event.dart';
-import 'package:ftc_application/src/models/route_argument.dart';
 
 abstract class MemberEventsState extends Equatable {
   const MemberEventsState();
@@ -24,7 +23,7 @@ class EventsLoaded extends MemberEventsState {
 class CurrentMemberEventPageLoading extends MemberEventsState {}
 
 class CurrentMemberEventPageLoaded extends MemberEventsState {
-  final RouteArgument events;
+  final List<Event> events;
 
   CurrentMemberEventPageLoaded({required this.events});
 }

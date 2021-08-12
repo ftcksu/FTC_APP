@@ -13,6 +13,9 @@ import 'package:ftc_application/src/screens/MainScreens/tabs.dart';
 import 'package:ftc_application/src/screens/failure_screen.dart';
 import 'package:ftc_application/src/screens/signIn_page.dart';
 import 'package:ftc_application/src/screens/splash_screen.dart';
+import 'package:get_it/get_it.dart';
+
+GetIt getIt = GetIt.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +31,8 @@ void main() async {
   final FtcRepository ftcRepository = FtcRepository(
       ftcApiClient: FtcApiClient(firebaseMessaging: firebaseNotifications));
 
-  final UserRepo userRepo = UserRepo(ftcRepository: ftcRepository);
+  getIt.registerSingleton<UserRepo>(UserRepo(ftcRepository: ftcRepository),
+      signalsReady: true);
 
   List<BlocProvider> providers = [
     BlocProvider<EventsBloc>(
@@ -53,13 +57,13 @@ void main() async {
       create: (context) => NotificationBloc(ftcRepository: ftcRepository),
     ),
     BlocProvider<AuthenticationBloc>(
-      create: (context) =>
-          AuthenticationBloc(userRepo: userRepo, ftcRepository: ftcRepository)
-            ..add(AppStarted()),
+      create: (context) => AuthenticationBloc(
+          userRepo: getIt<UserRepo>(), ftcRepository: ftcRepository)
+        ..add(AppStarted()),
     ),
     BlocProvider<LoginBloc>(
         create: (context) => LoginBloc(
-            userRepository: userRepo,
+            userRepository: getIt<UserRepo>(),
             authenticationBloc: BlocProvider.of<AuthenticationBloc>(context))),
   ];
 
@@ -95,7 +99,6 @@ class App extends StatelessWidget {
                   ),
                 ],
                 child: TabsWidget(
-                  member: state.member,
                   ftcRepository: ftcRepository,
                   scaffoldKey: scaffoldKey,
                 ),

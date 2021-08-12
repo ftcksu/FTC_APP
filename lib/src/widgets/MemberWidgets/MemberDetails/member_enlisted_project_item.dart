@@ -6,7 +6,6 @@ import 'package:ftc_application/src/widgets/MemberWidgets/member_image.dart';
 
 class MemberEnlistedProject extends StatelessWidget {
   final Event event;
-  final Member currentMember;
   final String heroTag;
   final AnimationController animationController;
   final Animation<double> animation;
@@ -14,7 +13,6 @@ class MemberEnlistedProject extends StatelessWidget {
   MemberEnlistedProject(
       {required this.event,
       required this.heroTag,
-      required this.currentMember,
       required this.animationController,
       required this.animation}); //Event leader icon or icon icon? what to choose
 
@@ -37,8 +35,8 @@ class MemberEnlistedProject extends StatelessWidget {
                 ),
                 child: ListTile(
                   onTap: () => Navigator.of(context).pushNamed('/EventDetails',
-                      arguments: new RouteArgument(
-                          argumentsList: [event, heroTag, currentMember])),
+                      arguments:
+                          new RouteArgument(argumentsList: [event, heroTag])),
                   leading: Hero(
                       tag: heroTag + event.id.toString(),
                       child: MemberImage(

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:ftc_application/main.dart';
+import 'package:ftc_application/repositories/user_repo.dart';
 import 'package:ftc_application/src/models/Member.dart';
 import 'package:ftc_application/src/models/MembersRange.dart';
 import 'package:ftc_application/src/widgets/loading_widget.dart';
@@ -12,8 +14,7 @@ import 'package:ftc_application/config/app_config.dart' as config;
 
 class Points extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
-  final Member currentMember;
-  Points({required this.scaffoldKey, required this.currentMember});
+  Points({required this.scaffoldKey});
 
   @override
   _PointsState createState() => _PointsState();
@@ -21,10 +22,11 @@ class Points extends StatefulWidget {
 
 class _PointsState extends State<Points> {
   Completer<void> _refreshCompleter = new Completer();
-  late List<Member> members;
-  List<Member> _newData = [];
-  late MembersRange range;
   bool searchState = false;
+  Member currentMember = getIt<UserRepo>().getCurrentMember();
+  List<Member> _newData = [];
+  late List<Member> members;
+  late MembersRange range;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +90,7 @@ class _PointsState extends State<Points> {
                 index: index,
                 member: _newData[index],
                 heroTag: 'points_screen_member',
-                currentMember: widget.currentMember,
+                currentMemberID: currentMember.id,
                 rankImage: _getRankImage(_newData[index].rank));
           },
           itemCount: _newData.length,
@@ -101,7 +103,7 @@ class _PointsState extends State<Points> {
               index: index,
               member: members[index],
               heroTag: 'points_screen_member',
-              currentMember: widget.currentMember,
+              currentMemberID: currentMember.id,
               rankImage: _getRankImage(members[index].rank));
         },
         itemCount: members.length,

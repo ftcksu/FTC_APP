@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ftc_application/src/models/Event.dart';
-import 'package:ftc_application/src/models/Member.dart';
 import 'package:ftc_application/src/widgets/MemberWidgets/MemberDetails/member_enlisted_project_item.dart';
 
 class MemberProjects extends StatefulWidget {
   final List<Event> events;
-  final Member currentMember;
-  MemberProjects({required this.events, required this.currentMember});
+  MemberProjects({required this.events});
 
   @override
   _MemberProjectsState createState() => _MemberProjectsState();
@@ -53,7 +51,6 @@ class _MemberProjectsState extends State<MemberProjects>
           return MemberEnlistedProject(
             event: widget.events[index],
             heroTag: 'member_details_event',
-            currentMember: widget.currentMember,
             animation: animation,
             animationController: animationController,
           );

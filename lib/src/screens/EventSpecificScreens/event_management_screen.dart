@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ftc_application/blocs/memberEventsBloc/bloc.dart';
 import 'package:ftc_application/config/app_config.dart' as config;
+import 'package:ftc_application/main.dart';
+import 'package:ftc_application/repositories/user_repo.dart';
 import 'package:ftc_application/src/models/Event.dart';
 import 'package:ftc_application/src/models/Member.dart';
-import 'package:ftc_application/src/models/route_argument.dart';
 import 'package:ftc_application/src/widgets/empty_page_widget.dart';
 import 'package:ftc_application/src/widgets/EventWidgets/events_list_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,14 +21,14 @@ class EventManagement extends StatefulWidget {
 
 class _EventManagementState extends State<EventManagement>
     with TickerProviderStateMixin {
-  late Member currentMember;
+  Member currentMember = getIt<UserRepo>().getCurrentMember();
+  Completer<void> _refreshCompleter = new Completer();
   late AnimationController animationController =
       AnimationController(duration: Duration(milliseconds: 800), vsync: this);
   late TabController controller = TabController(
     length: 2,
     vsync: this,
   );
-  Completer<void> _refreshCompleter = new Completer();
   late List<Event> currentEvents, finishedEvents;
 
   @override
@@ -58,12 +59,9 @@ class _EventManagementState extends State<EventManagement>
     );
   }
 
-  _setEvents(RouteArgument events) {
-    currentMember = events.argumentsList[0] as Member;
-    currentEvents = List.from(events.argumentsList[1] as List<Event>)
-      ..removeWhere((event) => event.finished);
-    finishedEvents = List.from(events.argumentsList[1] as List<Event>)
-      ..retainWhere((event) => event.finished);
+  _setEvents(List<Event> events) {
+    currentEvents = List.from(events)..removeWhere((event) => event.finished);
+    finishedEvents = List.from(events)..retainWhere((event) => event.finished);
   }
 
   Widget _eventManagementScreen() {
@@ -141,7 +139,7 @@ class _EventManagementState extends State<EventManagement>
                     event: currentEvents[index],
                     heroTag: '',
                     leaderView: true,
-                    currentMember: currentMember,
+                    currentMemberID: currentMember.id,
                     animation: animation,
                     animationController: animationController,
                   );
@@ -188,7 +186,7 @@ class _EventManagementState extends State<EventManagement>
                       event: finishedEvents[index],
                       heroTag: '',
                       leaderView: true,
-                      currentMember: currentMember,
+                      currentMemberID: currentMember.id,
                       animation: animation,
                       animationController: animationController,
                     );

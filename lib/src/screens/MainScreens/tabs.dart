@@ -2,7 +2,6 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:ftc_application/config/ui_icons.dart';
 import 'package:ftc_application/repositories/ftc_repository.dart';
-import 'package:ftc_application/src/models/Member.dart';
 import 'package:ftc_application/src/screens/MainScreens/events_screen.dart';
 import 'package:ftc_application/src/screens/MainScreens/home_screen.dart';
 import 'package:ftc_application/src/screens/MainScreens/point_screen.dart';
@@ -10,14 +9,10 @@ import 'package:ftc_application/src/widgets/bottomnav/fancy_bottom_navigation.da
 import 'package:ftc_application/src/widgets/drawer_widget.dart';
 
 class TabsWidget extends StatefulWidget {
-  final Member member;
   final FtcRepository ftcRepository;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  TabsWidget(
-      {required this.member,
-      required this.ftcRepository,
-      required this.scaffoldKey});
+  TabsWidget({required this.ftcRepository, required this.scaffoldKey});
 
   @override
   _TabsWidgetState createState() {
@@ -27,8 +22,8 @@ class TabsWidget extends StatefulWidget {
 
 class _TabsWidgetState extends State<TabsWidget> with TickerProviderStateMixin {
   int selectedTab = 0;
-  late Widget currentPage;
   int currentTab = 0;
+  late Widget currentPage;
   final GlobalKey<FancyBottomNavigationState> _tabKey =
       GlobalKey<FancyBottomNavigationState>();
 
@@ -53,14 +48,12 @@ class _TabsWidgetState extends State<TabsWidget> with TickerProviderStateMixin {
         case 1:
           currentPage = Points(
             scaffoldKey: widget.scaffoldKey,
-            currentMember: widget.member,
           );
           break;
 
         case 2:
           currentPage = Events(
             scaffoldKey: widget.scaffoldKey,
-            currentMember: widget.member,
           );
           break;
 
@@ -80,7 +73,6 @@ class _TabsWidgetState extends State<TabsWidget> with TickerProviderStateMixin {
       child: Scaffold(
         key: widget.scaffoldKey,
         endDrawer: HomeDrawer(
-          member: widget.member,
           ftcRepository: widget.ftcRepository,
         ),
         body: currentPage,
@@ -134,7 +126,6 @@ class _TabsWidgetState extends State<TabsWidget> with TickerProviderStateMixin {
         selectedTab = 2;
         currentPage = Events.leadTo(
           scaffoldKey: widget.scaffoldKey,
-          currentMember: widget.member,
           eventId: id,
         );
       });

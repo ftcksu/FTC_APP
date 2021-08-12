@@ -38,3 +38,4 @@ Make sure to remove `application android:usesCleartextTraffic="true"` from Andro
 - When first opening the project, if you get `dart(uri_does_not_exist)` (lots of red .dart files), use the `flutter pub get` command. In VScode, you could also click "Get packages" when receiving the following notification:
 ![image](https://user-images.githubusercontent.com/68731244/110935437-76404080-8340-11eb-8c4e-47417cf734db.png)
 - (Seen in VScode) If you get `DioError [DioErrorType.RESPONSE]: Http status error [500]`, make sure to **debug code only** and **rebuild the app**.
+- Some used packages have yet to update and use null-safty, to run the app with them use "flutter run --no-sound-null-safety"
